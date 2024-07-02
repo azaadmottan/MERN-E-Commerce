@@ -1,1 +1,6 @@
-console.log("E-commerce backend server started");
+import dotenv from 'dotenv';
+
+
+dotenv.config({
+    path: '../.env',
+});
