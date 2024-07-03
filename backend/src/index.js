@@ -11,7 +11,7 @@ connectDB()
 .then(() => {
     // run the server after connecting to the database
     app.listen(process.env.PORT || 5000, () => {
-        console.log(`\nServer running on port: '${process.env.PORT || 5000}'.`);
+        console.log(`\nSERVER RUNNING ON PORT: '${process.env.PORT || 5000}'.`);
     });
 })
 .catch((error) => {

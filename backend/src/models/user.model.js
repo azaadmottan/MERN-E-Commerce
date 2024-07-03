@@ -39,11 +39,6 @@ const userSchema = new Schema({
 {timestamps: true}
 );
 
-// match password of user for logging in
-userSchema.method.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-}
-
 // generate hash of the user password if password is modified
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) {
@@ -53,8 +48,13 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+// match password of user for logging in
+userSchema.methods.matchPassword = async function(enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+}
+
 // generate access token
-userSchema.method.generateAccessToken = async function() {
+userSchema.methods.generateAccessToken = async function() {
     return await jwt.sign(
         {
             _id: this._id,
@@ -70,7 +70,7 @@ userSchema.method.generateAccessToken = async function() {
 }
 
 // generate refresh token
-userSchema.method.generateRefreshToken = async function() {
+userSchema.methods.generateRefreshToken = async function() {
     return await jwt.sign(
         {
             _id: this._id,
