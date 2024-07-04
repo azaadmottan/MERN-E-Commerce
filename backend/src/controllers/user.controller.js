@@ -61,6 +61,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         profilePicture,
+        isAdmin: false,
     });
 
     const userCreated = await User.findById(user._id).select("-password -refreshToken");

@@ -28,6 +28,10 @@ const userSchema = new Schema({
         required: [true, "Password is required"],
         minlength: 8,
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
     profilePicture: {
         type: String,
         required: [true, "Profile picture is required"]

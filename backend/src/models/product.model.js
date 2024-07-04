@@ -10,10 +10,10 @@ const productSchema = new Schema({
         type: String, 
         required: true 
     },
-    image: { 
+    images: [{ 
         type: String, 
         required: true 
-    },
+    }],
     brand: { 
         type: String, 
         required: true 
@@ -54,7 +54,7 @@ const productSchema = new Schema({
     countInStock: { 
         type: Number, 
         required: true, 
-        default: 0 
+        default: 1 
     },
 },
 {timestamps: true});

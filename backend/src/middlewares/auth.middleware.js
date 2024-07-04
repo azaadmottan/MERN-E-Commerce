@@ -3,7 +3,6 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import jwt from 'jsonwebtoken';
 import { User } from "../models/user.model.js";
 
-
 // create a custom middleware for user logout.
 export const verifyJWT = asyncHandler( async (req, _, next) => {
     try {
@@ -26,5 +25,14 @@ export const verifyJWT = asyncHandler( async (req, _, next) => {
     } catch (error) {
         throw new ApiError(401, error?.message || "Invalid access token.");
     }
+});
 
+// create a custom middleware for admin only routes.
+export const verifyAdmin = asyncHandler(async(req, _, next) => {
+    if (req.user && req.user?.isAdmin) {
+        next();
+    } 
+    else {
+        throw new ApiError(403, "Unauthorized user. Only admin can access this route.");
+    }
 });
