@@ -18,6 +18,10 @@ const addressSchema = new Schema({
         type: String,
         required: true
     },
+    state: {
+        type: String,
+        required: true
+    },
     postalCode: {
         type: String,
         required: true
