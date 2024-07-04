@@ -29,10 +29,12 @@ app.use(cookieParser());
 // import routes
 import userRouter from './routes/user.routes.js';
 import productRouter from './routes/product.routes.js';
+import reviewRouter from './routes/review.routes.js';
 
 // declare routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 
 // Middleware to handle errors & responses
