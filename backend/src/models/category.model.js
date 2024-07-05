@@ -7,7 +7,15 @@ const categorySchema = new Schema({
     },
     description: {
         type: String,
-        required: true
+    },
+    isActive: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
+    parentCategory: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
     }
 },
 {timestamps: true});

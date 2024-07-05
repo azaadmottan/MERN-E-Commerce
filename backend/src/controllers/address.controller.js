@@ -8,7 +8,7 @@ import { Address } from '../models/address.model.js';
 // create a new address
 const addAddress = asyncHandler(async (req, res) => {
     const { phone, address, city, state, postalCode, country } = req.body;
-    console.log(phone, address, city, state, postalCode, country)
+
     if ([phone, address, city, state, postalCode, country].some(field => !field)) {
         throw new ApiError(400, "All fields are required.");
     }
