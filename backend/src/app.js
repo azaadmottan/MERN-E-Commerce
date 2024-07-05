@@ -33,6 +33,7 @@ import reviewRouter from './routes/review.routes.js';
 import couponRouter from './routes/coupon.routes.js';
 import addressRouter from './routes/address.routes.js';
 import categoryRouter from './routes/category.routes.js';
+import cartRouter from './routes/cart.routes.js';
 
 // declare routes
 app.use("/api/v1/users", userRouter);
@@ -41,6 +42,7 @@ app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/address", addressRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/cart", cartRouter);
 
 
 // Middleware to handle errors & responses
