@@ -2,6 +2,7 @@ import { isValidObjectId } from 'mongoose';
 import { asyncHandler } from '../utils/AsyncHandler.js';
 import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
+import fs from "fs";
 import { Category } from '../models/category.model.js';
 
 // create a new category
@@ -22,10 +23,19 @@ const createCategory = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid parent category ID.");
     }
 
+    const categoryImage = req.files?.categoryImage?.[0]?.path;
+
+    if (!categoryImage) {
+        throw new ApiError(500, "Category image is required.");
+    }
+
+    const formattedPath = categoryImage.replace(/\\/g, '/').replace('public/', '');
+
     const newCategory = await Category.create({
         name,
         description,
         parentCategory: parentCategory ? parentCategory : null,
+        categoryImage: formattedPath,
         isActive,
     });
 
@@ -44,7 +54,7 @@ const createCategory = asyncHandler(async (req, res) => {
 
 // get all categories
 const getAllCategories = asyncHandler(async (req, res) => {
-    const categories = await Category.find({ isActive: true }).populate('parentCategory');
+    let categories = await Category.find().populate('parentCategory');
 
     if (!categories) {
         throw new ApiError(500, "Failed to fetch categories.");
@@ -123,10 +133,23 @@ const updateCategory = asyncHandler(async (req, res) => {
         }
     }
 
+    const categoryImage = req.files?.categoryImage?.[0]?.path;
+
+    let formattedPath = null;
+
+    if (categoryImage) {
+        formattedPath = categoryImage.replace(/\\/g, '/').replace('public/', '');
+    }
+
+    if (categoryImage && category?.categoryImage) {
+        const removeImage = fs.unlinkSync("public/" + category?.categoryImage);
+    }
+
     category.name = name || category.name;
     category.description = description || category.description;
     category.parentCategory = parentCategory ? parentCategory : category.parentCategory;
     category.isActive = isActive || category.isActive;
+    category.categoryImage = formattedPath || category?.categoryImage;
 
     const updatedCategory = await category.save();
 
