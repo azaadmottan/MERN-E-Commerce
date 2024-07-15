@@ -25,7 +25,7 @@ router.route("/create-product").post(
     createProduct
 );
 
-router.route("/all-products").get(verifyJWT, getAllProducts);
+router.route("/all-products").get(getAllProducts);
 
 router.route("/get-product/:id").get(verifyJWT, getProductById);
 
