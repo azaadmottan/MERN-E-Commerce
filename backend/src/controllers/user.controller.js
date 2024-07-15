@@ -55,12 +55,14 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Profile picture is required.");
     }
 
+    const formattedPath = profilePicture.replace(/\\/g, '/').replace('public/', '');
+
     const user = await User.create({
         userName: userName.toLowerCase(),
         fullName,
         email,
         password,
-        profilePicture,
+        profilePicture: formattedPath,
         isAdmin: false,
     });
 
@@ -254,7 +256,9 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     return res.status(200).json(
         new ApiResponse(
             200,
-            user,
+            {
+                user: user
+            },
             "Current logged in user fetched successfully."
         )
     );
@@ -299,27 +303,30 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
     );
 });
 
-
 // update user profile picture
 const updateProfilePicture = asyncHandler(async (req, res) => {
     const profilePicture = req.files?.profilePicture?.[0]?.path;
-    
+
     if (!profilePicture) {
         throw new ApiError(500, "Profile picture is required.");
     }
 
     const oldProfilePicture = await User.findById(req.user?._id).select('profilePicture');
 
-    if (!oldProfilePicture.profilePicture) {
-        throw new ApiError(500, "User has no profile picture.");
+    // if (!oldProfilePicture.profilePicture) {
+    //     throw new ApiError(500, "User has no profile picture.");
+    // }
+
+    if (oldProfilePicture?.profilePicture) {
+        const removeProfile = fs.unlinkSync("public/" + oldProfilePicture?.profilePicture);
     }
 
-    const removeProfile = fs.unlinkSync(oldProfilePicture.profilePicture);
+    const formattedPath = profilePicture.replace(/\\/g, '/').replace('public/', '');
 
     const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
-            profilePicture
+            profilePicture: formattedPath,
         },
         {
             new: true,
