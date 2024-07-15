@@ -7,9 +7,9 @@ import { Product } from '../models/product.model.js';
 
 // create a new product
 const createProduct = asyncHandler(async (req, res) => {
-    const { name, brand, category, description, price, discount, countInStock } = req.body;
+    const { name, brand, category, description, price, sellingPrice, discount, countInStock } = req.body;
 
-    if ([name, brand, category, description, price, discount, countInStock].some(field => !field || field.trim() === "")) {
+    if ([name, brand, category, description, price, sellingPrice, discount, countInStock].some(field => !field || field.trim() === "")) {
         throw new ApiError(400, "All fields must be provided.");
     }
 
@@ -21,18 +21,22 @@ const createProduct = asyncHandler(async (req, res) => {
 
     const imagePaths = images.map(file => file?.path);
 
+    const formattedImagePaths = imagePaths?.map(imageUrl => {
+        return imageUrl.replace(/\\/g, '/').replace('public/', '');
+    }) || [];
+
     const newProduct = await Product.create({
         user: req.user?._id,
         name,
         brand,
         category,
         description,
-        images: imagePaths,
         price,
+        sellingPrice,
         discount,
         countInStock,
+        images: formattedImagePaths,
     });
-
     return res.status(201).json(
         new ApiResponse(
             201,
