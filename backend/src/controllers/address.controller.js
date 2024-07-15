@@ -36,6 +36,48 @@ const addAddress = asyncHandler(async (req, res) => {
     );
 });
 
+// get logged in user address
+const getLoggedInUserAddress = asyncHandler(async (req, res) => {
+    const userId = req?.user?._id;
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(400, "Invalid user ID.");
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+        throw new ApiError(404, "User not found.");
+    }
+
+    const userAddress = await Address.find({ user: userId });
+
+    if (!userAddress) {
+        throw new ApiError(404, "User address not found.");
+    }
+
+    if (userAddress.length === 0) {
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                {},
+                "User not added their address yet."
+            )
+        );
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                userAddress,
+                count: userAddress.length,
+            },
+            "User address fetched successfully."
+        )
+    );
+});
+
 // get address
 const getUserAddress = asyncHandler(async (req, res) => {
     const userId = req.params.id;
@@ -155,6 +197,7 @@ const deleteAddress = asyncHandler(async (req, res) => {
 
 export {
     addAddress,
+    getLoggedInUserAddress,
     getUserAddress,
     updateAddress,
     deleteAddress,
