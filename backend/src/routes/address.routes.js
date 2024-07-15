@@ -3,6 +3,7 @@ import { verifyJWT } from '../middlewares/auth.middleware.js';
 import {
     addAddress, 
     deleteAddress, 
+    getLoggedInUserAddress, 
     getUserAddress,
     updateAddress
 } from '../controllers/address.controller.js';
@@ -10,6 +11,8 @@ import {
 const router = Router();
 
 router.route("/add-address").post(verifyJWT, addAddress);
+
+router.route("/login-user-address").get(verifyJWT, getLoggedInUserAddress);
 
 router.route("/user-address/:id").get(verifyJWT, getUserAddress);
 
