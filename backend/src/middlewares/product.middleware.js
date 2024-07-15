@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 
 // Check file type
 function checkFileType(file, cb) {
-    const filetypes = /jpeg|jpg|png/;
+    const filetypes = /jpeg|jpg|png|webp/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = filetypes.test(file.mimetype);
 
@@ -22,7 +22,7 @@ function checkFileType(file, cb) {
         return cb(null, true);
     } 
     else {
-        cb(new ApiError(500, 'Invalid file type. Please upload an image file (jpg, jpeg, png).'), false);
+        cb(new ApiError(500, 'Invalid file type. Please upload an image file (jpg, jpeg, png or webp).'), false);
     }
 }
 
