@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
     Banner,
-    Category
+    Category,
+    Product
 } from '../components/home/index.jsx';
 
 function Home() {
@@ -15,6 +16,10 @@ function Home() {
 
         {/* banner */}
         <Banner />
+
+        {/* products */}
+        <Product />
+
     </div>
     </>
     )
