@@ -11,7 +11,7 @@ import {
 import {
     Modal,
     MiniLoading,
-    ProductCard,
+    AdminProductCard,
 } from "../../components/index.jsx";
 import {
     addNewProduct,
@@ -52,6 +52,14 @@ function Product() {
         setImages(newImages);
         setImagePreviews(newPreviews);
     };
+
+    useEffect(() => {
+        const discountAmount = price - sellingPrice;
+
+        const discountPercent = (discountAmount / price) * 100;
+
+        setDiscount(Math.round(discountPercent));
+    }, [price, sellingPrice]);
 
     const [addProductFormSubmit, setAddProductFormSubmit] = useState(false);
     const submitAddProductForm = async (e) => {
@@ -125,13 +133,15 @@ function Product() {
             </button>
         </div>
 
-        <div className="border border-slate-200 bg-slate-50 rounded-md p-6 mt-4 flex flex-wrap justify-between gap-4 ">
+        <div className="border border-slate-200 bg-slate-50 rounded-md p-6 mt-4 flex flex-wrap items-center justify-between gap-4 ">
             {
                 productLoading ? (
-                    <MiniLoading />
+                    <div className="w-full flex items-center justify-center">
+                        <MiniLoading />
+                    </div>
                 ) : (
                     products.map((product, index) => (
-                        <ProductCard 
+                        <AdminProductCard 
                             _id={product?._id}
                             imgUrl={product?.images[0]} 
                             name={product?.name} 
@@ -139,7 +149,8 @@ function Product() {
                             discount={product?.discount} 
                             price={product?.price} 
                             sellingPrice={product?.sellingPrice} 
-                            rating={product?.rating}
+                            rating={product?.rating || "2.4"}
+                            key={uuidv4()} 
                         />
                     ))
                 )
@@ -200,12 +211,13 @@ function Product() {
                 className="outline-none px-2 py-1 bg-slate-100 rounded-md border focus-within:border-blue-500"
                 placeholder="Enter product selling price" />
 
-                <label htmlFor="discount">Discount</label>
+                <label htmlFor="discount">Discount in %</label>
                 <input type="number" id="discount" name='discount'
                 value={discount} 
                 onChange={(e) => setDiscount(e.target.value)} 
                 className="outline-none px-2 py-1 bg-slate-100 rounded-md border focus-within:border-blue-500"
-                placeholder="Enter discount" />
+                placeholder="Enter discount"
+                readOnly={true}/>
 
                 <label htmlFor="countInStock">Count In Stock</label>
                 <input type="number" id="countInStock" name='countInStock'

@@ -8,7 +8,6 @@ import {
     SignUp,
     UserDashboard,
     AdminDashboard,
-    CategoryPage,
 } from "../pages/index.jsx";
 import {
     Profile,
@@ -23,6 +22,10 @@ import {
     User,
     EditProduct,
 } from "../pages/admin/index.jsx";
+import {
+    CategoryPage,
+    ProductPage,
+} from "../pages/home/index.jsx"
 
 
 const router = createBrowserRouter([
@@ -52,6 +55,12 @@ const router = createBrowserRouter([
                 path: "/product-category/:category",
                 element: (
                     <CategoryPage />
+                )
+            },
+            {
+                path: "/product/:productSlug/:productId",
+                element: (
+                    <ProductPage />
                 )
             },
             {

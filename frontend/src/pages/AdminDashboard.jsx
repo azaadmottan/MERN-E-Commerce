@@ -16,6 +16,11 @@ import {
     BsCurrencyRupee,
     FaRegComments,
 } from "../components/Icons.jsx";
+import {
+    BackButton,
+    BreadCrumb,
+    ForwardButton,
+} from "../components/index.jsx";
 import { 
     loadUserAddress,
 } from "../actions/user.actions.js";
@@ -31,7 +36,7 @@ function AdminDashboard() {
     
     useEffect(() => {
         dispatch(loadUserAddress());
-        dispatch(loadProducts());
+        // dispatch(loadProducts());
     }, []);
 
     // it is used to make the sidebar navigation link 'active'
@@ -122,8 +127,20 @@ function AdminDashboard() {
             </nav>
         </aside>
 
-        <section className="md:w-9/12 lg:w-5/6 h-[85vh] px-6 py-8 bg-white rounded-md overflow-y-auto hiddenScrollBar">
+        <section className="md:w-9/12 lg:w-5/6 h-[85vh] px-6 py-6 bg-white rounded-md overflow-y-auto hiddenScrollBar">
+            <div className="my-2 flex flex-col gap-2 select-none">
+                <div className="flex items-center justify-between">
+                    <BackButton />
+                    <ForwardButton />
+                </div>
+                <div className="bg-slate-50 px-2 py-1 rounded-md">
+
+                    <BreadCrumb />
+                </div>
+            </div>
+
             <Outlet />
+
         </section>
     </div>
     </>

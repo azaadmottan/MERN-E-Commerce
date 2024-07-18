@@ -80,7 +80,7 @@ function Login() {
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username / email-id"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -92,7 +92,7 @@ function Login() {
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

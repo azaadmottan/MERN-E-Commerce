@@ -105,7 +105,7 @@ function SignUp() {
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
@@ -117,7 +117,7 @@ function SignUp() {
                     <input 
                     type="text" 
                     id="fullName"
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your full name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -129,7 +129,7 @@ function SignUp() {
                     <input 
                     type="text" 
                     id="email"
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your email-id"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -141,7 +141,7 @@ function SignUp() {
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -168,7 +168,7 @@ function SignUp() {
                     <input 
                     type={showConfirmPassword ? "text" : "password"} 
                     id="confirmPassword" 
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Confirm your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -196,7 +196,7 @@ function SignUp() {
                     type="file"
                     name="profilePicture" 
                     id="profilePicture"
-                    className="w-full p-2 bg-slate-100 outline-none border focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Upload your profile picture"
                     accept="image/*"
                     onChange={(e) => setProfilePicture(e.target.files[0])}
