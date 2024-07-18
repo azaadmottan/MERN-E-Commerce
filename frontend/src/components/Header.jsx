@@ -38,7 +38,7 @@ function Header() {
 
     return (
     <>
-    <header className="bg-white h-16 shadow-md flex items-center sticky top-0">
+    <header className="bg-white h-16 shadow-md flex items-center sticky top-0 z-40">
         <div className="container mx-auto px-4 flex items-center justify-between">
             <div>
                 <Link href="/" className="text-2xl font-bold select-none flex items-center gap-2">
