@@ -24,6 +24,9 @@ import {
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
     DELETE_PRODUCT_FAIL,
+    ADD_PRODUCT_ATTRIBUTES_REQUEST,
+    ADD_PRODUCT_ATTRIBUTES_SUCCESS,
+    ADD_PRODUCT_ATTRIBUTES_FAIL,
 } from "../constants/product.constant.js";
 
 const initialCategoryState = {
@@ -91,6 +94,7 @@ export const productReducer = (state = initialProductState, { type, payload }) =
     switch (type) {
         case LOAD_PRODUCT_REQUEST:
         case ADD_NEW_PRODUCT_REQUEST:
+        case ADD_PRODUCT_ATTRIBUTES_REQUEST:
         case UPDATE_PRODUCT_REQUEST:
         case DELETE_PRODUCT_REQUEST:
             return {
@@ -101,6 +105,7 @@ export const productReducer = (state = initialProductState, { type, payload }) =
             };
         case LOAD_PRODUCT_SUCCESS:
         case ADD_NEW_PRODUCT_SUCCESS:
+        case ADD_PRODUCT_ATTRIBUTES_SUCCESS:
         case UPDATE_PRODUCT_SUCCESS:
         case DELETE_PRODUCT_SUCCESS:
             return {
@@ -111,6 +116,7 @@ export const productReducer = (state = initialProductState, { type, payload }) =
             };
         case LOAD_PRODUCT_FAIL:
         case ADD_NEW_PRODUCT_FAIL:
+        case ADD_PRODUCT_ATTRIBUTES_FAIL:
         case UPDATE_PRODUCT_FAIL:
             return {
                 ...state,

@@ -24,6 +24,15 @@ import {
     UPDATE_PRODUCT_FAIL,
     DELETE_PRODUCT_REQUEST,
     DELETE_PRODUCT_SUCCESS,
+    ADD_NEW_PRODUCT_IMAGE_REQUEST,
+    ADD_NEW_PRODUCT_IMAGE_SUCCESS,
+    ADD_NEW_PRODUCT_IMAGE_FAIL,
+    REMOVE_PRODUCT_IMAGE_REQUEST,
+    REMOVE_PRODUCT_IMAGE_SUCCESS,
+    REMOVE_PRODUCT_IMAGE_FAIL,
+    ADD_PRODUCT_ATTRIBUTES_REQUEST,
+    ADD_PRODUCT_ATTRIBUTES_SUCCESS,
+    ADD_PRODUCT_ATTRIBUTES_FAIL,
 } from "../constants/product.constant.js";
 
 // category actions
@@ -183,8 +192,159 @@ export const addNewProduct = (productData) => async (dispatch) => {
     }
 }
 
+// add additional product information
+export const addAdditionalProductInfo = (id, productData) => async (dispatch) => {
+    try {
+        dispatch({ type: ADD_PRODUCT_ATTRIBUTES_REQUEST });
+
+        const { data } = await axios.post(
+            `/api/products/add-product-additional-info/${id}`,
+            productData
+        );
+
+        dispatch({
+            type: ADD_PRODUCT_ATTRIBUTES_SUCCESS,
+            payload: data?.data?.updatedProduct,
+        });
+
+        dispatch(loadProducts());
+    } catch (error) {
+        dispatch({
+            type: ADD_PRODUCT_ATTRIBUTES_FAIL,
+            payload: error?.response?.data?.message,
+        });
+    }
+}
+
+// update product
+export const updateProduct = (id, productData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PRODUCT_REQUEST });
+
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+
+        const { data } = await axios.post(
+            `/api/products/update-product-info/${id}`,
+            productData,
+            // config
+        );
+
+        dispatch({
+            type: UPDATE_PRODUCT_SUCCESS,
+            payload: data?.data?.updatedProductInfo,
+        });
+
+        dispatch(loadProducts());
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PRODUCT_FAIL,
+            payload: error?.response?.data?.message,
+        });
+    }
+}
+
+// add new images
+export const addNewProductImages = (id, productData) => async (dispatch) => {
+    try {
+        dispatch({ type: ADD_NEW_PRODUCT_IMAGE_REQUEST });
+
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+
+        const { data } = await axios.post(
+            `/api/products/add-product-images/${id}`,
+            productData,
+            config
+        );
+
+        dispatch({
+            type: ADD_NEW_PRODUCT_IMAGE_SUCCESS,
+            payload: data?.data?.updatedProduct,
+        });
+
+        dispatch(loadProducts());
+    } catch (error) {
+        dispatch({
+            type: ADD_NEW_PRODUCT_IMAGE_FAIL,
+            payload: error?.response?.data?.message,
+        });
+    }
+}
+
+// remove image
+export const removeProductImage = (id, imagePath) => async (dispatch) => {
+    try {
+        dispatch({ type: REMOVE_PRODUCT_IMAGE_REQUEST });
+
+        const { data } = await axios.post(
+            `/api/products/remove-product-image/${id}`,
+            imagePath
+        );
+
+        dispatch({
+            type: REMOVE_PRODUCT_IMAGE_SUCCESS,
+            payload: data?.data?.updatedProduct,
+        });
+
+        dispatch(loadProducts());
+    } catch (error) {
+        dispatch({
+            type: REMOVE_PRODUCT_IMAGE_FAIL,
+            payload: error?.response?.data?.message,
+        });
+    }
+}
+
 // Clear All Errors
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
+
+// get product reviews
+export const getProductReview = async (id) => {
+    try {
+        const { data } = await axios.get(`/api/reviews/product-reviews/${id}`);
+
+        if (data?.data?.reviews) {
+            return {
+                reviews: data?.data?.reviews,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+// create product review
+export const createProductReview = async (id, reviewData) => {
+    try {
+        const { data } = await axios.post(
+            `/api/reviews/create-review/${id}`,
+            reviewData
+        );
+
+        if (data?.data?.createdAt) {
+            return {
+                message: data?.message,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
 
