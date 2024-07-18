@@ -8,7 +8,7 @@ import { Review } from '../models/review.model.js';
 // create a new review
 const createReview = asyncHandler(async (req, res) => {
     const productId = req.params.id;
-    const { rating, comment } = req.body;
+    const { rating, title, description } = req.body;
 
     if (!isValidObjectId(productId)) {
         throw new ApiError(400, "Invalid product ID.");
@@ -20,8 +20,8 @@ const createReview = asyncHandler(async (req, res) => {
     if (rating < 1 || rating > 5) {
         throw new ApiError(400, "Rating must be between 1 and 5.");
     }
-    if (!comment || comment.trim() === "") {
-        throw new ApiError(400, "Comment is required.");
+    if (title.trim() === "" || description.trim() === "") {
+        throw new ApiError(400, "Review title and description is required.");
     }
     
     const product = await Product.findById(productId);
@@ -34,7 +34,8 @@ const createReview = asyncHandler(async (req, res) => {
         user: req.user?._id,
         product: productId,
         rating,
-        comment,
+        title,
+        description,
     });
 
     if (!newReview) {
@@ -130,7 +131,7 @@ const getProductReviews = asyncHandler(async (req, res) => {
                 reviews,
                 count: reviews.length
             },
-            "Reviews fetched successfully.",
+            "Product reviews fetched successfully.",
         )
     );
 });
