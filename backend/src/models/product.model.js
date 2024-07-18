@@ -61,6 +61,10 @@ const productSchema = new Schema({
         required: true, 
         default: 1 
     },
+    attributes: {
+        type: Schema.Types.Mixed,
+        default: {}
+    }
 },
 {timestamps: true});
 
