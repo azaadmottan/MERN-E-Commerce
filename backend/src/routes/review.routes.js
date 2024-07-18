@@ -17,7 +17,7 @@ router.route("/all-reviews").get(verifyJWT, getAllReviews);
 
 router.route("/get-review/:id").get(verifyJWT, getSingleReview);
 
-router.route("/product-reviews/:id").get(verifyJWT, getProductReviews);
+router.route("/product-reviews/:id").get(getProductReviews);
 
 router.route("/delete-review/:id").delete(verifyJWT, deleteReview);
 

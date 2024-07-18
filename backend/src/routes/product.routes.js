@@ -2,12 +2,15 @@ import { Router } from 'express';
 import { uploadProductImage } from '../middlewares/product.middleware.js';
 import { verifyJWT, verifyAdmin } from '../middlewares/auth.middleware.js';
 import {
+    additionalProductInfo,
+    addNewProductImages,
     createProduct,
     deleteProduct,
     getAllProducts,
     getProductById,
     getProductsInStock,
     getTopProducts,
+    removeProductImage,
     updateProductInfo
 } from '../controllers/product.controller.js';
 
@@ -25,11 +28,27 @@ router.route("/create-product").post(
     createProduct
 );
 
+router.route("/add-product-additional-info/:productId").post(verifyJWT, verifyAdmin, additionalProductInfo);
+
 router.route("/all-products").get(getAllProducts);
 
 router.route("/get-product/:id").get(verifyJWT, getProductById);
 
 router.route("/update-product-info/:id").post(verifyJWT, verifyAdmin, updateProductInfo);
+
+router.route("/add-product-images/:id").post(
+    verifyJWT,
+    verifyAdmin,
+    uploadProductImage.fields([
+        {
+            name: "productImages",
+            maxCount: 10,
+        }
+    ]),
+    addNewProductImages
+);
+
+router.route("/remove-product-image/:id").post(verifyJWT, verifyAdmin, removeProductImage);
 
 router.route("/delete-product/:id").delete(verifyJWT, verifyAdmin, deleteProduct);
 
