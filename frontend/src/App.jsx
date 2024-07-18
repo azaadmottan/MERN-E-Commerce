@@ -12,7 +12,8 @@ import {
     loadUserAddress
 } from "./actions/user.actions.js";
 import {
-    loadCategories
+    loadCategories,
+    loadProducts
 } from "./actions/product.actions.js";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
     useEffect(() => {
         dispatch(loadUser());
         dispatch(loadCategories());
+        dispatch(loadProducts());
     }, [dispatch]);
 
     // useEffect(() => {
