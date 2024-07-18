@@ -27,6 +27,12 @@ import { FaRegComments } from "react-icons/fa";
 import { FaAngleLeft } from "react-icons/fa6";
 import { FaAngleRight } from "react-icons/fa6";
 import { IoStar } from "react-icons/io5";
+import { IoArrowBack } from "react-icons/io5";
+import { IoArrowForward } from "react-icons/io5";
+import { AiFillThunderbolt } from "react-icons/ai";
+import { FaCartShopping } from "react-icons/fa6";
+import { CgDetailsMore } from "react-icons/cg";
+import { MdVerified } from "react-icons/md";
 
 export {
     BsCart3,
@@ -58,5 +64,11 @@ export {
     FaAngleLeft,
     FaAngleRight,
     IoStar,
+    IoArrowBack,
+    IoArrowForward,
+    AiFillThunderbolt,
+    FaCartShopping,
+    CgDetailsMore,
+    MdVerified,
 
 }
