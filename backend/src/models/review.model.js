@@ -17,7 +17,11 @@ const reviewSchema = new Schema({
         max: 5,
         required: true,
     },
-    comment: {
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
         type: String,
         required: true,
     }
