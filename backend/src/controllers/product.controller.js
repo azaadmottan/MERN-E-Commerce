@@ -46,6 +46,49 @@ const createProduct = asyncHandler(async (req, res) => {
     );
 });
 
+// add additional attributes
+const additionalProductInfo = asyncHandler(async (req, res) => {
+    const productId = req.params.productId;
+    const additionalData = req.body.data;
+
+    if (!isValidObjectId(productId)) {
+        throw new ApiError(400, "Invalid product ID.");
+    }
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+        throw new ApiError(404, "Product not found.");
+    }
+
+    if (!additionalData || additionalData.length === 0) {
+        throw new ApiError(400, "Additional data must be provided.");
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(
+        productId,
+        { 
+            $set: {
+                attributes: additionalData
+            }
+        },
+        { new: true },
+    );
+
+    if (!updatedProduct) {
+        throw new ApiError(500, "Failed to add product additional information.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { updatedProduct },
+            "Product additional information added successfully.",
+        )
+    );
+});
+
 // get all products
 const getAllProducts = asyncHandler(async (req, res) => {
     const pageSize = 10;
@@ -111,7 +154,7 @@ const updateProductInfo = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid product ID.");
     }
 
-    const { name, brand, category, description, price, discount, rating, countInStock } = req.body;
+    const { name, brand, category, description, price, sellingPrice, discount, rating, countInStock } = req.body;
 
     const product = await Product.findById(productId);
 
@@ -124,6 +167,7 @@ const updateProductInfo = asyncHandler(async (req, res) => {
     product.category = category || product.category;
     product.description = description || product.description;
     product.price = price || product.price;
+    product.sellingPrice = sellingPrice || product.sellingPrice;
     product.discount = discount || product.discount;
     product.rating = rating || product.rating;
     product.countInStock = countInStock || product.countInStock;
@@ -140,6 +184,96 @@ const updateProductInfo = asyncHandler(async (req, res) => {
             200,
             { updatedProductInfo },
             "Product information updated successfully.",
+        )
+    );
+});
+
+// update product images
+const addNewProductImages = asyncHandler(async (req, res) => {
+    const productId = req.params.id;
+
+    if (!isValidObjectId(productId)) {
+        throw new ApiError(400, "Invalid product ID.");
+    }
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+        throw new ApiError(404, "Product not found.");
+    }
+
+    const images = req.files?.productImages;
+
+    if (!images || images.length === 0) {
+        throw new ApiError(400, "Product image is required.");
+    }
+
+    const imagePaths = images.map(file => file?.path);
+
+    const formattedImagePaths = imagePaths?.map(imageUrl => {
+        return imageUrl.replace(/\\/g, '/').replace('public/', '');
+    }) || [];
+
+    // if (formattedImagePaths && product?.images) {
+    //     product?.images?.map(imageUrl => {
+    //         fs.unlinkSync("public/" + imageUrl);
+    //     })
+    // }
+
+    product.images = [...product?.images, ...formattedImagePaths];
+
+    const updatedProduct = await product.save();
+
+    if (!updatedProduct) {
+        throw new ApiError(500, "Failed to add product images.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { updatedProduct },
+            "Product images added successfully.",
+        )
+    );
+});
+
+const removeProductImage = asyncHandler(async (req, res) => {
+    const productId = req.params.id;
+
+    if (!isValidObjectId(productId)) {
+        throw new ApiError(400, "Invalid product ID.");
+    }
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+        throw new ApiError(404, "Product not found.");
+    }
+
+    const { imagePath } = req.body;
+
+    if (!imagePath) {
+        throw new ApiError(400, "Image path is required.");
+    }
+
+    fs.unlinkSync("public/" + imagePath);
+
+    // Remove the image path from the product's images array
+    product.images = product?.images?.filter(image => image !== imagePath);
+
+    const updatedProduct = product.save();
+
+    if (!updatedProduct) {
+        throw new ApiError(500, "Failed to remove product image.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { updatedProduct },
+            "Product image removed successfully.",
         )
     );
 });
@@ -224,9 +358,12 @@ const getProductsInStock = asyncHandler(async (req, res) => {
 
 export {
     createProduct,
+    additionalProductInfo,
     getAllProducts,
     getProductById,
     updateProductInfo,
+    addNewProductImages,
+    removeProductImage,
     deleteProduct,
     getTopProducts,
     getProductsInStock,
