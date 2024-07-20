@@ -7,6 +7,7 @@ import {
     createProduct,
     deleteProduct,
     getAllProducts,
+    getCategoryWiseProducts,
     getProductById,
     getProductsInStock,
     getTopProducts,
@@ -32,7 +33,9 @@ router.route("/add-product-additional-info/:productId").post(verifyJWT, verifyAd
 
 router.route("/all-products").get(getAllProducts);
 
-router.route("/get-product/:id").get(verifyJWT, getProductById);
+router.route("/get-product/:id").get(getProductById);
+
+router.route("/get-category-products/:categoryKeyword").get(getCategoryWiseProducts);
 
 router.route("/update-product-info/:id").post(verifyJWT, verifyAdmin, updateProductInfo);
 
