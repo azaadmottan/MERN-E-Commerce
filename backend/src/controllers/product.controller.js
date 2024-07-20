@@ -91,7 +91,7 @@ const additionalProductInfo = asyncHandler(async (req, res) => {
 
 // get all products
 const getAllProducts = asyncHandler(async (req, res) => {
-    const pageSize = 10;
+    const pageSize = 15;
     const page = Number(req.query.pageNumber) || 1;
 
     const keyword = req.query.keyword
@@ -142,6 +142,37 @@ const getProductById = asyncHandler(async(req, res) => {
             200,
             { product },
             "Product fetched successfully.",
+        )
+    );
+});
+
+// get category wise products
+const getCategoryWiseProducts = asyncHandler(async (req, res) => {
+    const { categoryKeyword } = req.params;
+
+    if (!categoryKeyword || categoryKeyword.trim() === "") {
+        throw new ApiError(400, "Category keywords is required.");
+    }
+
+    const keyword = {
+        category: {
+            $regex: categoryKeyword,
+            $options: 'i',
+        } 
+    }
+
+    const categoryProducts = await Product.find({ ...keyword });
+
+    if (!categoryProducts || categoryProducts.length === 0) {
+        throw new ApiError(404, "No product found in this category.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            { categoryProducts },
+            "Products fetched successfully in this category.",
         )
     );
 });
@@ -361,6 +392,7 @@ export {
     additionalProductInfo,
     getAllProducts,
     getProductById,
+    getCategoryWiseProducts,
     updateProductInfo,
     addNewProductImages,
     removeProductImage,

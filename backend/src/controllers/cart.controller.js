@@ -60,13 +60,15 @@ const addToCart = asyncHandler(async (req, res) => {
 
     const cartProducts = await cart.save();
 
+    const updatedCart = await Cart.findOne({ user: userId }).populate('cartItems.product');
+
     return res.status(200)
     .json(
         new ApiResponse(
             200,
             {
-                cartProducts,
-                count: cartProducts.cartItems.length,
+                cart: updatedCart,
+                count: updatedCart.cartItems.length,
             },
             'Product added to cart successfully.'
         )
