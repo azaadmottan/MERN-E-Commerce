@@ -27,6 +27,7 @@ import {
     ADD_PRODUCT_ATTRIBUTES_REQUEST,
     ADD_PRODUCT_ATTRIBUTES_SUCCESS,
     ADD_PRODUCT_ATTRIBUTES_FAIL,
+    CLEAR_CART,
 } from "../constants/product.constant.js";
 
 const initialCategoryState = {

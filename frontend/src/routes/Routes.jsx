@@ -23,6 +23,7 @@ import {
     EditProduct,
 } from "../pages/admin/index.jsx";
 import {
+    Cart,
     CategoryPage,
     ProductPage,
 } from "../pages/home/index.jsx"
@@ -61,6 +62,12 @@ const router = createBrowserRouter([
                 path: "/product/:productSlug/:productId",
                 element: (
                     <ProductPage />
+                )
+            },
+            {
+                path: "/cart",
+                element: (
+                    <Cart />
                 )
             },
             {
