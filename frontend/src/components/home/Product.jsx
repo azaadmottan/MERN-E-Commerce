@@ -10,20 +10,28 @@ import {
 function Product() {
     const navigate = useNavigate();
     const { products, loading, error, success }  = useSelector((state) => state.products);
+    const formatUrl = (name) => {
+        return name
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-");
+    };
 
     return (
     <>
-    <div className="bg-slate-50 rounded-md p-4">
+    <div className="bg-slate rounded-md">
+        <h2 className="my-4 text-xl font-semibold">Most Common Products</h2>
         {
             loading ? (
                 <MiniLoading />
             ) : (
-                <div className="flex flex-wrap items-center justify-between gap-8">
+                <div className="flex flex-wrap items-center justify-around gap-4">
                     {
                         products.map((product) => (
                             <div
                                 key={uuidv4()}
-                                onClick={() => navigate(`/product/${product?.name?.trim().replace(/\s+/g, "-").toLowerCase()}/${product?._id}`)}
+                                onClick={() => navigate(`/product/${formatUrl(product?.name)}/${product?._id}`)}
                             >
                                 <HomeProductCard 
                                     imgUrl={product?.images[0]}
