@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,8 +15,10 @@ import {
     loadCategories,
     loadProducts
 } from "./actions/product.actions.js";
+import { loadUserCartProducts } from "./actions/cart.actions.js";
 
 function App() {
+    const { pathname } = useLocation();
 
     const [isOnline, setIsOnline] = useState(navigator.onLine);
     useEffect(() => {
@@ -47,11 +49,21 @@ function App() {
         dispatch(loadUser());
         dispatch(loadCategories());
         dispatch(loadProducts());
+        dispatch(loadUserCartProducts());
     }, [dispatch]);
 
     // useEffect(() => {
     //     dispatch(loadUserAddress());
     // }, [isAuthenticated]);
+
+    // always scroll to top on route/path change
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+        });
+    }, [pathname])
 
     return (
     <>
