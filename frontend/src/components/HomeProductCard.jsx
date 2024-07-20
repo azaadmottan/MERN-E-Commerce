@@ -14,7 +14,7 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                 <img 
                 src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (imgUrl || 'productImages/sampleImage.jpg')}
                 alt={name}
-                className="w-full h-full object-contain rounded-md hover:scale-110 transition-all delay-75"
+                className="w-full h-full object-contain rounded-md hover:scale-105 transition-all delay-75"
                 />
             </div>
             <div className="p-4 flex flex-col gap-1">
