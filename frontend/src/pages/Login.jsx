@@ -53,8 +53,9 @@ function Login() {
                 toast.error(error);
                 dispatch(clearErrors());
             }
+            console.log("requested user")
         }
-    }, [isAuthenticated]);
+    }, [error, isAuthenticated]);
 
     useEffect(() => {
 
