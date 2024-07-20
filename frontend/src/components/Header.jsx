@@ -18,6 +18,7 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isAuthenticated, user, loading, error } = useSelector((state) => state.user);
+    const { cartItems } = useSelector((state) => state.cart);
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -64,7 +65,11 @@ function Header() {
                 >
                     <BsCart3 size={24} />
                     Cart
-                    <span className='text-sm text-white bg-orange-500 px-1 py-0 absolute top-0 right-0 rounded-full'>0</span>
+                    <span className='text-sm text-white bg-orange-500 px-1 py-0 absolute top-0 right-0 rounded-full'>
+                        {
+                            cartItems ? cartItems?.length : 0
+                        }
+                    </span>
                 </button>
 
                 {

@@ -33,6 +33,7 @@ import { AiFillThunderbolt } from "react-icons/ai";
 import { FaCartShopping } from "react-icons/fa6";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
+import { ImSpinner9 } from "react-icons/im";
 
 export {
     BsCart3,
@@ -70,5 +71,6 @@ export {
     FaCartShopping,
     CgDetailsMore,
     MdVerified,
+    ImSpinner9,
 
 }
