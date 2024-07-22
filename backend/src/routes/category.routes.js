@@ -26,7 +26,7 @@ router.route("/create-category").post(
 
 router.route("/all-categories").get(getAllCategories);
 
-router.route("/get-category/:id").get(verifyJWT, getSingleCategory);
+router.route("/get-category/:id").get(getSingleCategory);
 
 router.route("/update-category/:id").post(
     verifyJWT,
