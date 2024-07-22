@@ -8,11 +8,19 @@ import {
 } from "./Icons.jsx";
 import { PUBLIC_URL } from "../config/api.config.js";
 import { Link, useNavigate } from 'react-router-dom';
+import covertNumberToINR  from "../handler/NumberToINR.js";
 
 
 function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", discount="", price="", sellingPrice="" }) {
 
     const navigate = useNavigate();
+    const formatUrl = (name) => {
+        return name
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-");
+    };
 
     const [showEditMenu, setShowEditMenu] = useState({});
     const toggleEditMenu = (id) => {
@@ -24,7 +32,9 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
 
     return (
     <>
-    <div className="w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
+    <div
+    onClick={() => navigate(`/product/${formatUrl(name)}/${_id}`)}
+    className="w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
         <span 
         className="text-lg cursor-pointer p-2 bg-slate-50 hover:bg-slate-200 rounded-full absolute top-0 right-0 hidden group-hover:block"
         onClick={() => toggleEditMenu(_id)}
@@ -83,10 +93,10 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
 
                 <p className="flex items-center gap-2 mt-2 tracking-wider">
                     <span className="flex items-center text-lg font-bold">
-                        ₹{sellingPrice}
+                        { covertNumberToINR(sellingPrice) }
                     </span>
                     <span className="flex items-center text-gray-700 text-sm line-through">
-                        ₹{price}
+                        { covertNumberToINR(price) }
                     </span>
                 </p>
 

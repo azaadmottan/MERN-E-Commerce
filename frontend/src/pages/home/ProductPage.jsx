@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
 import { PUBLIC_URL } from '../../config/api.config';
 import {
     MiniLoading,
@@ -46,7 +46,7 @@ function ProductPage() {
     // });
 
     const [product, setProduct] = useState([]);
-    const [isProductLoading, setIsProductLoading] = useState(false);
+    const [isProductLoading, setIsProductLoading] = useState(true);
     const getProduct = async () => {
         const response = await getProductById(productId);
         
@@ -110,7 +110,7 @@ function ProductPage() {
     ]
 
     const [productReviews, setProductReviews] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     // get product reviews
     const getReviews = async () => {
         if (product?._id) {
@@ -181,10 +181,78 @@ function ProductPage() {
     <>
     <div className="p-2">
         {
-            isProductLoading ? (
-                <div>
-                    <MiniLoading />
-                </div>
+            isLoading ? (
+                <>
+                    <div className="flex items-center gap-2">
+                        <div className=" w-[40%] h-[85vh] bg-white rounded-md border">
+                            <div className="flex items-center gap-2 p-2">
+                                <div className='w-[30%] h-[70vh] overflow-y-auto bg-slate-50 rounded-md'>
+                                    <div className="flex flex-col items-center justify-center gap-2 py-2">
+                                        <p className="w-32 h-24 p-2 rounded-sm bg-slate-200 animate-pulse"></p>
+                                        <p className="w-32 h-24 p-2 rounded-sm bg-slate-200 animate-pulse"></p>
+                                        <p className="w-32 h-24 p-2 rounded-sm bg-slate-200 animate-pulse"></p>
+                                        <p className="w-32 h-24 p-2 rounded-sm bg-slate-200 animate-pulse"></p>
+                                        
+                                    </div>
+                                </div>
+                                <div className='w-[70%] h-[70vh] flex items-center justify-center relative'>
+                                    <div className='w-[350px] h-[350px] flex items-center justify-center'>
+                                    <div className='w-full h-full bg-slate-200 rounded-md animate-pulse'>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="w-[60%] h-[85vh] bg-white rounded-md border overflow-y-auto hiddenScrollBar">
+                            <div className="px-8 py-6 flex flex-col gap-3">
+                                <h2 className="font-semibold bg-slate-200 rounded-sm animate-pulse p-6">
+                                </h2>
+
+                                <h3 className="bg-slate-200 rounded-sm animate-pulse p-4 w-80">
+                                </h3>
+
+                                <p className="bg-slate-200 rounded-sm animate-pulse p-3 w-52">
+                                </p>
+
+                                <p className="bg-slate-200 rounded-sm animate-pulse p-4 w-96">
+                                </p>
+
+                                <p className="bg-slate-200 rounded-sm animate-pulse p-3">
+                                </p>
+                                <p className="bg-slate-200 rounded-sm animate-pulse p-3">
+                                </p>
+                                <p className="bg-slate-200 rounded-sm animate-pulse p-4">
+                                </p>
+
+                                <div>
+                                    <ul className="flex flex-col gap-6 mt-2">
+                                        {
+                                        offers.map((element, index) => (
+                                            <li 
+                                            key={index}
+                                            className="bg-slate-200 rounded-sm animate-pulse p-2"> 
+                                            </li>
+                                        ))
+                                        }
+                                    </ul>
+                                </div>
+                                
+                                <div>
+                                    
+                                </div>
+
+                                <div>
+                                    
+                                </div>
+
+                                <div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </>
             ) : (
                 product ? (
                     <>
@@ -349,7 +417,7 @@ function ProductPage() {
                                         Product Specifications
                                     </h4>
                                     
-                                    <p>
+                                    <div>
                                         <ul className="flex flex-col gap-3 mt-2">
                                         {
                                             product?.attributes ? (
@@ -372,7 +440,7 @@ function ProductPage() {
                                             )
                                         }
                                         </ul>
-                                    </p>
+                                    </div>
                                 </div>
 
                                 <div>
@@ -380,7 +448,7 @@ function ProductPage() {
                                         Rating & Reviews
                                     </h4>
 
-                                    <p className="flex flex-col gap-3 mt-2">
+                                    <div className="flex flex-col gap-3 mt-2">
                                         <h5 className="text-lg">What makes a good review</h5>
 
                                         <h6>Have you used this product?</h6>
@@ -391,7 +459,7 @@ function ProductPage() {
 
                                         <h6>How will the reviewer feel after reading your review?</h6>
                                         <p className="text-gray-500">The reviewer should feel appreciated and valued.</p>
-                                    </p>
+                                    </div>
 
                                     <button 
                                     onClick={() => setRateProductBtn((prev) => !prev)}

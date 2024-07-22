@@ -121,215 +121,263 @@ function Cart() {
             ) : (
             <>
             {
-                cartItems.length > 0 ? (
+                loading ? (
                     <div className="flex gap-4">
                         <div
-                        className="w-[70%] h-[80vh] rounded-md border-2 px-6 py-4 overflow-y-auto hiddenScrollBar bg-white"
-                        >
-                            <div className="">
-
-                            <div className="flex items-center justify-between my-2">
-                                <h2 className="text-lg font-medium text-gray-700">
-                                    From Saved Addresses
-                                </h2>
-
-                                <select
-                                className="px-8 py-1 border-2 outline-none focus-within:border-blue-500 rounded-md"
-                                >
-                                    <option value="" selected={true}>Select Address</option>
-                                    <option value="1">Address 1</option>
-                                    <option value="2">Address 2</option>
-                                </select>
+                        className="w-[70%] h-[80vh] rounded-md border-2 px-6 py-4 overflow-y-auto hiddenScrollBar flex flex-col gap-4 bg-white">
+                            <div className="bg-slate-200 p-6 animate-pulse rounded-md">
                             </div>
 
-                            <div className="my-4 flex flex-col gap-6">
-                            {
-                                loading ? (
-                                    <div>loading...</div>
-                                ) : (
-                                    cartItems?.map((item, index) => (
-                                        <div
-                                        key={index}
-                                        className="card-body px-2 py-4 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
-                                            <div className="w-[20%] h-36">
-                                                <img
-                                                className="w-full h-full object-contain"
-                                                src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`} 
-                                                alt="" />
-                                            </div>
-                                            <div className="w-[80%] px-4 py-2 flex flex-col gap-2">
-                                                <h2
-                                                onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
-                                                className="text-xl font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
-                                                    {
-                                                        item?.product?.name
-                                                    }
-                                                </h2>
-                                                <h4 className="text-sm text-gray-400 font-medium tracking-wider">
-                                                    {
-                                                        item?.product?.brand
-                                                    }
-                                                </h4>
-
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-lg font-medium tracking-wider">
-                                                        {
-                                                            convertNumberToINR(item?.product?.sellingPrice)
-                                                        }
-                                                    </span>
-                                                    <span className="font-semibold text-gray-500 line-through tracking-wider">
-                                                        {
-                                                            convertNumberToINR(item?.product?.price)
-                                                        }
-                                                    </span>
-                                                    <span className="font-bold text-green-500 italic font-serif tracking-wide">
-                                                        {item?.product?.discount}% off
-                                                    </span>
-                                                </div>
-
-                                                <div className="flex items-center gap-10">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-gray-700">
-                                                            Product quantity: 
-                                                        </span>
-                                                        <button
-                                                        onClick={() => handleDecrease(item?.product?._id)}
-                                                        className="text-3xl font-medium bg-white rounded-full">
-                                                            <CiCircleMinus />
-                                                        </button>
-                                                        <span className="text-lg font-semibold border px-3 rounded-md tracking-wider bg-white">
-                                                            {
-                                                                quantities[item?.product?._id]
-                                                            }
-                                                        </span>
-                                                        <button
-                                                        onClick={() => handleIncrease(item?.product?._id)}
-                                                        className="text-3xl font-bold bg-white rounded-full">
-                                                            <CiCirclePlus className="font-bold" />
-                                                        </button>
-                                                    </div>
-                                                    <div>
-                                                        <button
-                                                        onClick={() => (
-                                                            setShowRemoveItemModal(true),
-                                                            setItemId(item?.product?._id)
-                                                        )}
-                                                        className="uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500">
-                                                            Remove
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                )
-                            }
-                            </div>
-                            </div>
-
-                            <button
-                            className="text-lg font-medium text-white bg-orange-500 hover:bg-opacity-90 px-4 py-2 mt-6 rounded-md uppercase flex items-center gap-2">
-                                <SiTicktick />
-                                Place Order
-                            </button>
-
+                            <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                            <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                            <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                            <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                            <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
                         </div>
-
                         <div className="w-[30%] h-fit border-2 px-6 py-4 rounded-md bg-white"
                         >
                             <div className="flex flex-col gap-4">
-                                <h2 className="text-xl font-medium text-gray-700 tracking-wider uppercase">
-                                    Price Details
-                                </h2>
-
-                                <div className="flex justify-between text-gray-600 font-medium">
-                                    <span>
-                                        Price ({cartItems?.length} items)
-                                    </span>
-                                    <span>
-                                        {
-                                            convertNumberToINR( cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0) )
-                                        }
-                                    </span>
-                                </div>
-                                <div className="flex justify-between text-gray-600 font-medium">
-                                    <span>
-                                        Discount
-                                    </span>
-                                    <span className="text-green-500">
-                                        {
-                                            convertNumberToINR( 
-                                                cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) - cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0)
-                                            )
-                                        }
-                                    </span>
-                                </div>
-                                <div className="flex justify-between text-gray-600 font-medium">
-                                    <span>
-                                        Delivery Charges
-                                    </span>
-                                    <p className="flex gap-1">
-                                    <span className="line-through">
-                                        ₹120 
-                                    </span>
-                                    <span className="text-green-500">
-                                        Free
-                                    </span>
-                                    </p>
+                                <div className="bg-slate-200 p-8 rounded-md animate-pulse">
                                 </div>
 
-                                <h2 className="flex justify-between text-lg text-gray-600 font-bold">
-                                    <span>
-                                        Total Amount
-                                    </span>
-                                    <span>
-                                    {
-                                        convertNumberToINR( cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) )
-                                    }
-                                    </span>
-                                </h2>
+                                <div className="bg-slate-200 p-3 rounded-md animate-pulse">
+                                </div>
+                                <div className="bg-slate-200 p-3 rounded-md animate-pulse">
+                                </div>
+                                <div className="bg-slate-200 p-3 rounded-md animate-pulse">
+                                </div>
 
-                                <p className="text-green-500 font-medium">
-                                    You will save <span className="italic tracking-wider">
-                                    {
-                                        convertNumberToINR( 
-                                            cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0) - cartItems.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0)
-                                        )
-                                    }
-                                    </span> on this order
-                                </p>
                             </div>
 
-                            <div className="bg-slate-100 rounded-md p-2 mt-4">
-                                <p className="flex items-center gap-2 text-gray-800">
-                                    <span className="text-4xl">
-                                        <MdGppGood />
-                                    </span>
-                                    <span className="font-medium">
-                                        Safe and Secure Payments.Easy returns. 100% Authentic products.
-                                    </span>
-                                </p>
+                            <div className="bg-slate-200 rounded-md p-4 mt-6 animate-pulse">
                             </div>
                         </div>
                     </div>
                 ) : (
-                    <div className="h-[80vh] bg-white rounded-md flex flex-col items-center justify-center gap-6 select-none">
-                        <img
-                        src={cartImage}
-                        className="w-64"
-                        alt="Cart Image" />
+                    cartItems.length > 0 ? (
+                        <div className="flex gap-4">
+                            <div
+                            className="w-[70%] h-[80vh] rounded-md border-2 px-6 py-4 overflow-y-auto hiddenScrollBar bg-white"
+                            >
+                                <div className="">
+    
+                                {/* <div className="flex items-center justify-between my-2">
+                                    <h2 className="text-lg font-medium text-gray-700">
+                                        From Saved Addresses
+                                    </h2>
+    
+                                    <select
+                                    className="px-8 py-1 border-2 outline-none focus-within:border-blue-500 rounded-md"
+                                    >
+                                        <option value="" selected={true}>Select Address</option>
+                                        <option value="1">Address 1</option>
+                                        <option value="2">Address 2</option>
+                                    </select>
+                                </div> */}
 
-                        <h2 className="text-2xl hover:text-orange-500">Your Cart is Empty !</h2>
+                                <div className="flex items-center justify-between my-2">
+                                    <h2 className="text-lg font-medium text-gray-700">
+                                        Your Cart Items
+                                    </h2>
+                                </div>
+    
+                                <div className="my-4 flex flex-col gap-6">
+                                {
+                                    loading ? (
+                                    <>
+                                        <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                                        <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                                        <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                                        <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                                        <div className="p-10 bg-slate-200 animate-pulse rounded-sm"></div>
+                                    </>
+                                    ) : (
+                                        cartItems?.map((item, index) => (
+                                            <div
+                                            key={index}
+                                            className="card-body px-2 py-4 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
+                                                <div className="w-[20%] h-36">
+                                                    <img
+                                                    className="w-full h-full object-contain"
+                                                    src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`} 
+                                                    alt="" />
+                                                </div>
+                                                <div className="w-[80%] px-4 py-2 flex flex-col gap-2">
+                                                    <h2
+                                                    onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
+                                                    className="text-xl font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
+                                                        {
+                                                            item?.product?.name
+                                                        }
+                                                    </h2>
+                                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider">
+                                                        {
+                                                            item?.product?.brand
+                                                        }
+                                                    </h4>
+    
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-lg font-medium tracking-wider">
+                                                            {
+                                                                convertNumberToINR(item?.product?.sellingPrice)
+                                                            }
+                                                        </span>
+                                                        <span className="font-semibold text-gray-500 line-through tracking-wider">
+                                                            {
+                                                                convertNumberToINR(item?.product?.price)
+                                                            }
+                                                        </span>
+                                                        <span className="font-bold text-green-500 italic font-serif tracking-wide">
+                                                            {item?.product?.discount}% off
+                                                        </span>
+                                                    </div>
+    
+                                                    <div className="flex items-center gap-10">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-gray-700">
+                                                                Product quantity: 
+                                                            </span>
+                                                            <button
+                                                            onClick={() => handleDecrease(item?.product?._id)}
+                                                            className="text-3xl font-medium bg-white rounded-full">
+                                                                <CiCircleMinus />
+                                                            </button>
+                                                            <span className="text-lg font-semibold border px-3 rounded-md tracking-wider bg-white">
+                                                                {
+                                                                    quantities[item?.product?._id]
+                                                                }
+                                                            </span>
+                                                            <button
+                                                            onClick={() => handleIncrease(item?.product?._id)}
+                                                            className="text-3xl font-bold bg-white rounded-full">
+                                                                <CiCirclePlus className="font-bold" />
+                                                            </button>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                            onClick={() => (
+                                                                setShowRemoveItemModal(true),
+                                                                setItemId(item?.product?._id)
+                                                            )}
+                                                            className="uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500">
+                                                                Remove
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )
+                                }
+                                </div>
+                                </div>
+    
+                                
+    
+                            </div>
+    
+                            <div className="w-[30%] h-fit border-2 px-6 py-4 rounded-md bg-white"
+                            >
+                                <div className="flex flex-col gap-4">
+                                    <h2 className="text-xl font-medium text-gray-700 tracking-wider uppercase">
+                                        Price Details
+                                    </h2>
+    
+                                    <div className="flex justify-between text-gray-600 font-medium">
+                                        <span>
+                                            Price ({cartItems?.length} items)
+                                        </span>
+                                        <span>
+                                            {
+                                                convertNumberToINR( cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0) )
+                                            }
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-gray-600 font-medium">
+                                        <span>
+                                            Discount
+                                        </span>
+                                        <span className="text-green-500">
+                                            {
+                                                convertNumberToINR( 
+                                                    cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) - cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0)
+                                                )
+                                            }
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between text-gray-600 font-medium">
+                                        <span>
+                                            Delivery Charges
+                                        </span>
+                                        <p className="flex gap-1">
+                                        <span className="line-through">
+                                            ₹120 
+                                        </span>
+                                        <span className="text-green-500">
+                                            Free
+                                        </span>
+                                        </p>
+                                    </div>
+    
+                                    <h2 className="flex justify-between text-lg text-gray-600 font-bold">
+                                        <span>
+                                            Total Amount
+                                        </span>
+                                        <span>
+                                        {
+                                            convertNumberToINR( cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) )
+                                        }
+                                        </span>
+                                    </h2>
+    
+                                    <p className="text-green-500 font-medium">
+                                        You will save <span className="italic tracking-wider">
+                                        {
+                                            convertNumberToINR( 
+                                                cartItems?.reduce((sum, item) => sum + (item?.product?.price * item?.quantity), 0) - cartItems.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0)
+                                            )
+                                        }
+                                        </span> on this order
+                                    </p>
+                                </div>
+    
+                                <div className="bg-slate-100 rounded-md p-2 mt-4">
+                                    <p className="flex items-center gap-2 text-gray-800">
+                                        <span className="text-4xl">
+                                            <MdGppGood />
+                                        </span>
+                                        <span className="font-medium">
+                                            Safe and Secure Payments.Easy returns. 100% Authentic products.
+                                        </span>
+                                    </p>
+                                </div>
 
-                        <p className="text-gray-500">Add items to it now</p>
-
-                        <button
-                        onClick={() => navigate("/")}
-                        className="text-lg font-bold px-10 py-2 rounded-md text-white bg-blue-600 hover:bg-opacity-90 flex items-center gap-2">
-                            <FaCartArrowDown className="text-2xl font-bold" />
-                            Shop Now
-                        </button>
-                    </div>
+                                <button
+                                className="text-lg font-medium text-white bg-orange-500 hover:bg-opacity-90 px-4 py-2 mt-6 rounded-md uppercase flex items-center gap-2">
+                                    <SiTicktick />
+                                    Place Order
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="h-[80vh] bg-white rounded-md flex flex-col items-center justify-center gap-6 select-none">
+                            <img
+                            src={cartImage}
+                            className="w-64"
+                            alt="Cart Image" />
+    
+                            <h2 className="text-2xl hover:text-orange-500">Your Cart is Empty !</h2>
+    
+                            <p className="text-gray-500">Add items to it now</p>
+    
+                            <button
+                            onClick={() => navigate("/")}
+                            className="text-lg font-bold px-10 py-2 rounded-md text-white bg-blue-600 hover:bg-opacity-90 flex items-center gap-2">
+                                <FaCartArrowDown className="text-2xl font-bold" />
+                                Shop Now
+                            </button>
+                        </div>
+                    )
                 )
             }
             </>

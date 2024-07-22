@@ -12,6 +12,7 @@ import {
     UPDATE_PRODUCT_QUANTITY_REQUEST,
     UPDATE_PRODUCT_QUANTITY_SUCCESS,
     UPDATE_PRODUCT_QUANTITY_FAIL,
+    LOGOUT_USER_EMPTY_CART,
 } from "../constants/cart.constants.js";
 
 const initialCartState = {
@@ -97,6 +98,13 @@ export const cartReducer = (state = initialCartState, { type, payload }) => {
                 loading: false,
                 success: false,
                 error: payload,
+            };
+        case LOGOUT_USER_EMPTY_CART:
+            return {
+                cartItems: [],
+                loading: false,
+                success: true,
+                error: null,
             };
         case CLEAR_CART:
             return {

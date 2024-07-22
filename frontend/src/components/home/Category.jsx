@@ -20,7 +20,7 @@ function Category() {
                 loadingElements.map(() => (<div key={uuidv4()} className="w-16 h-16 md:w-20 md:h-20 bg-slate-100 rounded-full flex items-center justify-center overflow-hidden p-1 animate-pulse" />))
             ) : (
                 category.map((category, index) => (category.isActive && (
-                    <Link to={`/product-category/${category?.name}`} key={uuidv4()} className="rounded-full flex-col items-center justify-center font-semibold hover:text-blue-600">
+                    <Link to={`/category/${category?.name}/${category?._id}`} key={uuidv4()} className="rounded-full flex-col items-center justify-center font-semibold hover:text-blue-600">
                         <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center overflow-hidden">
                             <img 
                             src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (category?.categoryImage || 'productImages/sampleImage.jpg')} 

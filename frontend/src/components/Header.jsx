@@ -13,6 +13,7 @@ import {
 import {
     logoutUser,
 } from "../actions/user.actions.js";
+import { LOGOUT_USER_EMPTY_CART } from '../constants/cart.constants.js';
 
 function Header() {
     const navigate = useNavigate();
@@ -34,8 +35,18 @@ function Header() {
 
     if (logoutUserSuccess) {
         toast.success("User logged out successfully");
+        dispatch({ type: LOGOUT_USER_EMPTY_CART });
         setLogoutUserSuccess(false);
     }
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${searchQuery.trim()}`);
+        }
+    };
+
 
     return (
     <>
@@ -47,16 +58,20 @@ function Header() {
                 </Link>
             </div>
 
-            <div className="hidden lg:flex items-center w-full max-w-sm focus-within:shadow-md border rounded-full">
+            <form className="hidden lg:flex items-center w-full max-w-sm focus-within:shadow-md border rounded-full">
                 <input 
-                type="text" 
+                type="search" 
                 placeholder='Search for products and many more...' 
-                className="w-full text-lg pl-4 py-1 outline-none rounded-l-full "
+                className="w-full text-lg pl-4 py-1 outline-none rounded-l-full"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}                
                 />
-                <button className='px-4 py-2 text-white bg-orange-500 hover:bg-orange-600 rounded-r-full outline-none'>
+                <button 
+                onClick={handleSearch}
+                className='px-4 py-2 text-white bg-orange-500 hover:bg-orange-600 rounded-r-full outline-none'>
                     <IoIosSearch size={24} />
                 </button>
-            </div>
+            </form>
 
             <div className="flex gap-4">
                 <button 

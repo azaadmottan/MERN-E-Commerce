@@ -26,6 +26,7 @@ import {
     Cart,
     CategoryPage,
     ProductPage,
+    SearchPage,
 } from "../pages/home/index.jsx"
 
 
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
                 )
             },
             {
-                path: "/product-category/:category",
+                path: "/category/:category/:id",
                 element: (
                     <CategoryPage />
                 )
@@ -62,6 +63,12 @@ const router = createBrowserRouter([
                 path: "/product/:productSlug/:productId",
                 element: (
                     <ProductPage />
+                )
+            },
+            {
+                path: "/search",
+                element: (
+                    <SearchPage />
                 )
             },
             {

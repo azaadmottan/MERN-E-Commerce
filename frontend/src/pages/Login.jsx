@@ -7,6 +7,7 @@ import {
     FaEyeSlash
 } from '../components/Icons.jsx';
 import { clearErrors, loginUser } from '../actions/user.actions.js';
+import { loadUserCartProducts } from "../actions/cart.actions.js";
 
 function Login() {
     const navigate = useNavigate();
@@ -48,12 +49,12 @@ function Login() {
                 toast.success("User logged in successfully");
                 setUsername("");
                 setPassword("");
+                dispatch(loadUserCartProducts());
             }
             if (error) {
                 toast.error(error);
                 dispatch(clearErrors());
             }
-            console.log("requested user")
         }
     }, [error, isAuthenticated]);
 
