@@ -38,6 +38,24 @@ export const categoryProducts = async (categoryKeyword) => {
     }
 }
 
+// get category with its products
+export const getCategory = async (id) => {
+    try {
+        const { data } = await axios.get(`/api/category/get-category/${id}`);
+        if (data?.data?.category) {
+            return {
+                category: data?.data?.category,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
 // get product reviews
 export const getProductReview = async (id) => {
     try {
@@ -56,6 +74,7 @@ export const getProductReview = async (id) => {
         };
     }
 }
+
 // create product review
 export const createProductReview = async (id, reviewData) => {
     try {
@@ -67,6 +86,25 @@ export const createProductReview = async (id, reviewData) => {
         if (data?.data?.createdAt) {
             return {
                 message: data?.message,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
+// search for products
+export const searchProducts = async (query) => {
+    try {
+        const { data } = await axios.get(`/api/search/search-products?q=${query}`);
+
+        if (data?.data?.products) {
+            return {
+                products: data?.data?.products,
                 success: true,
             };
         }
