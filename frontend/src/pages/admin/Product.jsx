@@ -15,12 +15,15 @@ import {
 } from "../../components/index.jsx";
 import {
     addNewProduct,
+    loadProducts,
 } from "../../actions/product.actions.js";
+import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
 function Product() {
     const dispatch = useDispatch();
     const { category } = useSelector((state) => state.category);
-    const { products, loading: productLoading, error } = useSelector((state) => state.products);
+    const { products, loading: productLoading, pageNo, totalPages, error } = useSelector((state) => state.products);
 
     const [showAddProductModal, setShowAddProductModal] = useState(false);
     const [name, setName] = useState("");
@@ -118,6 +121,9 @@ function Product() {
         }
     }, [products, dispatch, productLoading]);
 
+    const handlePageChange = (page) => {
+        dispatch(loadProducts(page));
+    }
 
     return (
     <>
@@ -155,6 +161,34 @@ function Product() {
                     ))
                 )
             }
+        </div>
+
+        <div className="bg-slate-300 p-2 mt-4 flex items-center justify-center gap-2 rounded-md">
+            <button
+                disabled={pageNo === 1}
+                onClick={() => handlePageChange(pageNo - 1)}
+                className={`${pageNo === 1 ? "bg-gray-500" : "bg-gray-800 hover:bg-gray-950"} text-white p-2 rounded-md flex items-center text-2xl`}
+            >
+                <MdOutlineKeyboardDoubleArrowLeft />
+            </button>
+            
+            {[...Array(totalPages).keys()].map((page) => (
+                <button
+                    key={page + 1}
+                    className={`${pageNo === page + 1 ? 'bg-blue-600 text-white' : 'bg-white text-black hover:text-white hover:bg-blue-600'} rounded-md px-4 py-2 font-bold transition-all ease-in-out duration-75 delay-75`}
+                    onClick={() => handlePageChange(page + 1)}
+                >
+                    {page + 1}
+                </button>
+            ))}
+
+            <button
+                disabled={pageNo === totalPages}
+                onClick={() => handlePageChange(pageNo + 1)}
+                className={`${pageNo === totalPages ? "bg-gray-500" : "bg-gray-800 hover:bg-gray-950"} text-white p-2 rounded-md flex items-center text-2xl`}
+            >
+                <MdOutlineKeyboardDoubleArrowRight />
+            </button>
         </div>
 
 

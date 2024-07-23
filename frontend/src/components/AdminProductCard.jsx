@@ -23,7 +23,9 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
     };
 
     const [showEditMenu, setShowEditMenu] = useState({});
-    const toggleEditMenu = (id) => {
+    const toggleEditMenu = (e, id) => {
+        e.stopPropagation();
+        e.preventDefault();
         setShowEditMenu(prevState => ({
             ...prevState,
             [id]: !prevState[id]
@@ -37,7 +39,7 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
     className="w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
         <span 
         className="text-lg cursor-pointer p-2 bg-slate-50 hover:bg-slate-200 rounded-full absolute top-0 right-0 hidden group-hover:block"
-        onClick={() => toggleEditMenu(_id)}
+        onClick={(e) => toggleEditMenu(e, _id)}
         >
             <BsThreeDotsVertical className="relative" />
             {

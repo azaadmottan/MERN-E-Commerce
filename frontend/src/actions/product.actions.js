@@ -143,15 +143,15 @@ export const deleteCategory = (_id) => async (dispatch) => {
 
 // product actions
 // load products
-export const loadProducts = () => async (dispatch) => {
+export const loadProducts = (pageNumber = 1) => async (dispatch) => {
     try {
         dispatch({ type: LOAD_PRODUCT_REQUEST });
 
-        const { data } = await axios.get("/api/products/all-products");
+        const { data } = await axios.get(`/api/products/all-products?pageNumber=${pageNumber}`);
 
         dispatch({
             type: LOAD_PRODUCT_SUCCESS,
-            payload: data?.data?.products,
+            payload: data?.data,
         });
     } catch (error) {
         dispatch({
@@ -180,7 +180,6 @@ export const addNewProduct = (productData) => async (dispatch) => {
 
         dispatch({
             type: ADD_NEW_PRODUCT_SUCCESS,
-            payload: data?.data?.newProduct,
         });
 
         dispatch(loadProducts());

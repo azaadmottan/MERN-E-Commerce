@@ -87,6 +87,8 @@ export const categoryReducer = (state = initialCategoryState, { type, payload })
 
 const initialProductState = {
     products: [],
+    pageNo: 1,
+    totalPages: null,
     loading: true,
     error: null,
 };
@@ -112,7 +114,9 @@ export const productReducer = (state = initialProductState, { type, payload }) =
             return {
                 ...state,
                 loading: false,
-                products: payload,
+                products: payload?.products,
+                pageNo: payload?.page,
+                totalPages: payload?.pages,
                 success: true,
             };
         case LOAD_PRODUCT_FAIL:
