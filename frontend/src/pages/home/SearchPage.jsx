@@ -26,7 +26,7 @@ function SearchPage() {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const getUniqueBrands = (products) => {
-        const brands = products.map(product => product.brand);
+        const brands = products.map(product => product.brand.toLowerCase());
         return [...new Set(brands)];
     };
 
@@ -55,7 +55,7 @@ function SearchPage() {
 
         // Filter by selected brands
         if (selectedBrands.length > 0) {
-            sortedProducts = sortedProducts.filter(product => selectedBrands.includes(product.brand));
+            sortedProducts = sortedProducts.filter(product => selectedBrands.includes(product.brand.toLowerCase()));
         }
 
         // Sort products
@@ -181,7 +181,7 @@ function SearchPage() {
                                 name="brand"
                                 className="hover:text-orange-500"
                                 id={brand}
-                                value={brand}
+                                value={brand.toLowerCase()}
                                 onChange={handleBrandChange} />
                                 <label htmlFor={brand} className="cursor-pointer uppercase text-gray-500 hover:text-gray-900">
                                     {brand}
