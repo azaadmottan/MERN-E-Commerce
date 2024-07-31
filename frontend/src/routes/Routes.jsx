@@ -8,6 +8,8 @@ import {
     SignUp,
     UserDashboard,
     AdminDashboard,
+    Payment,
+    PaymentSuccess,
 } from "../pages/index.jsx";
 import {
     Profile,
@@ -15,13 +17,19 @@ import {
     Comment,
     Coupon,
     Order,
-    Payment,
     Product,
     Review,
     Setting,
     User,
     EditProduct,
 } from "../pages/admin/index.jsx";
+import {
+    UserCoupons,
+    ManageAddress,
+    UserOrder,
+    UserSettings,
+    UserProfile,
+} from "../pages/user/index.jsx";
 import {
     Cart,
     CategoryPage,
@@ -78,12 +86,47 @@ const router = createBrowserRouter([
                 )
             },
             {
+                path: "/payment/shop-pay/:orderId",
+                element: (
+                    <Payment />
+                )
+            },
+            {
+                path: "/payment/success/t/:orderId/:status",
+                element: (
+                    <PaymentSuccess />
+                )
+            },
+            {
                 path: "/user/dashboard",
                 element: (
                     <ProtectedRoute>
                         <UserDashboard />
                     </ProtectedRoute>
-                )
+                ),
+                children: [
+                    {
+                        path: "/user/dashboard/profile",
+                        element: <UserProfile />
+                    },
+                    {
+                        path: "/user/dashboard/manage-address",
+                        element: <ManageAddress />
+                    },
+                    {
+                        path: "/user/dashboard/order",
+                        element: <UserOrder />
+                    },
+                    {
+                        path: "/user/dashboard/my-coupon",
+                        element: <UserCoupons />
+                    },
+                    {
+                        path: "/user/dashboard/setting",
+                        element: <UserSettings />
+                    }
+
+                ]
             },
             {
                 path: "/admin/dashboard",

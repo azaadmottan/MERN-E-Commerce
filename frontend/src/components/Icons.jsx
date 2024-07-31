@@ -34,6 +34,10 @@ import { FaCartShopping } from "react-icons/fa6";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdVerified } from "react-icons/md";
 import { ImSpinner9 } from "react-icons/im";
+import { FaLocationCrosshairs } from "react-icons/fa6";
+import { RiCheckboxMultipleFill } from "react-icons/ri";
+import { BsFillBagCheckFill } from "react-icons/bs";
+import { BsBagXFill } from "react-icons/bs";
 
 export {
     BsCart3,
@@ -72,5 +76,9 @@ export {
     CgDetailsMore,
     MdVerified,
     ImSpinner9,
+    FaLocationCrosshairs,
+    RiCheckboxMultipleFill,
+    BsFillBagCheckFill,
+    BsBagXFill,
 
 }

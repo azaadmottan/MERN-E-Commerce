@@ -115,3 +115,81 @@ export const searchProducts = async (query) => {
         };
     }
 }
+
+// place order
+export const placeOrder = async (orderData) => {
+    try {
+        const { data } = await axios.post("/api/order/create-order", orderData);
+
+        if (data?.data?.order) {
+            return {
+                message: data?.message,
+                success: true,
+                order: data?.data?.order,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get user orders
+export const getUserOrders = async () => {
+    try {
+        const { data } = await axios.get(`/api/order/get-user-orders`);
+
+        if (data?.data?.orders) {
+            return {
+                orders: data?.data?.orders,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get single orders
+export const getSingleOrder = async (orderId) => {
+    try {
+        const { data } = await axios.get(`/api/order/get-single-order/${orderId}`);
+
+        if (data?.data?.order) {
+            return {
+                order: data?.data?.order,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// make order payment
+export const makeOrderPayment = async (paymentData) => {
+    try {
+        const { data } = await axios.post("/api/payment/process-payment", paymentData);
+
+        if (data?.data?.newPayment) {
+            return {
+                message: data?.message,
+                success: true,
+                payment: data?.data?.newPayment,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}

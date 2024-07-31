@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 import cartImage from "../../assets/cart-image.png";
 import { CiCircleMinus } from "react-icons/ci";
 import { CiCirclePlus } from "react-icons/ci";
@@ -19,6 +20,7 @@ import convertNumberToINR from "../../handler/NumberToINR.js";
 import {
     Modal,
 } from "../../components/index.jsx"
+import { placeOrder } from '../../actions/requestProduct.actions.js';
 
 
 function Cart() {
@@ -26,6 +28,7 @@ function Cart() {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { cartItems, loading, success, error } = useSelector((state) => state.cart);
+    const { address } = useSelector((state) => state.address);
 
     // useEffect(() => {
     //     dispatch(loadUserCartProducts());
@@ -93,6 +96,39 @@ function Cart() {
         dispatch(updateProductQuantity(productId, newQuantity));
         toast.success("Product quantity decreased to " + newQuantity);
     };
+
+    const [showPlaceOrderModal, setShowPlaceOrderModal] = useState(false);
+    const [addressId, setAddressId] = useState(null);
+
+    const handleAddressSelection = (id) => {
+        setAddressId(id);
+    }
+
+    const confirmOrder = async (e) => {
+        if (!addressId) {
+            toast.error("Please select delivery address !");
+            return;
+        }
+
+        const orderData = {
+            shippingAddress: addressId,
+            orderItems: cartItems,
+        }
+
+        const response = await placeOrder(orderData);
+
+        if (response?.success) {
+            toast.success("Order placed successfully");
+            setShowPlaceOrderModal(false);
+            setAddressId(null);
+            // dispatch(loadUserCartProducts());
+        }
+
+        if (response?.error) {
+            toast.error("Something went wrong while placing order");
+            return;
+        }
+    }
 
     return (
     <>
@@ -210,7 +246,7 @@ function Cart() {
                                                             item?.product?.name
                                                         }
                                                     </h2>
-                                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider">
+                                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
                                                         {
                                                             item?.product?.brand
                                                         }
@@ -240,7 +276,9 @@ function Cart() {
                                                             <button
                                                             onClick={() => handleDecrease(item?.product?._id)}
                                                             className="text-3xl font-medium bg-white rounded-full">
-                                                                <CiCircleMinus />
+                                                                <CiCircleMinus
+                                                                className="hover:text-blue-600"
+                                                                title="Decrease Product Quantity"/>
                                                             </button>
                                                             <span className="text-lg font-semibold border px-3 rounded-md tracking-wider bg-white">
                                                                 {
@@ -250,7 +288,8 @@ function Cart() {
                                                             <button
                                                             onClick={() => handleIncrease(item?.product?._id)}
                                                             className="text-3xl font-bold bg-white rounded-full">
-                                                                <CiCirclePlus className="font-bold" />
+                                                                <CiCirclePlus className="hover:text-blue-500"
+                                                                title="Increase Product Quantity" />
                                                             </button>
                                                         </div>
                                                         <div>
@@ -259,7 +298,8 @@ function Cart() {
                                                                 setShowRemoveItemModal(true),
                                                                 setItemId(item?.product?._id)
                                                             )}
-                                                            className="uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500">
+                                                            className="uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500"
+                                                            title="Remove Product From Cart">
                                                                 Remove
                                                             </button>
                                                         </div>
@@ -309,14 +349,24 @@ function Cart() {
                                         <span>
                                             Delivery Charges
                                         </span>
-                                        <p className="flex gap-1">
-                                        <span className="line-through">
-                                            ₹120 
-                                        </span>
-                                        <span className="text-green-500">
-                                            Free
-                                        </span>
-                                        </p>
+                                        {
+                                            cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) > 500 ? (
+                                                <p className="flex gap-1">
+                                                <span className="line-through">
+                                                    ₹80
+                                                </span>
+                                                <span className="text-green-500">
+                                                    Free
+                                                </span>
+                                                </p>
+                                            ) : (
+                                                <p className="flex gap-1">
+                                                <span>
+                                                    ₹80 
+                                                </span>
+                                                </p>
+                                            )
+                                        }
                                     </div>
     
                                     <h2 className="flex justify-between text-lg text-gray-600 font-bold">
@@ -353,6 +403,7 @@ function Cart() {
                                 </div>
 
                                 <button
+                                onClick={() => setShowPlaceOrderModal(true)}
                                 className="text-lg font-medium text-white bg-orange-500 hover:bg-opacity-90 px-4 py-2 mt-6 rounded-md uppercase flex items-center gap-2">
                                     <SiTicktick />
                                     Place Order
@@ -396,6 +447,66 @@ function Cart() {
             className="text-white p-2 bg-blue-600 hover:bg-blue-700 rounded-md"
             >
                 Confirm Remove
+            </button>
+        </div>
+    </Modal>
+
+    
+    {/* place order modal */}
+    <Modal isOpen={showPlaceOrderModal} title="Place Order Confirmation" onClose={() => setShowPlaceOrderModal(false)}>
+        <div className="grid gap-2">
+            <p className="my-2 text-lg">Are you sure you want place this order ?</p>
+
+            <p className="font-bold">
+                Total Amount: <span className="text-green-600 tracking-wider">
+                    {convertNumberToINR( cartItems?.reduce((sum, item) => sum + (item?.product?.sellingPrice * item?.quantity), 0) )}
+                </span>
+            </p>
+
+            <p className="font-bold">
+                With total <span className="text-blue-600">"{cartItems?.length}"</span> items.
+            </p>
+
+            <div>
+                <span className="font-bold text-gray-800">
+                    Choose Delivery Address:
+                </span>
+                <div className="mt-2">
+                {
+                    address?.map((item, index) => (
+                        <p
+                        key={uuidv4()}
+                        onClick={() => handleAddressSelection(item?._id)}
+                        className="flex items-center gap-2">
+                            <input type="radio"
+                            id={`address-${index}`} 
+                            name="address"
+                            checked={addressId === item?._id}
+                            onChange={() => handleAddressSelection(item?._id)} 
+                            />
+                            <label htmlFor={index} className="cursor-pointer text-gray-600 font-bold hover:text-gray-800" >
+                                <span className="">
+                                    {item?.country} ({item?.state},
+                                    {item?.city},
+                                    {item?.postalCode}),
+                                    {item?.address}.
+                                </span>
+                                <span className="inline-block">
+                                    {item?.phone},
+                                </span>
+                            </label>
+
+                        </p>
+                    ))
+                }
+                </div>
+            </div>
+
+            <button
+            onClick={() => confirmOrder()}
+            className="text-white p-2 mt-4 bg-blue-600 hover:bg-blue-700 rounded-md"
+            >
+                Confirm Order
             </button>
         </div>
     </Modal>
