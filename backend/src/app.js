@@ -35,6 +35,8 @@ import addressRouter from './routes/address.routes.js';
 import categoryRouter from './routes/category.routes.js';
 import cartRouter from './routes/cart.routes.js';
 import searchRouter from "./routes/search.routes.js";
+import orderRouter from "./routes/order.routes.js";
+import paymentRouter from "./routes/payment.routes.js";
 
 // declare routes
 app.use("/api/v1/users", userRouter);
@@ -45,6 +47,8 @@ app.use("/api/v1/address", addressRouter);
 app.use("/api/v1/category", categoryRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/search", searchRouter);
+app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/payment", paymentRouter);
 
 
 // Middleware to handle errors & responses

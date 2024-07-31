@@ -7,15 +7,13 @@ const orderSchema = new Schema({
         required: true
     },
     orderItems: [{
-        name: { type: String, required: true },
-        qty: { type: Number, required: true },
-        image: { type: String, required: true },
-        price: { type: Number, required: true },
         product: {
             type: Schema.Types.ObjectId,
             ref: 'Product',
             required: true,
         },
+        qty: { type: Number, required: true },
+        price: { type: Number, required: true },
     }],
     shippingAddress: {
         type: Schema.Types.ObjectId,
@@ -25,17 +23,12 @@ const orderSchema = new Schema({
     paymentInfo: {
         type: Schema.Types.ObjectId,
         ref: 'Payment',
-        required: true,
-    },
-    taxPrice: { 
-        type: Number, 
-        required: true, 
-        default: 0.0 
+        // required: true,
     },
     shippingPrice: { 
         type: Number, 
         required: true, 
-        default: 0.0 
+        default: 20.00,
     },
     totalPrice: { 
         type: Number, 
@@ -44,7 +37,6 @@ const orderSchema = new Schema({
     },
     isPaid: { 
         type: Boolean, 
-        required: true, 
         default: false 
     },
     paidAt: { 
@@ -52,7 +44,6 @@ const orderSchema = new Schema({
     },
     isDelivered: { 
         type: Boolean, 
-        required: true, 
         default: false,
     },
     deliveredAt: { 
@@ -60,7 +51,6 @@ const orderSchema = new Schema({
     },
     status: {
         type: String,
-        required: true,
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Canceled'],
         default: 'Pending'
     }
