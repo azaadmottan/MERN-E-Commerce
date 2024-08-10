@@ -19,9 +19,13 @@ import {
     Order,
     Product,
     Review,
+    UserPayment,
     Setting,
     User,
     EditProduct,
+    OrderDetail,
+    PaymentInfo,
+    AdminWallet,
 } from "../pages/admin/index.jsx";
 import {
     UserCoupons,
@@ -29,6 +33,7 @@ import {
     UserOrder,
     UserSettings,
     UserProfile,
+    UserWallet,
 } from "../pages/user/index.jsx";
 import {
     Cart,
@@ -122,6 +127,10 @@ const router = createBrowserRouter([
                         element: <UserCoupons />
                     },
                     {
+                        path: "/user/dashboard/wallet",
+                        element: <UserWallet />
+                    },
+                    {
                         path: "/user/dashboard/setting",
                         element: <UserSettings />
                     }
@@ -154,11 +163,19 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/admin/dashboard/order",
-                        element: <Order />
+                        element: <Order />,
                     },
                     {
-                        path: "/admin/dashboard/payment",
-                        element: <Payment />
+                        path: "/admin/dashboard/order/:orderId",
+                        element: <OrderDetail />
+                    },
+                    {
+                        path: "/admin/dashboard/user-payments",
+                        element: <UserPayment />
+                    },
+                    {
+                        path: "/admin/dashboard/user-payment/:paymentId",
+                        element: <PaymentInfo />
                     },
                     {
                         path: "/admin/dashboard/product",
@@ -171,6 +188,10 @@ const router = createBrowserRouter([
                     {
                         path: "/admin/dashboard/review",
                         element: <Review />
+                    },
+                    {
+                        path: "/admin/dashboard/wallet",
+                        element: <AdminWallet />
                     },
                     {
                         path: "/admin/dashboard/setting",
