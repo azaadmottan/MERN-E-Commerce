@@ -5,6 +5,7 @@ import { ApiError } from '../utils/ApiError.js';
 import { ApiResponse } from '../utils/ApiResponse.js';
 import { Order } from '../models/order.model.js';
 import { Payment } from '../models/payment.model.js';
+import { Wallet } from "../models/wallet.model.js";
 
 // process order payment
 const processOrderPayment = asyncHandler(async (req, res) => {
@@ -69,6 +70,57 @@ const processOrderPayment = asyncHandler(async (req, res) => {
     );
 });
 
+// get all payments
+const getAllPayments = asyncHandler(async (req, res) => {
+    const payments = await Payment.find();
+    // const payments = await Payment.find().populate('user order');
+
+    if (!payments) {
+        throw new ApiError(404, 'No payments found.');
+    }
+
+    res.status(200).json(
+        new ApiResponse(
+            200,
+            { payments },
+            "Payments fetched successfully.",
+        ),
+    );
+});
+
+// get single payment
+const getSinglePaymentById = asyncHandler(async (req, res) => {
+    const paymentId = req.params?.id;
+
+    if (!isValidObjectId(paymentId)) {
+        throw new ApiError(400, "Invalid payment ID.");
+    }
+
+    const payment = await Payment.findById(paymentId).populate('user order');
+
+    if (!payment) {
+        throw new ApiError(404, "Payment not found.");
+    }
+
+    let userUpiDetails = null;
+    if (payment?.user?._id) {
+        userUpiDetails = await Wallet.findOne({ user: payment?.user?._id }).select("-upiPassword -balance -transactions");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                payment,
+                userUpiDetails,
+            },
+            "Payment information fetched successfully.",
+        )
+    );
+});
+
 export {
     processOrderPayment,
+    getAllPayments,
+    getSinglePaymentById,
 }

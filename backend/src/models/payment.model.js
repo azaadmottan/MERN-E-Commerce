@@ -48,6 +48,7 @@ const paymentSchema = new Schema({
     },
     status: {
         type: String,
+        enum: ['Pending', 'Completed', 'Cancelled', 'Refunded'],
     },
     email: {
         type: String,
