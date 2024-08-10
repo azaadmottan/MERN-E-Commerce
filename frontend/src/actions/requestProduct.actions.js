@@ -174,6 +174,65 @@ export const getSingleOrder = async (orderId) => {
     }
 }
 
+// get order information
+export const getOrderInfo = async (orderId) => {
+    try {
+        const { data } = await axios.get(`/api/order/get-order-info/${orderId}`);
+
+        if (data?.data?.order) {
+            return {
+                order: data?.data?.order,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get all orders
+export const getAllOrders = async () => {
+    try {
+        const { data } = await axios.get(`/api/order/get-all-orders`);
+
+        if (data?.data?.orders) {
+            return {
+                orders: data?.data?.orders,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// update order status
+export const updateOrderStatus = async (orderId, status, deliveredAt="") => {
+    try {
+        const { data } = await axios.post(`/api/order/update-order-status/${orderId}`,
+            { status, deliveredAt }
+        );
+
+        if (data?.data?.order) {
+            return {
+                order: data?.data?.order,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
 // make order payment
 export const makeOrderPayment = async (paymentData) => {
     try {
@@ -184,6 +243,104 @@ export const makeOrderPayment = async (paymentData) => {
                 message: data?.message,
                 success: true,
                 payment: data?.data?.newPayment,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get all payments
+export const getAllPayments = async () => {
+    try {
+        const { data } = await axios.post(`/api/payment/get-all-payments`);
+
+        if (data?.data?.payments) {
+            return {
+                payments: data?.data?.payments,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get single payment
+export const getSinglePayment = async (paymentId) => {
+    try {
+        const { data } = await axios.post(`/api/payment/get-single-payment/${paymentId}`);
+        if (data?.data?.payment) {
+            return {
+                payment: data?.data?.payment,
+                upiDetails: data?.data?.userUpiDetails,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// create wallet
+export const createWallet = async (upiId, upiPassword) => {
+    try {
+        const { data } = await axios.post(`/api/wallet/create-wallet`,
+            { upiId, upiPassword }
+        );
+
+        if (data?.data?.userWallet) {
+            return {
+                wallet: data?.data?.userWallet,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get user wallet
+export const getUserWallet = async () => {
+    try {
+        const { data } = await axios.get(`/api/wallet/get-wallet`);
+        if (data?.data?.wallet) {
+            return {
+                wallet: data?.data?.wallet,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// create transaction
+export const createTransaction = async (senderUpiId, receiverUpiId, amount, description, upiPassword, paymentStatus) => {
+    try {
+        const { data } = await axios.post(`/api/wallet/create-transaction`,
+            { senderUpiId, receiverUpiId, amount, description, upiPassword, paymentStatus }
+        );
+
+        if (data?.data?.newTransaction) {
+            return {
+                transaction: data?.data?.newTransaction,
+                success: true,
             };
         }
     } catch (error) {
