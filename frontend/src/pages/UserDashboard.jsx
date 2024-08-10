@@ -16,6 +16,7 @@ import {
     BsCurrencyRupee,
     FaRegComments,
     FaLocationCrosshairs,
+    IoWalletOutline,
 } from "../components/Icons.jsx";
 import {
     BackButton,
@@ -86,9 +87,15 @@ function UserDashboard() {
                 </Link>
                 <Link
                 to={'/user/dashboard/my-coupon'}
-                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/coupon' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/user/dashboard/my-coupon' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
                 >
                 <MdOutlineLocalOffer /> My Coupons
+                </Link>
+                <Link
+                to={'/user/dashboard/wallet'}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/user/dashboard/wallet' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                >
+                <IoWalletOutline /> Wallet
                 </Link>
                 <Link
                 to={'/user/dashboard/setting'}

@@ -15,6 +15,7 @@ import {
     MdOutlineSettings,
     BsCurrencyRupee,
     FaRegComments,
+    IoWalletOutline,
 } from "../components/Icons.jsx";
 import {
     BackButton,
@@ -107,22 +108,28 @@ function AdminDashboard() {
                 <MdOutlineReviews /> Reviews
                 </Link>
                 <Link
-                to={'/admin/dashboard/setting'}
-                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/setting' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                to={'/admin/dashboard/user-payments'}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/user-payments' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
                 >
-                <MdOutlineSettings /> Settings
-                </Link>
-                <Link
-                to={'/admin/dashboard/payment'}
-                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/payment' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
-                >
-                <BsCurrencyRupee /> Payment
+                <BsCurrencyRupee /> Payments
                 </Link>
                 <Link
                 to={'/admin/dashboard/comment'}
                 className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/comment' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
                 >
                 <FaRegComments /> Comments
+                </Link>
+                <Link
+                to={'/admin/dashboard/wallet'}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/wallet' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                >
+                <IoWalletOutline /> Wallet
+                </Link>
+                <Link
+                to={'/admin/dashboard/setting'}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/setting' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                >
+                <MdOutlineSettings /> Settings
                 </Link>
             </nav>
         </aside>
