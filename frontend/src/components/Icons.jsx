@@ -38,6 +38,7 @@ import { FaLocationCrosshairs } from "react-icons/fa6";
 import { RiCheckboxMultipleFill } from "react-icons/ri";
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { BsBagXFill } from "react-icons/bs";
+import { IoWalletOutline } from "react-icons/io5";
 
 export {
     BsCart3,
@@ -80,5 +81,6 @@ export {
     RiCheckboxMultipleFill,
     BsFillBagCheckFill,
     BsBagXFill,
+    IoWalletOutline,
 
 }

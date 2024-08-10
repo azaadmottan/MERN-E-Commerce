@@ -31,6 +31,7 @@ function Header() {
         if (error) {
             toast.error(error);
         }
+        setShowMenu(false);
     }
 
     if (logoutUserSuccess) {
@@ -119,14 +120,14 @@ function Header() {
                                         {
                                             user?.isAdmin ? (
                                                 <button className="w-full px-4 py-2 rounded-md hover:bg-slate-100 cursor-pointer flex items-center gap-2"
-                                                onClick={() => navigate("/admin/dashboard/profile")}
+                                                onClick={() => (navigate("/admin/dashboard/profile"), setShowMenu(false))}
                                                 >
                                                     <MdDashboard />
                                                     Admin Dashboard
                                                 </button>
                                             ) : (
                                                 <button className="w-full px-4 py-2 rounded-md hover:bg-slate-100 cursor-pointer flex items-center gap-2"
-                                                onClick={() => navigate("/user/dashboard/profile")}
+                                                onClick={() => (navigate("/user/dashboard/profile"), setShowMenu(false))}
                                                 >
                                                     <MdDashboard />
                                                     User Dashboard
