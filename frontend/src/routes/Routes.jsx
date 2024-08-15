@@ -12,6 +12,7 @@ import {
     PaymentSuccess,
 } from "../pages/index.jsx";
 import {
+    AdminHome,
     Profile,
     Category,
     Comment,
@@ -26,6 +27,7 @@ import {
     OrderDetail,
     PaymentInfo,
     AdminWallet,
+    UserInfo,
 } from "../pages/admin/index.jsx";
 import {
     UserCoupons,
@@ -146,6 +148,10 @@ const router = createBrowserRouter([
                 ),
                 children: [
                     {
+                        path: "/admin/dashboard/home",
+                        element: <AdminHome />
+                    },
+                    {
                         path: "/admin/dashboard/profile",
                         element: <Profile />
                     },
@@ -200,7 +206,12 @@ const router = createBrowserRouter([
                     {
                         path: "/admin/dashboard/user",
                         element: <User />
-                    }
+                    },
+                    {
+                        path: "/admin/dashboard/user/:id",
+                        element: <UserInfo />
+                    },
+
                 ]
             },
             
