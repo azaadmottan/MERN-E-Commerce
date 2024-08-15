@@ -123,6 +123,23 @@ const getAllProducts = asyncHandler(async (req, res) => {
     );
 });
 
+// get admin products
+const getAdminProducts = asyncHandler(async (req, res) => {
+    const products = await Product.find();
+
+    if (!products) {
+        throw new ApiError(500, "Failed to fetch products.");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            { products },
+            "All products fetched successfully.",
+        )
+    );
+});
+
 // get single product by id
 const getProductById = asyncHandler(async(req, res) => {
     const productId = req.params.id;
@@ -391,6 +408,7 @@ export {
     createProduct,
     additionalProductInfo,
     getAllProducts,
+    getAdminProducts,
     getProductById,
     getCategoryWiseProducts,
     updateProductInfo,
