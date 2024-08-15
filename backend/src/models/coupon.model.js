@@ -9,11 +9,16 @@ const couponSchema = Schema({
     discountType: {
         type: String,
         required: true,
-        enum: ['percentage', 'amount'], // Can be 'percentage' or 'amount'
+        enum: ['Percentage', 'Amount'], // Can be 'percentage' or 'amount'
     },
     discountValue: {
         type: Number,
         required: true,
+    },
+    noOfItems: {
+        type: Number,
+        required: true,
+        default: 0,
     },
     expiryDate: {
         type: Date,
