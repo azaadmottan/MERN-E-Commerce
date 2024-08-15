@@ -41,7 +41,7 @@ const processOrderPayment = asyncHandler(async (req, res) => {
         paymentId,
         amount,
         currency,
-        status: 'Succeeded',
+        status: 'Completed',
         cardNumber,
         cardHolderName,
         expiryDate,
