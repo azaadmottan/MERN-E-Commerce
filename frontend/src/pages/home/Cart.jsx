@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import cartImage from "../../assets/cart-image.png";
@@ -24,7 +24,9 @@ import { placeOrder } from '../../actions/requestProduct.actions.js';
 
 
 function Cart() {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [couponDetails] = useSearchParams();
+
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { cartItems, loading, success, error } = useSelector((state) => state.cart);
@@ -110,9 +112,17 @@ function Cart() {
             return;
         }
 
+        if (couponDetails?.size > 0) {
+            if (cartItems?.length < couponDetails?.get("items")) {
+                toast.error("Coupon requires at least " + couponDetails?.get("items") + " items to be applied.");
+                return;
+            }
+        }
+
         const orderData = {
             shippingAddress: addressId,
             orderItems: cartItems,
+            code: couponDetails.get("coupon"),
         }
 
         const response = await placeOrder(orderData);
@@ -121,7 +131,7 @@ function Cart() {
             toast.success("Order placed successfully");
             setShowPlaceOrderModal(false);
             setAddressId(null);
-            // dispatch(loadUserCartProducts());
+            dispatch(loadUserCartProducts());
         }
 
         if (response?.error) {
@@ -129,6 +139,7 @@ function Cart() {
             return;
         }
     }
+
 
     return (
     <>
@@ -190,7 +201,7 @@ function Cart() {
                         </div>
                     </div>
                 ) : (
-                    cartItems.length > 0 ? (
+                    cartItems?.length > 0 ? (
                         <div className="flex gap-4">
                             <div
                             className="w-[70%] h-[80vh] rounded-md border-2 px-6 py-4 overflow-y-auto hiddenScrollBar bg-white"
@@ -212,7 +223,7 @@ function Cart() {
                                 </div> */}
 
                                 <div className="flex items-center justify-between my-2">
-                                    <h2 className="text-lg font-medium text-gray-700">
+                                    <h2 className="text-lg font-medium text-gray-800">
                                         Your Cart Items
                                     </h2>
                                 </div>
@@ -312,14 +323,13 @@ function Cart() {
                                 </div>
                                 </div>
     
-                                
-    
                             </div>
     
-                            <div className="w-[30%] h-fit border-2 px-6 py-4 rounded-md bg-white"
+                            <div className="w-[30%] h-fit max-h-[80vh] border-2 px-6 py-4 rounded-md bg-white overflow-y-auto hiddenScrollBar"
                             >
+                            <div>
                                 <div className="flex flex-col gap-4">
-                                    <h2 className="text-xl font-medium text-gray-700 tracking-wider uppercase">
+                                    <h2 className="text-xl font-medium text-gray-800 tracking-wider uppercase">
                                         Price Details
                                     </h2>
     
@@ -369,7 +379,7 @@ function Cart() {
                                         }
                                     </div>
     
-                                    <h2 className="flex justify-between text-lg text-gray-600 font-bold">
+                                    <h2 className="flex justify-between text-lg text-gray-800 font-bold">
                                         <span>
                                             Total Amount
                                         </span>
@@ -397,10 +407,25 @@ function Cart() {
                                             <MdGppGood />
                                         </span>
                                         <span className="font-medium">
-                                            Safe and Secure Payments.Easy returns. 100% Authentic products.
+                                            Safe and Secure Payments. Easy returns. 100% Authentic products.
                                         </span>
                                     </p>
                                 </div>
+                                {
+                                    couponDetails?.size > 0 && (
+                                        <div className="my-2 bg-gray-100 p-2 rounded-md">
+                                            <p>
+                                                <span className="text-sm font-medium">Coupon Code: </span>
+                                                <span className="text-sm font-semibold font-serif italic tracking-wider text-blue-600">
+                                                    {couponDetails.get("coupon")}
+                                                </span>
+                                            </p>
+                                            <p className="text-xs font-semibold mt-2">
+                                                Get extra {couponDetails.get("discount")}% off on {couponDetails.get("items")} item(s) (price inclusive of cashback/coupon)
+                                            </p>
+                                        </div>
+                                    )
+                                }
 
                                 <button
                                 onClick={() => setShowPlaceOrderModal(true)}
@@ -408,6 +433,7 @@ function Cart() {
                                     <SiTicktick />
                                     Place Order
                                 </button>
+                            </div>
                             </div>
                         </div>
                     ) : (
