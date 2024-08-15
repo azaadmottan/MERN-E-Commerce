@@ -39,7 +39,7 @@ function UserOrder() {
             const oldOrdersArray = [];
 
             response?.orders.forEach((order) => {
-                if (!order?.isDelivered) {
+                if (!order?.isDelivered && !(order?.status === "Cancelled") ) {
                     newOrdersArray.push(order);
                 } else {
                     oldOrdersArray.push(order);
@@ -101,102 +101,74 @@ function UserOrder() {
             newOrders?.map((order) => (
             <>
             {
-                (order?.status === "Cancelled") ? (
-                    <div
-                    className="border p-4 rounded-md"
+                order?.orderItems?.map((item) => (
+                    <div 
                     key={uuidv4()}
-                    >
-                        <div className="flex items-center gap-2 p-2 bg-red-500 rounded-md hover:shadow-md">
-                            <BsBagXFill className="w-6 h-6 text-white" />
-                            <span className="text-lg font-bold text-white">
-                                Order has been cancelled
-                            </span>
-                        </div>
-                        <p className="text-lg text-gray-600 font-medium mt-2">Your payment will be refunded with in 4-5 working days.</p>
-                        <p className="mt-2">
-                            <span className="font-semibold text-gray-600">Order ID: </span>
-                            <span className="font-bold">{order?._id}</span>
-                        </p>
-                        <p>
-                            <span className="font-semibold text-gray-600">Total Items: </span>
-                            <span className="font-bold">
-                                {order?.orderItems?.length} items
-                            </span>
-                        </p>
-                        <p>
-                            <span className="font-semibold text-gray-600">Total Amount: </span>
-                            <span className="font-bold text-green-500">
-                                {convertNumberToINR(order?.totalPrice)}
-                            </span>
-                        </p>
-                    </div>
-                ) : (
-                    order?.orderItems?.map((item) => (
-                        <div 
-                        key={uuidv4()}
-                        className="card-body p-2 bg-slate-100 rounded-md flex items-center gap-2 hover:shadow-md">
-                                <div className="w-[10%] h-36">
-                                    <img
-                                    className="w-full h-full object-contain"
-                                    src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`}
-                                    alt={item?.product?.name} />
+                    className="card-body p-2 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
+                            <div className="w-[10%] h-36">
+                                <img
+                                className="w-full h-full object-contain"
+                                src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`}
+                                alt={item?.product?.name} />
+                            </div>
+                            <div className="w-[90%] px-4 py-2 flex justify-between">
+                                <div className="flex flex-col w-[35%] gap-2">
+                                    <h2
+                                    onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
+                                    className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
+                                        {item?.product?.name}
+                                    </h2>
+                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
+                                        {item?.product?.brand}
+                                    </h4>
+        
                                 </div>
-                                <div className="w-[90%] px-4 py-2 flex justify-between">
-                                    <div className="flex flex-col w-[35%] gap-2">
-                                        <h2
-                                        onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
-                                        className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
-                                            {item?.product?.name}
-                                        </h2>
-                                        <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
-                                            {item?.product?.brand}
-                                        </h4>
-            
+        
+                                <div className="flex items-center w-[10%]">
+                                    <div className="flex flex-col gap-2">
+                                        <span className="font-medium tracking-wider">
+                                            {convertNumberToINR(item?.product?.sellingPrice)}
+                                        </span>
+                                        <span className="font-bold text-green-500 italic font-serif tracking-wide">
+                                            {item?.product?.discount}% off
+                                        </span>
                                     </div>
-            
-                                    <div className="flex items-center w-[10%]">
-                                        <div className="flex flex-col gap-2">
-                                            <span className="font-medium tracking-wider">
-                                                {convertNumberToINR(item?.product?.sellingPrice)}
+                                    
+                                </div>
+    
+                                <div className="flex items-center w-[30%]">
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex items-center font-medium gap-2 text-sm">
+                                            <span className="text-xl font-medium tracking-wider">
+                                                <BsFillBagCheckFill className="text-green-500" />
                                             </span>
-                                            <span className="font-bold text-green-500 italic font-serif tracking-wide">
-                                                {item?.product?.discount}% off
+                                            <span>
+                                                Ordered on {moment(order?.createdAt).format('LL')}.
                                             </span>
                                         </div>
-                                        
-                                    </div>
-        
-                                    <div className="flex items-center w-[30%]">
-                                        <div className="flex flex-col gap-2">
-                                            <div className="flex items-center font-medium gap-2 text-sm">
-                                                <span className="text-xl font-medium tracking-wider">
-                                                    <BsFillBagCheckFill className="text-green-500" />
-                                                </span>
-                                                <span>
-                                                    Ordered on {moment(order?.createdAt).format('LL')}.
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center gap-2 text-gray-500 text-sm">
-                                                <span>
-                                                {
-                                                    !order?.isPaid && (
-                                                        "Complete your payment process"
-                                                    )
-                                                }
-                                                Order Status: <span className="text-orange-500 font-bold">"{
+                                        <div className="flex flex-col items-start gap-2 text-gray-500 text-sm">
+                                            <span>
+                                            {
+                                                !order?.isPaid && (
+                                                    "Complete your payment process"
+                                                )
+                                            }
+                                            </span>
+                                            <span>
+                                            Order Status: <span className="text-orange-500 font-bold">
+                                                "{
                                                     order?.status && (
                                                         order?.status
                                                     )
-                                                }"</span>
-                                                </span>
-                                            </div>
+                                                }"
+                                            </span>
+                                            </span>
                                         </div>
-                                        
                                     </div>
                                 </div>
-                        </div>
-                    ))
-                )
+                            </div>
+                    </div>
+                ))
             }
             {
                 !(order?.status === "Cancelled") && (
@@ -240,6 +212,7 @@ function UserOrder() {
 
             <h2 className="text-xl font-semibold mt-4">Old Orders</h2>
 
+            <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
             {
                 oldOrders?.length === 0 ? (
                     <div className="mt-2">
@@ -247,10 +220,45 @@ function UserOrder() {
                     </div>
                 ) : (
                     oldOrders?.map((order) => (
-                        order?.orderItems?.map((item) => (
-                            <div 
+                        (order?.status === "Cancelled") ? (
+                            <div
+                            className="border p-4 rounded-md"
                             key={uuidv4()}
-                            className="card-body p-2 bg-slate-100 rounded-md flex items-center gap-2 hover:shadow-md">
+                            >
+                                <div className="flex items-center gap-2 p-2 bg-red-500 rounded-md hover:shadow-md">
+                                    <BsBagXFill className="w-6 h-6 text-white" />
+                                    <span className="text-lg font-bold text-white">
+                                        Order has been cancelled
+                                    </span>
+                                </div>
+                                <p className="text-lg text-gray-600 font-medium mt-2">Your payment will be refunded with in 4-5 working days.</p>
+                                <p className="mt-2">
+                                    <span className="font-semibold text-gray-600">Order ID: </span>
+                                    <span className="font-bold">{order?._id}</span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">Total Items: </span>
+                                    <span className="font-bold">
+                                        {order?.orderItems?.length} items
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">Total Amount: </span>
+                                    <span className="font-bold text-green-500">
+                                        {convertNumberToINR(order?.totalPrice)}
+                                    </span>
+                                </p>
+                                <p>
+                                    <span className="font-semibold text-gray-600">
+                                        Ordered on: {moment(order?.createdAt).format('LL')}.
+                                    </span>
+                                </p>
+                            </div>
+                        ) : (
+                            order?.orderItems?.map((item) => (
+                                <div 
+                                key={uuidv4()}
+                                className="card-body p-2 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
                                     <div className="w-[10%] h-36">
                                         <img
                                         className="w-full h-full object-contain"
@@ -309,15 +317,16 @@ function UserOrder() {
                                             </div>
                                         </div>
                                     </div>
-                            </div>
-                        ))
+                                </div>
+                            ))
+                        )
                     ))
                 )
             }
+            </div>
             </>
             )
         }
-
 
         {/* delete address modal */}
         <Modal isOpen={showCancelOrderModal} title="Confirm Cancel Order" onClose={() => setShowCancelOrderModal(false)}>
