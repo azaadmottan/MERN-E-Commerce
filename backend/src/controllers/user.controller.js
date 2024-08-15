@@ -4,6 +4,7 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import { User } from '../models/user.model.js';
+import { isValidObjectId } from 'mongoose';
 
 // generate refresh and access tokens.
 
@@ -347,6 +348,82 @@ const updateProfilePicture = asyncHandler(async (req, res) => {
     );
 });
 
+// get all users
+const getAllUsers = asyncHandler(async (req, res) => {
+    const users = await User.find().select("-password -refreshToken");
+
+    if (!users) {
+        throw new ApiError(500, "Failed to fetch all users.");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                users,
+            },
+            "All users fetched successfully."
+        )
+    );
+});
+
+// get user by id
+const getUserById = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    if (!isValidObjectId(id)) {
+        throw new ApiError(400, "Invalid user ID.");
+    }
+
+    const user = await User.findById(id).select("-password -refreshToken");
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            {
+                user,
+            },
+            "User fetched successfully."
+        )
+    );
+});
+
+// update account activity status
+const updateAccountActivityStatus = asyncHandler(async (req, res) => {
+    const { userId, isActive } = req.body;
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(400, "Invalid ID.");
+    }
+
+    const user = await User.findByIdAndUpdate(
+        userId,
+        {
+            isActive
+        },
+        {
+            new: true,
+        }
+    ).select("-password -refreshToken");
+
+    if (!user) {
+        throw new ApiError(500, "Failed to update account activity status.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {user},
+            "Account activity status updated successfully."
+        )
+    );
+});
+
 
 export {
     registerUser,
@@ -357,4 +434,7 @@ export {
     getCurrentUser,
     updateAccountDetails,
     updateProfilePicture,
+    getAllUsers,
+    getUserById,
+    updateAccountActivityStatus,
 }

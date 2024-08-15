@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import { upload } from '../middlewares/multer.middleware.js';
-import { verifyJWT } from '../middlewares/auth.middleware.js';
+import { verifyAdmin, verifyJWT } from '../middlewares/auth.middleware.js';
 import { 
+    getAllUsers,
     getCurrentUser,
+    getUserById,
     loginUser, 
     logoutUser, 
     refreshToken, 
     registerUser, 
+    updateAccountActivityStatus, 
     updateAccountDetails, 
     updatePassword,
     updateProfilePicture
@@ -46,5 +49,12 @@ router.route("/update-profile-picture").patch(
     ]),
     updateProfilePicture
 );
+
+router.route("/get-all-users").get(verifyJWT, getAllUsers);
+
+router.route("/get-single-user/:id").get(verifyJWT, getUserById);
+
+router.route("/update-account-activity").post(verifyJWT, verifyAdmin, updateAccountActivityStatus);
+
 
 export default router;
