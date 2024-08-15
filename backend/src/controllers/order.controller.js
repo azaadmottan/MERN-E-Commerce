@@ -6,10 +6,11 @@ import { ApiResponse } from '../utils/ApiResponse.js';
 import { Order } from '../models/order.model.js';
 import { Product } from '../models/product.model.js';
 import { Payment } from '../models/payment.model.js';
+import { Coupon } from "../models/coupon.model.js";
 
 // create a new order
 const createOrder = asyncHandler(async (req, res) => {
-    const { orderItems, shippingAddress, shippingPrice = 80} = req.body;
+    const { orderItems, shippingAddress, shippingPrice = 80, code } = req.body;
 
     if (!isValidObjectId(shippingAddress)) {
         throw new ApiError(400, "Shipping address must be provided.");
@@ -36,16 +37,43 @@ const createOrder = asyncHandler(async (req, res) => {
         finalTotalPrice += totalPrice;
     });
 
+    let coupon = "";
+    // apply coupon code if provided
+    if (code) {
+        coupon = await Coupon.findOne({ code });
+        
+        if (!coupon) {
+            throw new ApiError(404, "Invalid Coupon Code.");
+        }
+        
+        if (coupon.noOfItems > orderItems.length) {
+            throw new ApiError(400, "Coupon is not applicable for this number of items.");
+        }
+
+        finalTotalPrice -= (coupon.discountType === "Amount") ? coupon.discountValue : (finalTotalPrice * coupon.discountValue) / 100;
+        
+        if (finalTotalPrice < 0) {
+            throw new ApiError(400, "Coupon discount exceeds the total order price.");
+        }
+
+        coupon.isActive = false;
+    }
+    
     const order = await Order.create({
         user: req.user?._id,
         orderItems: items,
         shippingAddress,
         shippingPrice: finalTotalPrice > 500 ? 0 : 80,
         totalPrice: finalTotalPrice,
+        coupon: coupon?._id,
     });
-
+    
     if (!order) {
         throw new ApiError(500, "Failed to create order.");
+    }
+    
+    if (code) {
+        await coupon.save();
     }
 
     res.status(201).json(
@@ -153,6 +181,7 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
         order.isDelivered = true;
     }
     if (status === "Cancelled") {
+        order.isCancelled = true;
         order.orderCancelledAt = Date.now();
     }
 
