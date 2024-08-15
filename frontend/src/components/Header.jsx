@@ -120,7 +120,7 @@ function Header() {
                                         {
                                             user?.isAdmin ? (
                                                 <button className="w-full px-4 py-2 rounded-md hover:bg-slate-100 cursor-pointer flex items-center gap-2"
-                                                onClick={() => (navigate("/admin/dashboard/profile"), setShowMenu(false))}
+                                                onClick={() => (navigate("/admin/dashboard/home"), setShowMenu(false))}
                                                 >
                                                     <MdDashboard />
                                                     Admin Dashboard
