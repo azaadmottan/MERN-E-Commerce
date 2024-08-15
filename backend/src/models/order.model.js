@@ -25,6 +25,10 @@ const orderSchema = new Schema({
         ref: 'Payment',
         // required: true,
     },
+    coupon: {
+        type: Schema.Types.ObjectId,
+        ref: 'Coupon',
+    },
     shippingPrice: { 
         type: Number, 
         required: true, 
@@ -48,6 +52,10 @@ const orderSchema = new Schema({
     },
     deliveredAt: { 
         type: Date, 
+    },
+    isCancelled: { 
+        type: Boolean, 
+        default: false,
     },
     orderCancelledAt: { 
         type: Date,
