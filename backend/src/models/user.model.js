@@ -32,6 +32,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     profilePicture: {
         type: String,
         required: [true, "Profile picture is required"]
