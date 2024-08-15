@@ -1,5 +1,101 @@
 import axios from "axios";
 
+// get all users
+export const getAllUsers = async () => {
+    try {
+        const { data } = await axios.get("/api/users/get-all-users");
+
+        if (data?.data?.users) {
+            return {
+                users: data?.data?.users,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
+// get single user
+export const getUserById = async (id) => {
+    try {
+        const { data } = await axios.get(`/api/users/get-single-user/${id}`);
+        if (data?.data?.user) {
+            return {
+                user: data?.data?.user,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
+// update account activity status
+export const updateAccountActivity = async (userId, isActive) => {
+    try {
+        const { data } = await axios.post(`/api/users/update-account-activity`, 
+            { userId, isActive }
+        );
+
+        if (data?.data?.user) {
+            return {
+                user: data?.data?.user,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
+// get admin products
+export const getAdminProducts = async () => {
+    try {
+        const { data } = await axios.get(`/api/products/get-admin-products`);
+
+        if (data?.data?.products) {
+            return {
+                products: data?.data?.products,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
+// get admin categories
+export const getAdminCategories = async () => {
+    try {
+        const { data } = await axios.get(`/api/category/all-categories`);
+
+        if (data?.data?.categories) {
+            return {
+                categories: data?.data?.categories,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
 // get product by its id
 export const getProductById = async (id) => {
     try {
@@ -122,10 +218,12 @@ export const placeOrder = async (orderData) => {
         const { data } = await axios.post("/api/order/create-order", orderData);
 
         if (data?.data?.order) {
+            const cartData = await axios.delete("/api/cart/clear-cart");
             return {
                 message: data?.message,
                 success: true,
                 order: data?.data?.order,
+                cart: cartData?.data?.cart,
             };
         }
     } catch (error) {
@@ -237,7 +335,7 @@ export const updateOrderStatus = async (orderId, status, deliveredAt="") => {
 export const makeOrderPayment = async (paymentData) => {
     try {
         const { data } = await axios.post("/api/payment/process-payment", paymentData);
-
+        
         if (data?.data?.newPayment) {
             return {
                 message: data?.message,
@@ -340,6 +438,86 @@ export const createTransaction = async (senderUpiId, receiverUpiId, amount, desc
         if (data?.data?.newTransaction) {
             return {
                 transaction: data?.data?.newTransaction,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get all coupons
+export const getAllCoupons = async () => {
+    try {
+        const { data } = await axios.get(`/api/coupons/all-coupons`);
+
+        if (data?.data?.coupons) {
+            return {
+                coupons: data?.data?.coupons,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get active coupons
+export const getActiveCoupons = async () => {
+    try {
+        const { data } = await axios.get(`/api/coupons/active-coupons`);
+
+        if (data?.data?.activeCoupons) {
+            return {
+                coupons: data?.data?.activeCoupons,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// create coupon
+export const createCoupon = async (code, discountType, discountValue, noOfItems, expiryDate) => {
+    try {
+        const { data } = await axios.post(`/api/coupons/create-coupon`,
+            { code, discountType, discountValue, noOfItems, expiryDate }
+        );
+
+        if (data?.data?.newCoupon) {
+            return {
+                coupon: data?.data?.newCoupon,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// update coupon details
+export const updateCoupon = async (couponId, code, discountType, discountValue, expiryDate) => {
+    try {
+        const { data } = await axios.post(`/api/coupons/update-coupon/${couponId}`,
+            { code, discountType, discountValue, expiryDate }
+        );
+
+        if (data?.data?.updatedCoupon) {
+            return {
+                coupon: data?.data?.updatedCoupon,
                 success: true,
             };
         }
