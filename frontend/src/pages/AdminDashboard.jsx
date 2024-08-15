@@ -54,12 +54,14 @@ function AdminDashboard() {
                 <div className='rounded-full w-20 h-20'>
                     <img
                     src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + userProfilePicture}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-full object-contain"
                     alt="" 
                     />
                 </div>
                 <div>
-                    <h2 className="text-sm lg:text-xl font-bold tracking-wider">Admin Dashboard</h2>
+                    <Link
+                    to={'/admin/dashboard/home'}
+                    className="text-sm lg:text-xl font-bold tracking-wider hover:text-blue-600 delay-75 duration-150">Admin Dashboard</Link>
                     <p>Welcome to the dashboard</p>
                 </div>
             </div>
