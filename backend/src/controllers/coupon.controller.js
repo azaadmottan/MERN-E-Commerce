@@ -6,9 +6,9 @@ import { Coupon } from '../models/coupon.model.js';
 
 // create a new coupon
 const createCoupon = asyncHandler(async (req, res) => {
-    const { code, expiryDate, discountType, discountValue } = req.body;
+    const { code, expiryDate, discountType, discountValue, noOfItems } = req.body;
 
-    if (!code || !expiryDate || !discountType || !discountValue) {
+    if (!code || !expiryDate || !discountType || !discountValue || !noOfItems) {
         throw new ApiError(400, "All fields must be provided.");
     }
 
@@ -23,6 +23,7 @@ const createCoupon = asyncHandler(async (req, res) => {
         expiryDate,
         discountType,
         discountValue,
+        noOfItems,
     });
 
     if (!newCoupon) {
@@ -32,7 +33,7 @@ const createCoupon = asyncHandler(async (req, res) => {
     return res.status(201).json(
         new ApiResponse(
             201,
-            newCoupon,
+            {newCoupon},
             "Coupon created successfully.",
         )
     );
@@ -103,8 +104,8 @@ const getActiveCoupons = asyncHandler(async (req, res) => {
 
 // update coupon by id
 const updateCoupon = asyncHandler(async (req, res) => {
-    const couponId = req.params.id;
-    const { code, expiryDate, discountType, discountValue, isActive } = req.body;
+    const couponId = req.params?.id;
+    const { code, expiryDate, discountType, discountValue, noOfItems, isActive } = req.body;
 
     if (!isValidObjectId(couponId)) {
         throw new ApiError(400, "Invalid coupon ID.");
@@ -126,6 +127,7 @@ const updateCoupon = asyncHandler(async (req, res) => {
     coupon.expiryDate = expiryDate || coupon.expiryDate;
     coupon.discountType = discountType || coupon.discountType;
     coupon.discountValue = discountValue || coupon.discountValue;
+    coupon.noOfItems = noOfItems || coupon.noOfItems;
     coupon.isActive = isActive || coupon.isActive;
 
     const updatedCoupon = await coupon.save();
@@ -137,7 +139,7 @@ const updateCoupon = asyncHandler(async (req, res) => {
     return res.json(
         new ApiResponse(
             200,
-            updatedCoupon,
+            {updatedCoupon},
             "Coupon updated successfully.",
         )
     );

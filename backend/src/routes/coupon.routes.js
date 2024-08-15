@@ -18,7 +18,7 @@ router.route("/get-coupon/:id").get(verifyJWT, verifyAdmin, getSingleCoupon);
 
 router.route("/all-coupons").get(verifyJWT, verifyAdmin, getAllCoupons);
 
-router.route("/active-coupons").get(verifyJWT, verifyAdmin, getActiveCoupons);
+router.route("/active-coupons").get(verifyJWT, getActiveCoupons);
 
 router.route("/update-coupon/:id").post(verifyJWT, verifyAdmin, updateCoupon);
 
