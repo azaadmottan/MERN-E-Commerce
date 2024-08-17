@@ -27,7 +27,7 @@ function Login() {
         e.preventDefault();
 
         if (!username.trim() || !password) {
-            toast.error("All fields are required");
+            toast.error("Username and Password must be provided");
             return;
         }
         
