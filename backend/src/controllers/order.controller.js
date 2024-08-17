@@ -57,6 +57,7 @@ const createOrder = asyncHandler(async (req, res) => {
         }
 
         coupon.isActive = false;
+        coupon.user = req.user?._id;
     }
     
     const order = await Order.create({
@@ -73,6 +74,7 @@ const createOrder = asyncHandler(async (req, res) => {
     }
     
     if (code) {
+        coupon.order = order?._id;
         await coupon.save();
     }
 

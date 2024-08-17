@@ -29,6 +29,14 @@ const couponSchema = Schema({
         required: true,
         default: true,
     },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    order: {
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+    }
 },
 {timestamps: true});
 
