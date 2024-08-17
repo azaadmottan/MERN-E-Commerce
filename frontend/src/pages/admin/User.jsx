@@ -38,7 +38,7 @@ function User() {
                     <th scope="col" className="p-2">Email</th>
                     <th scope="col" className="p-2">User ID</th>
                     <th scope="col" className="p-2">Status</th>
-                    <th scope="col" className="p-2">Label</th>
+                    <th scope="col" className="p-2">User Role</th>
                     <th scope="col" className="p-2">Joined</th>
                 </tr>
             </thead>
@@ -66,7 +66,7 @@ function User() {
                             <td className="p-2 break-words">{user?._id}</td>
                             <td className="p-2 font-bold text-center text-xs">{user?.isActive ? (<span className="text-white bg-green-500 px-4 py-0.5 rounded-full">Active</span>) : <span className="text-white bg-red-500 px-5 py-0.5 rounded-full">Block</span>}</td>
                             <td className="p-2 font-bold text-center">{user?.isAdmin ? "Admin" : "User"}</td>
-                            <td className="p-2 font-semibold">{moment(user?.createdAt).format("LLL")}</td>
+                            <td className="p-2 font-semibold">{moment(user?.createdAt).format("lll")}</td>
                         </tr>
                     ))
                 )

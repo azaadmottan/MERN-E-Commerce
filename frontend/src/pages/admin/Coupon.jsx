@@ -7,6 +7,7 @@ import { Modal } from "../../components/index.jsx";
 import { createCoupon, deleteCoupon, getAllCoupons, updateCoupon } from '../../actions/requestProduct.actions.js';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdDelete, MdEdit } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 
 function Coupon() {
@@ -209,6 +210,25 @@ function Coupon() {
                                             <span className={`font-semibold ${coupon?.isActive ? 'text-green-500' : 'text-red-500'}`}>{coupon?.isActive ? "Active" : "Inactive"}</span>
                                         </div>
                                     </div>
+                                    {
+                                    coupon?.user && (
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-gray-500 font-semibold">User: </span>
+                                            <Link
+                                            to={`/admin/dashboard/user/${coupon?.user}`}
+                                            className="text-sm font-medium hover:text-blue-500">
+                                                {coupon?.user}
+                                            </Link>
+                                            <span className="text-gray-500 font-semibold"> & Order: </span>
+                                            <Link
+                                            to={`/admin/dashboard/order/${coupon?.order}`}
+                                            className="text-sm font-medium hover:text-blue-500"
+                                            >
+                                                {coupon?.order}
+                                            </Link>
+                                        </div>
+                                    )
+                                    }
                                     <div className="flex items-center gap-2">
                                         <span className="text-gray-500 font-semibold">Coupon Expiry Date</span>
                                         <span className="text-sm font-medium flex gap-4">
