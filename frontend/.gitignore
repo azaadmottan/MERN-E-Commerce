@@ -13,6 +13,8 @@ dist-ssr
 *.local
 
 src/assets
+src/layouts/AuthLayout.jsx
+src/slices/user.slice.js
 
 # Editor directories and files
 .vscode/*
