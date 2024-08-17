@@ -162,7 +162,7 @@ const deleteCoupon = asyncHandler(async (req, res) => {
     return res.json(
         new ApiResponse(
             200,
-            coupon,
+            {coupon},
             "Coupon deleted successfully"
         )
     );
