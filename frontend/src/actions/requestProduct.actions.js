@@ -509,15 +509,33 @@ export const createCoupon = async (code, discountType, discountValue, noOfItems,
 }
 
 // update coupon details
-export const updateCoupon = async (couponId, code, discountType, discountValue, expiryDate) => {
+export const updateCoupon = async (couponId, code, discountType, discountValue, expiryDate, couponStatus) => {
     try {
         const { data } = await axios.post(`/api/coupons/update-coupon/${couponId}`,
-            { code, discountType, discountValue, expiryDate }
+            { code, discountType, discountValue, expiryDate, isActive: couponStatus }
         );
 
         if (data?.data?.updatedCoupon) {
             return {
                 coupon: data?.data?.updatedCoupon,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+export const deleteCoupon = async (couponId) => {
+    try {
+        const { data } = await axios.delete(`/api/coupons/delete-coupon/${couponId}`);
+        
+        if (data?.data?.coupon) {
+            return {
+                coupon: data?.data?.coupon,
                 success: true,
             };
         }

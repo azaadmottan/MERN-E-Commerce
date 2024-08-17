@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import { Modal } from "../../components/index.jsx";
-import { createCoupon, getAllCoupons, updateCoupon } from '../../actions/requestProduct.actions.js';
+import { createCoupon, deleteCoupon, getAllCoupons, updateCoupon } from '../../actions/requestProduct.actions.js';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdDelete, MdEdit } from 'react-icons/md';
 
@@ -31,6 +31,7 @@ function Coupon() {
     const [discountType, setDiscountType] = useState("");
     const [discountValue, setDiscountValue] = useState("");
     const [noOfItems, setNoOfItems] = useState("");
+    const [couponStatus, setCouponStatus] = useState("");
     const [expDate, setExpDate] = useState("");
 
     const handleCouponFormSubmit = async (e) => {
@@ -77,12 +78,12 @@ function Coupon() {
             return;
         }
 
-        if (!couponCode || !discountType || (discountType === 'none') || !discountValue || !expDate) {
+        if (!couponCode || !discountType || (discountType === 'none') || !discountValue || !couponStatus || (couponStatus === 'none') || !expDate) {
             toast.error("Please enter all the required fields !");
             return;
         }
 
-        const response = await updateCoupon(editCouponId, couponCode, discountType, discountValue, expDate);
+        const response = await updateCoupon(editCouponId, couponCode, discountType, discountValue, expDate, couponStatus);
 
         if (response?.success) {
             toast.success("Coupon updated successfully");
@@ -93,6 +94,26 @@ function Coupon() {
             setDiscountValue("");
             setExpDate("");
             fetchCoupons();
+        }
+        if (response?.error) {
+            toast.error(response?.message);
+        }
+    }
+
+    const [showDeleteCouponModal, setShowDeleteCouponModal] = useState(false);
+    const [deleteCouponId, setDeleteCouponId] = useState("");
+    const handleDeleteCoupon = async () => {
+        if (!deleteCouponId) {
+            toast.error("Coupon Id not found");
+            return;
+        }
+
+        const response = await deleteCoupon(deleteCouponId);
+        if (response?.success) {
+            toast.success("Coupon deleted successfully");
+            setDeleteCouponId("");
+            fetchCoupons();
+            setShowDeleteCouponModal(false);
         }
         if (response?.error) {
             toast.error(response?.message);
@@ -160,10 +181,12 @@ function Coupon() {
                                                     >
                                                         <MdEdit />Edit
                                                     </button>
-                                                    <p className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100" title="Delete Coupon"
+                                                    <button 
+                                                    onClick={() => (setDeleteCouponId(coupon?._id), setShowDeleteCouponModal(true))}
+                                                    className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100" title="Delete Coupon"
                                                     >
                                                         <MdDelete />Delete
-                                                    </p>
+                                                    </button>
                                                 </div>
                                             )
                                         }
@@ -182,6 +205,8 @@ function Coupon() {
                                             <span className="font-semibold">{coupon.discountValue}</span>
                                             <span className="text-gray-500 font-semibold">No Of Items:</span>
                                             <span className="font-semibold">{coupon?.noOfItems}</span>
+                                            <span className="text-gray-500 font-semibold">Coupon Status:</span>
+                                            <span className={`font-semibold ${coupon?.isActive ? 'text-green-500' : 'text-red-500'}`}>{coupon?.isActive ? "Active" : "Inactive"}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -297,6 +322,16 @@ function Coupon() {
                 className="outline-none px-2 py-1 bg-slate-100 rounded-md border-2 focus-within:border-blue-500"
                 placeholder="Enter no. of items" />
 
+                <label htmlFor="coupStatus">Coupon Status</label>
+                <select type="text" id="coupStatus" name='coupStatus'
+                value={couponStatus} 
+                onChange={(e) => setCouponStatus(e.target.value)} 
+                className="outline-none px-2 py-1 bg-slate-100 rounded-md border-2 focus-within:border-blue-500">
+                    <option value="none">Select coupon status</option>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+
                 <label htmlFor="expDate">Code Expiry Date</label>
                 <input type="date" id="expDate" name='expDate'
                 value={expDate} 
@@ -311,6 +346,20 @@ function Coupon() {
                     Update
                 </button>
             </form>
+        </Modal>
+
+        {/* delete coupon modal */}
+        <Modal isOpen={showDeleteCouponModal} title="Confirm Delete Coupon" onClose={() => setShowDeleteCouponModal(false)}>
+            <div className="grid gap-2">
+                <p className="my-3">Are you sure you want to delete this coupon ?</p>
+
+                <button
+                onClick={() => handleDeleteCoupon()}
+                className="text-white p-2 bg-blue-600 hover:bg-blue-700 rounded-md"
+                >
+                    Confirm Delete
+                </button>
+            </div>
         </Modal>
     </div>
     </>
