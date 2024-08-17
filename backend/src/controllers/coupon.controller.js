@@ -153,6 +153,12 @@ const deleteCoupon = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid coupon ID.");
     }
 
+    const isCouponInUse = await Coupon.findById(couponId);
+
+    if (isCouponInUse?.user) {
+        throw new ApiError(400, "Cannot delete a coupon that is in use.");
+    }
+
     const coupon = await Coupon.findByIdAndDelete(couponId);
 
     if (!coupon) {
