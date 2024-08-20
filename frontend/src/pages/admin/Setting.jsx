@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createWallet, getUserWallet } from "../../actions/requestProduct.actions.js";
+import { addOfficialOrderPaymentUpiId, createWallet, getOfficialOrderPaymentUpiId, getUserWallet, removeOfficialOrderPaymentUpiId } from "../../actions/requestProduct.actions.js";
 import { MdVerified } from "react-icons/md";
+import { Modal } from "../../components/index.jsx";
 
 function Setting() {
     const { user } = useSelector((state) => state?.user);
@@ -62,10 +63,56 @@ function Setting() {
         setLoading(false);
     }
 
+    const [officialOrderUpiId, setOfficialOrderUpiId] = useState("");
+    const getOfficialOrderUpiId = async () => {
+        const response = await getOfficialOrderPaymentUpiId();
+
+        if (response?.success) {
+            setOfficialOrderUpiId(response?.orderUpiId);
+        }
+    }
+
     useEffect(() => {
         generateUpiId();
         getWallet();
+        getOfficialOrderUpiId();
     }, []);
+
+    const [orderUpiId, setOrderUpiId] = useState("");
+    const handleAddOrderUpiId = async (e) => {
+        e.preventDefault();
+        if (!orderUpiId) {
+            toast.error("Please enter UPI-ID to add for order payments");
+            return;
+        }
+        const response = await addOfficialOrderPaymentUpiId(orderUpiId);
+
+        if (response?.success) {
+            toast.success("UPI-ID added for order payments successfully");
+            setOrderUpiId("");
+            getOfficialOrderUpiId();
+        }
+        if (response?.error) {
+            toast.error("Something went wrong while adding UPI-ID for order payments");
+        }
+    }
+
+    const [showRemoveOrderIdModal, setShowRemoveOrderIdModal] = useState(false);
+    const handleRemoveOrderId = async () => {
+        // setOfficialOrderUpiId("");
+        if (officialOrderUpiId?.upiId) {
+            const response = await removeOfficialOrderPaymentUpiId(officialOrderUpiId?.upiId);
+            if (response?.success) {
+                toast.success("UPI-ID removed from order payments successfully");
+                setOfficialOrderUpiId("");
+                getOfficialOrderUpiId();
+            }
+            if (response?.error) {
+                toast.error("Something went wrong while removing UPI-ID from order payments");
+            }
+        }
+        setShowRemoveOrderIdModal(false);
+    }
 
     return (
     <>
@@ -207,9 +254,75 @@ function Setting() {
                         )
                     }
                 </div>
+
+                <div className="my-2">
+                    <h2 className="text-lg font-semibold">Order payment official UPI ID</h2>
+                    <form 
+                    onSubmit={handleAddOrderUpiId}
+                    className="bg-slate-100 p-4 my-2 rounded-md flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <label className="text-gray-500 font-semibold" htmlFor="order-upi-id">UPI ID</label>
+                            <input 
+                            value={orderUpiId}
+                            onChange={(e) => setOrderUpiId(e.target.value)}
+                            readOnly={officialOrderUpiId}
+                            className="border-2 focus-within:border-blue-600 outline-none rounded-md px-2 py-0.5"
+                            id="order-upi-id"
+                            type="text" placeholder="Enter upi id" />
+                        </div>
+                        
+                        <button 
+                        disabled={officialOrderUpiId}
+                        className="px-4 py-0.5 font-medium text-white bg-orange-500 rounded-md hover:bg-orange-600"
+                        >
+                            Add
+                        </button>
+                    </form>
+
+                    <div className="p-4 rounded-md bg-slate-100 flex items-center justify-between">
+                        <div className="flex gap-2">
+                            <span className="text-gray-500 font-semibold">
+                                Order Payment UPI ID: 
+                            </span>
+                            <span className="font-semibold">
+                            {
+                                officialOrderUpiId ? (
+                                    officialOrderUpiId?.upiId
+                                ) : (
+                                    "No Order Payment UPI ID available yet"
+                                )
+                            }
+                            </span>
+                        </div>
+                        {
+                        (officialOrderUpiId) && (
+                            <button 
+                            onClick={() => setShowRemoveOrderIdModal(true)}
+                            className="px-4 py-0.5 font-medium text-white bg-red-500 rounded-md hover:bg-red-600"
+                            >
+                                Remove
+                            </button>
+                        )
+                        }
+                    </div>
+                </div>
             </div>
         )
     }
+
+        {/* delete user modal */}
+        <Modal isOpen={showRemoveOrderIdModal} title="Confirm Remove Order UPI ID" onClose={() => setShowRemoveOrderIdModal(false)}>
+            <div className="grid gap-2">
+                <p className="my-2 font-semibold">Are you sure you want to remove this order UPI ID ?</p>
+
+                <button
+                onClick={() => handleRemoveOrderId()}
+                className="text-white p-2 bg-blue-600 hover:bg-blue-700 rounded-md"
+                >
+                    Confirm Remove
+                </button>
+            </div>
+        </Modal>
     </>
     )
 }

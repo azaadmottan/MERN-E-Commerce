@@ -98,115 +98,133 @@ function UserOrder() {
 
             <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
             {
-            newOrders?.map((order) => (
-            <>
-            {
-                order?.orderItems?.map((item) => (
-                    <div 
-                    key={uuidv4()}
-                    className="card-body p-2 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
-                            <div className="w-[10%] h-36">
-                                <img
-                                className="w-full h-full object-contain"
-                                src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`}
-                                alt={item?.product?.name} />
-                            </div>
-                            <div className="w-[90%] px-4 py-2 flex justify-between">
-                                <div className="flex flex-col w-[35%] gap-2">
-                                    <h2
-                                    onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
-                                    className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
-                                        {item?.product?.name}
-                                    </h2>
-                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
-                                        {item?.product?.brand}
-                                    </h4>
-        
-                                </div>
-        
-                                <div className="flex items-center w-[10%]">
-                                    <div className="flex flex-col gap-2">
-                                        <span className="font-medium tracking-wider">
-                                            {convertNumberToINR(item?.product?.sellingPrice)}
-                                        </span>
-                                        <span className="font-bold text-green-500 italic font-serif tracking-wide">
-                                            {item?.product?.discount}% off
-                                        </span>
+                newOrders?.length === 0 ? (
+                <div>
+                    <p className="text-center text-gray-400">No new order found !</p>
+                </div>
+                ) : (
+                    newOrders?.map((order) => (
+                    <>
+                    {
+                        order?.orderItems?.map((item) => (
+                            <div 
+                            key={uuidv4()}
+                            className="card-body p-2 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
+                                    <div className="w-[10%] h-36">
+                                        <img
+                                        className="w-full h-full object-contain"
+                                        src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`}
+                                        alt={item?.product?.name} />
                                     </div>
-                                    
-                                </div>
-    
-                                <div className="flex items-center w-[30%]">
-                                    <div className="flex flex-col gap-2">
-                                        <div className="flex items-center font-medium gap-2 text-sm">
-                                            <span className="text-xl font-medium tracking-wider">
-                                                <BsFillBagCheckFill className="text-green-500" />
-                                            </span>
-                                            <span>
-                                                Ordered on {moment(order?.createdAt).format('LL')}.
-                                            </span>
+                                    <div className="w-[90%] px-4 py-2 flex justify-between">
+                                        <div className="flex flex-col w-[35%] gap-2">
+                                            <h2
+                                            onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
+                                            className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
+                                                {item?.product?.name}
+                                            </h2>
+                                            <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
+                                                {item?.product?.brand}
+                                            </h4>
+                
                                         </div>
-                                        <div className="flex flex-col items-start gap-2 text-gray-500 text-sm">
-                                            <span>
-                                            {
-                                                !order?.isPaid && (
-                                                    "Complete your payment process"
+                
+                                        <div className="flex items-center w-[10%]">
+                                            <div className="flex flex-col gap-2">
+                                                <span className="font-medium tracking-wider">
+                                                    {convertNumberToINR(item?.product?.sellingPrice)}
+                                                </span>
+                                                <span className="font-bold text-green-500 italic font-serif tracking-wide">
+                                                    {item?.product?.discount}% off
+                                                </span>
+                                                {
+                                                order?.coupon && (
+                                                    <span className="text-xs text-gray-500 font-semibold tracking-wide flex flex-col">
+                                                        Coupon
+                                                        <span className="text-blue-500 font-serif italic">
+                                                            {order?.coupon?.code} get {order?.coupon?.discountType === 'Percentage' ? `${order?.coupon?.discountValue}%` : `₹${order?.coupon?.discountValue}`} off
+                                                        </span>
+                                                    </span>
                                                 )
-                                            }
-                                            </span>
-                                            <span>
-                                            Order Status: <span className="text-orange-500 font-bold">
-                                                "{
-                                                    order?.status && (
-                                                        order?.status
-                                                    )
-                                                }"
-                                            </span>
-                                            </span>
+                                                }
+                                            </div>
+                                            
+                                        </div>
+            
+                                        <div className="flex items-center w-[30%]">
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center font-medium gap-2 text-sm">
+                                                    <span className="text-xl font-medium tracking-wider">
+                                                        <BsFillBagCheckFill className="text-green-500" />
+                                                    </span>
+                                                    <span>
+                                                        Ordered on {moment(order?.createdAt).format('lll')}.
+                                                    </span>
+                                                </div>
+                                                <div className="flex flex-col items-start gap-2 text-gray-500 text-sm">
+                                                    <span>
+                                                    {
+                                                        !order?.isPaid && (
+                                                            "Complete your payment process"
+                                                        )
+                                                    }
+                                                    </span>
+                                                    <span>
+                                                    Order Status: <span className="text-orange-500 font-bold">
+                                                        "{
+                                                            order?.status && (
+                                                                order?.status
+                                                            )
+                                                        }"
+                                                    </span>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                            </div>
+                        ))
+                    }
+                    {
+                        !(order?.status === "Cancelled") && (
+                            <div 
+                            key={uuidv4()}
+                            className="my-2 border-b-2 py-4">
+                                {
+                                    !order?.isPaid && (
+                                        <h4 className="text-lg text-gray-600 font-medium">Your order payment has been pending ! Please complete your payment process</h4>
+                                    )
+                                }
+                                {
+                                    order?.isPaid && (
+                                        <h4 className="text-lg font-medium flex items-center gap-2">
+                                            <SiTicktick className="text-xl text-green-500" />Your order payment has been successfully completed ! ( {moment(order?.paidAt).format('LLLL')} )</h4>
+                                    )
+                                }
+                                {
+                                    order?.deliveredAt && (
+                                        <h4 className="text-lg text-gray-800 font-medium">Your order has been delivered on <span className="text-orange-500 font-bold">{moment(order?.deliveredAt).format('LLLL')}</span></h4>
+                                    )
+                                }
+                                <div className="flex gap-2 mt-2">
+                                    {
+                                        !order?.isPaid && (
+                                            <button
+                                            onClick={() => navigate(`/payment/shop-pay/${order?._id}`)}
+                                            className="px-8 py-2 mt-2 rounded-md font-semibold text-white bg-orange-500 hover:bg-opacity-90">Pay Now</button>
+                                        )
+                                    }
+    
+                                    <button 
+                                    onClick={() => ( setShowCancelOrderModal(true), setOrderId(order?._id) )}
+                                    className="px-4 py-2 mt-2 rounded-md font-semibold text-white bg-red-500 hover:bg-opacity-90">Cancel Order</button>
                                 </div>
                             </div>
-                    </div>
-                ))
-            }
-            {
-                !(order?.status === "Cancelled") && (
-                    <div className="my-2 border-b-2 py-4">
-                        {
-                            !order?.isPaid && (
-                                <h4 className="text-lg text-gray-600 font-medium">Your order payment has been pending ! Please complete your payment process</h4>
-                            )
-                        }
-                        {
-                            order?.isPaid && (
-                                <h4 className="text-lg font-medium flex items-center gap-2">
-                                    <SiTicktick className="text-xl text-green-500" />Your order payment has been successfully completed ! ( {moment(order?.paidAt).format('LLLL')} )</h4>
-                            )
-                        }
-                        {
-                            order?.deliveredAt && (
-                                <h4 className="text-lg text-gray-800 font-medium">Your order has been delivered on <span className="text-orange-500 font-bold">{moment(order?.deliveredAt).format('LLLL')}</span></h4>
-                            )
-                        }
-                        <div className="flex gap-2 mt-2">
-                            {
-                                !order?.isPaid && (
-                                    <button
-                                    onClick={() => navigate(`/payment/shop-pay/${order?._id}`)}
-                                    className="px-8 py-2 mt-2 rounded-md font-semibold text-white bg-orange-500 hover:bg-opacity-90">Pay Now</button>
-                                )
-                            }
-
-                            <button 
-                            onClick={() => ( setShowCancelOrderModal(true), setOrderId(order?._id) )}
-                            className="px-4 py-2 mt-2 rounded-md font-semibold text-white bg-red-500 hover:bg-opacity-90">Cancel Order</button>
-                        </div>
-                    </div>
-                ) 
-            }
-            </>
-            ))
+                        ) 
+                    }
+                    </>
+                    ))
+                )
             }
             </div>
 
@@ -250,7 +268,7 @@ function UserOrder() {
                                 </p>
                                 <p>
                                     <span className="font-semibold text-gray-600">
-                                        Ordered on: {moment(order?.createdAt).format('LL')}.
+                                        Ordered on: {moment(order?.createdAt).format('lll')}.
                                     </span>
                                 </p>
                             </div>
@@ -266,7 +284,7 @@ function UserOrder() {
                                         alt={item?.product?.name} />
                                     </div>
                                     <div className="w-[90%] px-4 py-2 flex justify-between">
-                                        <div className="flex flex-col w-[35%] gap-2">
+                                        <div className="flex flex-col w-[30%] gap-2">
                                             <h2
                                             onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
                                             className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
@@ -278,7 +296,7 @@ function UserOrder() {
                 
                                         </div>
                 
-                                        <div className="flex items-center w-[10%]">
+                                        <div className="flex items-center w-[25%]">
                                             <div className="flex flex-col gap-2">
                                                 <span className="font-medium tracking-wider">
                                                     {convertNumberToINR(item?.product?.sellingPrice)}
@@ -286,6 +304,16 @@ function UserOrder() {
                                                 <span className="font-bold text-green-500 italic font-serif tracking-wide">
                                                     {item?.product?.discount}% off
                                                 </span>
+                                                {
+                                                order?.coupon && (
+                                                    <span className="text-xs text-gray-500 font-semibold tracking-wide flex flex-col">
+                                                        Coupon
+                                                        <span className="text-blue-500 font-serif italic">
+                                                            {order?.coupon?.code} get {order?.coupon?.discountType === 'Percentage' ? `${order?.coupon?.discountValue}%` : `₹${order?.coupon?.discountValue}`} off
+                                                        </span>
+                                                    </span>
+                                                )
+                                                }
                                             </div>
                                             
                                         </div>
@@ -297,7 +325,7 @@ function UserOrder() {
                                                         <BsFillBagCheckFill className="text-green-500" />
                                                     </span>
                                                     <span>
-                                                        Ordered on {moment(order?.createdAt).format('LL')}.
+                                                        Ordered on {moment(order?.createdAt).format('lll')}.
                                                     </span>
                                                 </div>
                                                 <div className="flex items-center gap-2 text-gray-500 text-sm">
