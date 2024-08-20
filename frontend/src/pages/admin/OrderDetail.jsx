@@ -50,7 +50,7 @@ function OrderDetail() {
             return;
         }
 
-        if (orderId && orderStatus && arrivingDate) {
+        if (orderId && orderStatus || arrivingDate) {
             const response = await updateOrderStatus(orderId, orderStatus, arrivingDate);
             if (response?.success) {
                 toast.success("Order Status updated successfully");
@@ -160,43 +160,99 @@ function OrderDetail() {
                         <h2>
                             Payment Info
                         </h2>
-                        <div className="mt-2 p-3 bg-slate-100 rounded-md">
-                            <h5>
-                                Card Holder Name: <span className="font-bold">
-                                {
-                                    order?.paymentInfo?.cardHolderName
-                                }
-                                </span>
-                            </h5>
-                            <h5>
-                                Email-id: <span className="font-bold">
-                                {
-                                    order?.paymentInfo?.email
-                                }
-                                </span>
-                            </h5>
-                            <h5>
-                                Amount: <span className="font-bold">
-                                {
-                                    covertNumberToINR(order?.paymentInfo?.amount)
-                                }
-                                </span>
-                            </h5>
-                            <h5>
-                                Payment Created At: <span className="font-bold">
-                                {
-                                    moment(order?.paymentInfo?.createdAt).format("LLLL")
-                                }
-                                </span>
-                            </h5>
-                            <h5>
-                                Payment Status: <span className="font-bold">
-                                {
-                                    order?.paymentInfo?.status
-                                }
-                                </span>
-                            </h5>
-                        </div>
+                        {
+                        order?.paymentInfo?.paymentMethod === "Card" ? (
+                            <div className="mt-2 p-3 bg-slate-100 rounded-md">
+                                <h5>
+                                    Payment Method: <span className="font-bold text-green-500">
+                                    {
+                                        order?.paymentInfo?.paymentMethod
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Card Holder Name: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.cardHolderName
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Email-id: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.email
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Amount: <span className="font-bold">
+                                    {
+                                        covertNumberToINR(order?.paymentInfo?.amount)
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Payment Created At: <span className="font-bold">
+                                    {
+                                        moment(order?.paymentInfo?.createdAt).format("LLLL")
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Payment Status: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.status
+                                    }
+                                    </span>
+                                </h5>
+                            </div>
+                        ) : (
+                            <div className="mt-2 p-3 bg-slate-100 rounded-md">
+                                <h5>
+                                    Payment Method: <span className="font-bold text-green-500">
+                                    {
+                                        order?.paymentInfo?.paymentMethod
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Sender UPI ID: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.senderUpiId
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Receiver UPI ID: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.receiverUpiId
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Amount: <span className="font-bold">
+                                    {
+                                        covertNumberToINR(order?.paymentInfo?.amount)
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Payment Created At: <span className="font-bold">
+                                    {
+                                        moment(order?.paymentInfo?.createdAt).format("LLLL")
+                                    }
+                                    </span>
+                                </h5>
+                                <h5>
+                                    Payment Status: <span className="font-bold">
+                                    {
+                                        order?.paymentInfo?.status
+                                    }
+                                    </span>
+                                </h5>
+                            </div>
+                        )
+                        }
                     </div>
 
                     <div className="font-semibold text-gray-900">

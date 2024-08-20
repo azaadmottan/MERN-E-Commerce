@@ -64,7 +64,7 @@ function Order() {
                                     Completed
                                 </span>
                                 :
-                                <span className="border-2 border-red-500 bg-red-200 font-medium px-2 py-0.5 rounded-full">
+                                <span className="border-2 border-red-500 bg-red-200 font-medium px-2 rounded-full">
                                     Pending
                                 </span>
                             }
