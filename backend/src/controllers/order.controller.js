@@ -91,7 +91,7 @@ const createOrder = asyncHandler(async (req, res) => {
 const getUserOrders = asyncHandler(async (req, res) => {
     const userId = req.user?._id;
 
-    const orders = await Order.find({ user: userId }).populate('orderItems.product');
+    const orders = await Order.find({ user: userId }).populate('orderItems.product coupon');
 
     if (!orders) {
         throw new ApiError(404, 'No orders found for this user.');
