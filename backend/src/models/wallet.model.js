@@ -29,6 +29,10 @@ const walletSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
+    },
+    officialOrderUpiId: {
+        type: Boolean,
+        default: false,
     }
 },
 {timestamps: true});

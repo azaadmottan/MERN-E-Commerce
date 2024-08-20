@@ -8,7 +8,7 @@ const transactionSchema = new Schema({
     },
     transactionType: {
         type: String,
-        enum: ['Purchase', 'Refund', 'Withdrawal'], // Can be 'purchase', 'refund', or 'withdrawal'
+        enum: ['Purchase', 'Refund', 'Withdrawal', 'OrderPayment'], // Can be 'purchase', 'refund', or 'withdrawal'
     },
     amount: {
         type: Number,
