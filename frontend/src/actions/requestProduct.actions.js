@@ -37,6 +37,27 @@ export const getUserById = async (id) => {
     }
 }
 
+// update user role
+export const updateUserRole = async (userId, role) => {
+    try {
+        const { data } = await axios.post(`/api/users/update-user-role`, 
+            { userId, role }
+        );
+
+        if (data?.data?.user) {
+            return {
+                user: data?.data?.user,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            success: false,
+        };
+    }
+}
+
 // update account activity status
 export const updateAccountActivity = async (userId, isActive) => {
     try {
@@ -417,6 +438,67 @@ export const getUserWallet = async () => {
         if (data?.data?.wallet) {
             return {
                 wallet: data?.data?.wallet,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// add official order payment upi id
+export const addOfficialOrderPaymentUpiId = async (upiId) => {
+    try {
+        const { data } = await axios.post(`/api/wallet/add-official-order-upi-id`,
+            { upiId }
+        );
+
+        if (data?.data?.orderUpiId) {
+            return {
+                wallet: data?.data?.orderUpiId,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// get official order payment upi id
+export const getOfficialOrderPaymentUpiId = async () => {
+    try {
+        const { data } = await axios.get(`/api/wallet/get-official-order-upi-id`);
+
+        if (data?.data?.orderUpiId) {
+            return {
+                orderUpiId: data?.data?.orderUpiId,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            message: error?.response?.data?.message,
+            error: true,
+        };
+    }
+}
+
+// remove official order payment upi id
+export const removeOfficialOrderPaymentUpiId = async (upiId) => {
+    try {
+        const { data } = await axios.post(`/api/wallet/remove-official-order-upi-id`,
+            { upiId }
+        );
+
+        if (data?.data?.removeId) {
+            return {
+                message: data?.data?.removeId,
                 success: true,
             };
         }
