@@ -39,6 +39,11 @@ const paymentSchema = new Schema({
         type: String,
         required: true
     },
+    paymentMethod: {
+        type: String,
+        enum: ['Card', 'UPI'],
+        required: true,
+    },
     amount: {
         type: Number,
         required: true
@@ -52,23 +57,24 @@ const paymentSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
     },
     cardHolderName: {
         type: String,
-        required: true
     },
     cardNumber: {
         type: String,
-        required: true,
     },
     expiryDate: {
         type: String,
-        required: true,
     },
     cvv: {
         type: String,
-        required: true,
+    },
+    senderUpiId: {
+        type: String,
+    },
+    receiverUpiId: {
+        type: String,
     },
 },
 {timestamps: true});
