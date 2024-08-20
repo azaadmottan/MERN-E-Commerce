@@ -140,8 +140,77 @@ const createTransaction = asyncHandler(async (req, res) => {
     );
 });
 
+// add official order payment upi id
+const addOfficialOrderPaymentUpiId = asyncHandler(async (req, res) => {
+    const { upiId } = req.body;
+
+    if (!upiId) {
+        throw new ApiError(400, "UPI ID must be provided.");
+    }
+
+    const userUpiId = await Wallet.findOne({ upiId });
+
+    if (!userUpiId) {
+        throw new ApiError(404, "Invalid UPI ID.");
+    }
+
+    userUpiId.officialOrderUpiId = true;
+
+    const orderUpiId = await userUpiId.save();
+
+    if (!orderUpiId) {
+        throw new ApiError(404, "Failed to add UPI ID for order payment.");
+    }
+
+    res.status(200).json(
+        new ApiResponse(200, { orderUpiId }, "Official order payment UPI ID added successfully.")
+    );
+});
+
+// get official order payment upi id
+const getOfficialOrderPaymentUpiId = asyncHandler(async (req, res) => {
+    const orderUpiId = await Wallet.findOne({ officialOrderUpiId: true }).select("-balance -transactions -upiPassword -user ");
+
+    if (!orderUpiId) {
+        throw new ApiError(404, "No user's UPI ID found.");
+    }
+
+    res.status(200).json(
+        new ApiResponse(200, { orderUpiId }, "Official order payment UPI ID fetched successfully.")
+    );
+});
+
+// remove the order payment upi id
+const removeOfficialOrderPaymentUpiId = asyncHandler(async (req, res) => {
+    const { upiId } = req.body;
+
+    if (!upiId) {
+        throw new ApiError(400, "UPI ID must be provided.");
+    }
+
+    const userUpiId = await Wallet.findOne({ upiId }).select("-balance -transactions -upiPassword -user ");;
+
+    if (!userUpiId) {
+        throw new ApiError(404, "No UPI ID found.");
+    }
+
+    userUpiId.officialOrderUpiId = false;
+
+    const removeId = await userUpiId.save();
+    if (!removeId) {
+        throw new ApiError(404, "Failed to remove UPI ID for order payment.");
+    }
+
+    res.status(200).json(
+        new ApiResponse(200, { removeId }, "Official order payment UPI ID removed successfully.")
+    );
+});
+
 export {
     createWallet,
     getUserWallet,
     createTransaction,
+    addOfficialOrderPaymentUpiId,
+    getOfficialOrderPaymentUpiId,
+    removeOfficialOrderPaymentUpiId,
 }
