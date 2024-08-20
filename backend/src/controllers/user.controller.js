@@ -265,6 +265,42 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     );
 });
 
+// update user role
+const updateUserRole = asyncHandler(async (req, res) => {
+    const { userId, role } = req.body;
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(400, "Invalid user ID.");
+    }
+
+    if (!role) {
+        throw new ApiError(400, "Role is required.");
+    }
+
+    const user = await User.findByIdAndUpdate(
+        userId,
+        {
+            isAdmin: role
+        },
+        {
+            new: true,
+        }
+    ).select("-password -refreshToken");
+
+    if (!user) {
+        throw new ApiError(500, "Failed to update user role.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {user},
+            "User role updated successfully."
+        )
+    );
+});
+
 // update user account details
 const updateAccountDetails = asyncHandler(async (req, res) => {
     const { fullName, email } = req.body;
@@ -424,6 +460,30 @@ const updateAccountActivityStatus = asyncHandler(async (req, res) => {
     );
 });
 
+// delete account
+const deleteAccount = asyncHandler(async (req, res) => {
+    const userId = req.body;
+
+    if (!isValidObjectId(userId)) {
+        throw new ApiError(400, "Invalid user ID.");
+    }
+
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+        throw new ApiError(500, "Failed to delete account.");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            "Account deleted successfully."
+        )
+    );
+});
+
 
 export {
     registerUser,
@@ -432,6 +492,7 @@ export {
     refreshToken,
     updatePassword,
     getCurrentUser,
+    updateUserRole,
     updateAccountDetails,
     updateProfilePicture,
     getAllUsers,
