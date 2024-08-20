@@ -12,7 +12,8 @@ import {
     updateAccountActivityStatus, 
     updateAccountDetails, 
     updatePassword,
-    updateProfilePicture
+    updateProfilePicture,
+    updateUserRole
 } from '../controllers/user.controller.js';
 
 const router = Router();
@@ -36,6 +37,8 @@ router.route("/refresh-token").post(verifyJWT, refreshToken);
 router.route("/update-password").post(verifyJWT, updatePassword);
 
 router.route("/current-user").get(verifyJWT, getCurrentUser);
+
+router.route("/update-user-role").post(verifyJWT, verifyAdmin, updateUserRole);
 
 router.route("/update-account-details").patch(verifyJWT, updateAccountDetails);
 
