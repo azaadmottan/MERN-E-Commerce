@@ -1,3 +1,4 @@
+import MetaData from "./MetaData.jsx";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Logo from "./Logo";
@@ -12,6 +13,7 @@ import BreadCrumb from "./BreadCrumb.jsx";
 import HomeProductCard from "./HomeProductCard.jsx";
 
 export {
+    MetaData,
     Header,
     Footer,
     Logo,
