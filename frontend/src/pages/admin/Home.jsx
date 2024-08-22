@@ -8,6 +8,7 @@ import {
     getAllUsers
 } from "../../actions/requestProduct.actions.js";
 import convertNumberToINR from "../../handler/NumberToINR.js";
+import { MetaData } from "../../components/index.jsx";
 
 function Home() {
     const [products, setProducts] = useState([]);
@@ -140,8 +141,55 @@ function Home() {
         ],
     };
 
+    const getDaysInMonth = (month, year) => {
+        return new Date(year, month + 1, 0).getDate();
+    };
+
+    const generateMonthlyData = (year) => {
+        return months.map((m, i) => {
+            const daysInMonth = getDaysInMonth(i, year);
+            return Array.from({ length: daysInMonth }, (_, day) => {
+                const dayOrders = orders?.filter((od) => 
+                    !od?.isCancelled &&
+                    new Date(od?.createdAt).getFullYear() === year &&
+                    new Date(od?.createdAt).getMonth() === i &&
+                    new Date(od?.createdAt).getDate() === day + 1
+                );
+                const totalSales = dayOrders?.reduce((total, od) => total + od?.totalPrice, 0);
+                return totalSales || 0;
+            });
+        }).flat();
+    };
+
+    const dailySalesLineState = {
+        labels: Array.from({ length: 12 }, (_, i) => 
+            Array.from({ length: getDaysInMonth(i, date.getFullYear()) }, (_, day) => `${months[i]} ${day + 1}`)
+        ).flat(),
+        datasets: [
+            {
+                label: `Sales in ${date.getFullYear() - 2}`,
+                borderColor: '#8A39E1',
+                backgroundColor: '#8A39E1',
+                data: generateMonthlyData(date.getFullYear() - 2),
+            },
+            {
+                label: `Sales in ${date.getFullYear() - 1}`,
+                borderColor: 'orange',
+                backgroundColor: 'orange',
+                data: generateMonthlyData(date.getFullYear() - 1),
+            },
+            {
+                label: `Sales in ${date.getFullYear()}`,
+                borderColor: '#00ff00',
+                backgroundColor: '#00ff24',
+                data: generateMonthlyData(date.getFullYear()),
+            },
+        ],
+    };
+
     return (
     <>
+    <MetaData title="Admin Dashboard | Shopkart | India" />
     <h2 className="text-xl font-semibold my-2">
         Revenue, Order, Products, Categories & User Details
     </h2>
@@ -242,6 +290,47 @@ function Home() {
                         }
                     }
                 }}
+                />
+            </div>
+        </div>
+
+        <div className="mt-4 flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
+            <div className="bg-white rounded-xl h-full w-full shadow-lg p-2 hover:shadow-xl">
+                <Line 
+                    data={dailySalesLineState}
+                    options={{
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Daily Sales Over the Last 3 Years',
+                                align: 'start',
+                                font: { size: 18, weight: 'bold' }
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            legend: {
+                                position: 'top',
+                            },
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date',
+                                },
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Total Sales (₹)',
+                                },
+                                beginAtZero: true,
+                            },
+                        },
+                    }}
                 />
             </div>
         </div>

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addOfficialOrderPaymentUpiId, createWallet, getOfficialOrderPaymentUpiId, getUserWallet, removeOfficialOrderPaymentUpiId } from "../../actions/requestProduct.actions.js";
 import { MdVerified } from "react-icons/md";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 
 function Setting() {
     const { user } = useSelector((state) => state?.user);
@@ -116,6 +116,7 @@ function Setting() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Settings" />
     {
         loading ? (
             <>

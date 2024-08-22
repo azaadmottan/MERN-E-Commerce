@@ -9,6 +9,7 @@ import {
     BsThreeDotsVertical
 } from "../../components/Icons.jsx";
 import {
+    MetaData,
     Modal,
     MiniLoading,
     AdminProductCard,
@@ -127,6 +128,7 @@ function Product() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Product Management" />
     <div>
         <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Product Information</h2>

@@ -3,7 +3,7 @@ import { IoIosAdd } from "react-icons/io";
 import { toast } from 'react-toastify';
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 import { createCoupon, deleteCoupon, getAllCoupons, updateCoupon } from '../../actions/requestProduct.actions.js';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { MdDelete, MdEdit } from 'react-icons/md';
@@ -123,6 +123,7 @@ function Coupon() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Coupons" />
     <div>
         <h2 className="text-xl font-semibold my-2">Coupons</h2>
 

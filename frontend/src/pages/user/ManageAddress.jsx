@@ -10,6 +10,7 @@ import {
     FaRegAddressCard,
 } from "../../components/Icons.jsx";
 import {
+    MetaData,
     Modal,
     MiniLoading,
 } from "../../components/index.jsx";
@@ -126,6 +127,7 @@ function ManageAddress() {
 
     return (
     <>
+    <MetaData title="Dashboard - My Address" />
     <div>
         <h2 className="text-xl font-semibold mt-4">Manage Your Addresses</h2>
 

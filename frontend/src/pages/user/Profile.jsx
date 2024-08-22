@@ -12,6 +12,7 @@ import {
 import {
     Modal,
     MiniLoading,
+    MetaData,
 } from "../../components/index.jsx";
 import moment from "moment";
 
@@ -21,6 +22,7 @@ function UserProfile() {
 
     return (
     <>
+    <MetaData title="Dashboard - My Profile" />
     <div>
         <h2 className="text-xl font-semibold">Personal Information</h2>
 

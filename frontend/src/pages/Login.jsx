@@ -8,6 +8,7 @@ import {
 } from '../components/Icons.jsx';
 import { clearErrors, loginUser } from '../actions/user.actions.js';
 import { loadUserCartProducts } from "../actions/cart.actions.js";
+import { MetaData } from "../components/index.jsx";
 
 function Login() {
     const navigate = useNavigate();
@@ -67,6 +68,7 @@ function Login() {
 
     return (
     <>
+    <MetaData title="Login @ Shopkart | India | Buy Products with Max Profit" />
     <div className="max-w-lg mx-auto mt-5 bg-white px-6 py-4 rounded-md">
         <div>
             <h2 className="text-3xl font-bold">Login</h2>

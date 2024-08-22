@@ -7,6 +7,7 @@ import {
 } from '../components/Icons.jsx';
 import { toast } from 'react-toastify';
 import { registerUser, clearErrors } from "../actions/user.actions.js"
+import { MetaData } from "../components/index.jsx";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -90,6 +91,7 @@ function SignUp() {
 
     return (
     <>
+    <MetaData title="SignUp @ Shopkart | India | Buy Products with Max Profit" />
     <div className="max-w-lg mx-auto mt-5 bg-white px-6 py-4 rounded-md">
         <div>
             <h2 className="text-3xl font-bold">SignUp</h2>

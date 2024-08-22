@@ -6,11 +6,14 @@ import {
     HorizontalCardSlider,
     VerticalCardSlider,
 } from '../components/home/index.jsx';
+import { MetaData } from "../components/index.jsx";
 
 function Home() {
 
     return (
     <>
+    <MetaData title="Shopkart | India | Online Shopping Site" content="Online Shopping Site for Mobiles, Electronics, Grocery, Lifestyle, & More. Best Offers!"/>
+
     <div className="container mx-auto px-2 py-4 flex flex-col gap-4">
 
         {/* categories */}
@@ -29,7 +32,7 @@ function Home() {
 
         <HorizontalCardSlider category={"camera"} heading={"High Quality Cameras"} />
 
-        <HorizontalCardSlider category={"airpode"} heading={"Popular Airpodes"} />
+        <HorizontalCardSlider category={"earpode"} heading={"Popular Earpodes"} />
 
         <VerticalCardSlider category={"mobile"} heading={"Best Selling Mobile Phones"} />
 

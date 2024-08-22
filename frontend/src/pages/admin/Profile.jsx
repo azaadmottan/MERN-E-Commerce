@@ -10,6 +10,7 @@ import {
     FaRegAddressCard,
 } from "../../components/Icons.jsx";
 import {
+    MetaData,
     Modal,
     MiniLoading,
 } from "../../components/index.jsx";
@@ -121,6 +122,7 @@ function Profile() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - My Profile" />
     <div>
         <h2 className="text-xl font-semibold">Personal Information</h2>
 

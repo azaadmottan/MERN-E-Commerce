@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getOrderInfo, updateOrderStatus } from "../../actions/requestProduct.actions.js";
 import { PUBLIC_URL } from "../../config/api.config.js";
 import covertNumberToINR from "../../handler/NumberToINR.js";
+import { MetaData } from "../../components/index.jsx";
 
 function OrderDetail() {
     const navigate = useNavigate();
@@ -61,6 +62,7 @@ function OrderDetail() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Order Detail" />
     <div>
         <h2 className="text-xl font-medium">Order Details</h2>
         {

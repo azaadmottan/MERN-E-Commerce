@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { searchProducts } from '../../actions/requestProduct.actions.js';
-import { HomeProductCard } from '../../components/index.jsx';
+import { MetaData, HomeProductCard } from '../../components/index.jsx';
 import errorSearchImage from "../../assets/error-no-search-result.png";
 
 function SearchPage() {
@@ -149,6 +149,7 @@ function SearchPage() {
         </>
         ) : (
         <>
+        <MetaData title={`${query} - Buy Product at Shopkart with Best Offers & Low Price | India`} />
         <div className="flex gap-2">
             <div className="w-[20%] h-[85vh] p-2 bg-white border rounded-md overflow-y-auto hiddenScrollBar">
 

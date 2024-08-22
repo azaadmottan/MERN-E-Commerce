@@ -4,7 +4,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import { getSinglePayment } from '../../actions/requestProduct.actions';
 import convertNumberToINR from '../../handler/NumberToINR.js';
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 import { createTransaction } from "../../actions/requestProduct.actions.js";
 import { MdVerified } from "react-icons/md";
 
@@ -73,6 +73,7 @@ function PaymentInfo() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Payment Information" />
     <div>
         <h2 className="text-xl font-medium">User Order Payment Details</h2>
 

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { getAllOrders } from "../../actions/requestProduct.actions.js";
 import covertNumberToINR from "../../handler/NumberToINR.js";
 import { useNavigate } from "react-router-dom";
+import { MetaData } from "../../components/index.jsx";
 
 function Order() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ function Order() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - User Orders" />
     <div>
         <h1 className="text-xl font-semibold">User Orders</h1>
         <table className="table-fixed w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">

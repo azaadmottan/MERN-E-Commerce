@@ -10,7 +10,7 @@ import { GrStatusGood } from "react-icons/gr";
 import { FiAlertCircle } from "react-icons/fi";
 import { createTransaction, getUserWallet } from "../../actions/requestProduct.actions.js";
 import convertNumberToINR from "../../handler/NumberToINR.js";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -77,6 +77,7 @@ function Wallet() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Wallet" />
     {
         loading ? (
             <>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid"; 
 import { getAllUsers } from '../../actions/requestProduct.actions.js';
+import { MetaData } from "../../components/index.jsx";
 
 function User() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ function User() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - User List" />
     <div>
         <h2 className="text-xl font-semibold my-2">All Users</h2>
 

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import BackButton from "../components/BackButton.jsx";
 import { getOfficialOrderPaymentUpiId, getSingleOrder, makeOrderPayment } from '../actions/requestProduct.actions.js';
 import convertNumberToINR from "../handler/NumberToINR.js";
+import { MetaData } from "../components/index.jsx";
 
 function Payment() {
     const navigate = useNavigate();
@@ -131,6 +132,7 @@ function Payment() {
 
     return (
     <>
+    <MetaData title="Shopkart | Pay with ShopPay | India" />
     <div
     className="w-10/12 min-h-[80vh] px-6 py-8 mx-auto my-4 shadow-lg bg-white rounded-md"
     >

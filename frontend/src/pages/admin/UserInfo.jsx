@@ -4,7 +4,7 @@ import moment from 'moment';
 import { toast } from "react-toastify";
 import { getUserById, updateAccountActivity, updateUserRole } from '../../actions/requestProduct.actions.js';
 import { PUBLIC_URL } from "../../config/api.config.js";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 
 function UserInfo() {
     const { id } = useParams();
@@ -81,6 +81,7 @@ function UserInfo() {
 
     return (
     <>
+    <MetaData title={`Admin Dashboard - User Info - ${userDetail?.fullName}`} />
     <div>
         {
             loading ? (

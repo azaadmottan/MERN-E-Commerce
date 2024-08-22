@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from "uuid";
 import { categoryProducts, getCategory } from "../../actions/requestProduct.actions.js";
-import { HomeProductCard } from "../../components/index.jsx";
+import { MetaData, HomeProductCard } from "../../components/index.jsx";
 import { PUBLIC_URL } from '../../config/api.config.js';
 
 function CategoryPage() {
@@ -23,7 +23,7 @@ function CategoryPage() {
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const getUniqueBrands = (products) => {
-        const brands = products.map(product => product.brand);
+        const brands = products.map(product => product.brand.toLowerCase());
         return [...new Set(brands)];
     };
 
@@ -56,7 +56,7 @@ function CategoryPage() {
 
         // Filter by selected brands
         if (selectedBrands.length > 0) {
-            sortedProducts = sortedProducts.filter(product => selectedBrands.includes(product.brand));
+            sortedProducts = sortedProducts.filter(product => selectedBrands.includes(product.brand.toLowerCase()));
         }
 
         // Sort products
@@ -152,6 +152,7 @@ function CategoryPage() {
         </>
         ) : (
         <>
+        <MetaData title={`${categoryData?.name} @ Shopkart | India`} />
         <div className="flex gap-2">
             <div className="w-[20%] h-[85vh] p-2 bg-white border rounded-md">
 

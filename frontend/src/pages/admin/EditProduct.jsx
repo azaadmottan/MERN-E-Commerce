@@ -7,6 +7,7 @@ import {
     IoClose,
 } from "../../components/Icons.jsx";
 import {
+    MetaData,
     MiniLoading,
     Modal,
     BackButton,
@@ -238,6 +239,7 @@ function EditProduct() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Edit Product Information" />
     <div>
         <h2 className="text-xl font-semibold mt-2">Edit Product</h2>
 

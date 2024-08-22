@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { getAllPayments } from '../../actions/requestProduct.actions.js';
 import covertNumberToINR from "../../handler/NumberToINR.js";
+import { MetaData } from "../../components/index.jsx";
 
 function UserPayment() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ function UserPayment() {
 
     return (
     <div>
+        <MetaData title="Admin Dashboard - User Payment" />
         <h1 className="text-xl font-semibold">User Orders</h1>
         <table className="table-fixed w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
             <thead className="bg-gray-800 text-white">

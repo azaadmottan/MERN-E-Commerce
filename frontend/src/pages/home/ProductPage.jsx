@@ -6,6 +6,7 @@ import moment from 'moment';
 // import ReactImageMagnify from "react-image-magnify";
 import { PUBLIC_URL } from '../../config/api.config';
 import {
+    MetaData,
     MiniLoading,
 } from '../../components/index.jsx';
 import {
@@ -256,6 +257,7 @@ function ProductPage() {
             ) : (
                 product ? (
                     <>
+                    <MetaData title={`${product?.name} | Shopkart | India`} />
                     <div className="flex items-center gap-2">
                         <div className=" w-[40%] h-[85vh] bg-white rounded-md border">
                             <div className="flex items-center gap-2 p-2">

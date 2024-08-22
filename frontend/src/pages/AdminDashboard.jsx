@@ -18,6 +18,7 @@ import {
     IoWalletOutline,
 } from "../components/Icons.jsx";
 import {
+    MetaData,
     BackButton,
     BreadCrumb,
     ForwardButton,
@@ -48,6 +49,7 @@ function AdminDashboard() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard" />
     <div className="container mx-auto my-2 flex items-center gap-2">
         <aside className="md:w-3/12 lg:w-3/2 h-[85vh] px-2 py-4 bg-white rounded-md">
             <div className="bg-slate-100 rounded-md px-2 py-4 flex items-center gap-4">

@@ -10,7 +10,7 @@ import {
     BsBagXFill,
 } from "../../components/Icons.jsx";
 import { SiTicktick } from "react-icons/si";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 import {
     PUBLIC_URL,
 } from "../../config/api.config.js";
@@ -70,6 +70,7 @@ function UserOrder() {
 
     return (
     <div>
+        <MetaData title="Dashboard - My Orders" />
         <h2 className="text-xl font-semibold mt-4">My Orders</h2>
 
         <div className="flex items-center">

@@ -10,7 +10,7 @@ import { MdCallMade } from "react-icons/md";
 import { MdCallReceived } from "react-icons/md";
 import { createTransaction, getUserWallet } from "../../actions/requestProduct.actions.js";
 import convertNumberToINR from "../../handler/NumberToINR.js";
-import { Modal } from "../../components/index.jsx";
+import { MetaData, Modal } from "../../components/index.jsx";
 import { toast } from 'react-toastify';
 
 function Wallet() {
@@ -74,6 +74,7 @@ function Wallet() {
 
     return (
     <>
+    <MetaData title="Dashboard - Wallet" />
     {
         loading ? (
             <div className="mt-2 flex flex-col gap-4">

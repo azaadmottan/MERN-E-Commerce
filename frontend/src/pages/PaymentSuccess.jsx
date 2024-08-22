@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom";
 // import successImage from "../assets/Transaction/success.png";
 import successImage from "../assets/Transaction/success-check.gif";
+import { MetaData } from "../components/index.jsx";
 
 function PaymentSuccess() {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ function PaymentSuccess() {
 
     return (
     <>
+    <MetaData title="Shopkart | Payment Success" />
     <div className="flex flex-col gap-2 items-center justify-center sm:w-4/6 sm:mt-4 m-auto mb-7 bg-white shadow rounded p-6 pb-12">
         <img draggable="false" className="w-2/2 h-60 rounded-md bg-slate-200" src={successImage} alt="Transaction Status" />
         <h1 className="text-2xl font-semibold tracking-wider">Transaction Successfull</h1>

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { getActiveCoupons } from '../../actions/requestProduct.actions.js';
+import { MetaData } from "../../components/index.jsx";
 
 function UserCoupons() {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ function UserCoupons() {
 
     return (
     <>
+    <MetaData title="Dashboard - My Coupons" />
     <div>
         <h2 className="text-xl font-semibold my-2">Available Coupons</h2>
 

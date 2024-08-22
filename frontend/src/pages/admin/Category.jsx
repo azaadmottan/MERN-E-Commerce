@@ -7,6 +7,7 @@ import {
     MdDelete,
 } from "../../components/Icons.jsx";
 import {
+    MetaData,
     Modal,
     MiniLoading,
 } from "../../components/index.jsx";
@@ -154,6 +155,7 @@ function Category() {
 
     return (
     <>
+    <MetaData title="Admin Dashboard - Category" />
     <div>
         <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Category Information</h2>

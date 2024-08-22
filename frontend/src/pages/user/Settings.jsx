@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { createWallet, getUserWallet } from "../../actions/requestProduct.actions.js";
 import { MdVerified } from "react-icons/md";
+import { MetaData } from "../../components/index.jsx";
 
 
 function UserSettings() {
@@ -70,6 +71,8 @@ function UserSettings() {
 
     return (
     <>
+    <MetaData title="Dashboard - Settings" />
+
     <div>
     {
         loading ? (
