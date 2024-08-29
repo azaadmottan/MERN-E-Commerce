@@ -113,6 +113,50 @@ export const registerUser = (userData) => async (dispatch) => {
     }
 };
 
+// Update Profile Details
+export const updateProfileDetails = (fullName, email) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PROFILE_REQUEST });
+
+        const { data } = await axios.patch(
+            '/api/users/update-account-details',
+            { fullName, email }
+        );
+
+        dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: data?.data?.user,
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PROFILE_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+// Update Password
+export const updatePassword = async (oldPassword, newPassword) => {
+    try {
+        const { data } = await axios.post(
+            '/api/users/update-password',
+            { oldPassword, newPassword }
+        );
+
+        if (data?.data?.success) {
+            return {
+                isPasswordUpdate: data?.data?.success,
+                success: true,
+            };
+        }
+    } catch (error) {
+        return {
+            error: true,
+            message: error.response.data.message,
+        };
+    }
+};
+
 // Load User
 export const loadUser = () => async (dispatch) => {
     try {
