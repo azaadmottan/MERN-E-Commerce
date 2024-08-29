@@ -47,6 +47,7 @@ import {
     DELETE_ADDRESS_REQUEST,
     DELETE_ADDRESS_SUCCESS,
     DELETE_ADDRESS_FAIL,
+    LOGOUT_USER_EMPTY_ADDRESS,
 } from "../constants/user.constants.js";
 
 const initialUserState = {
@@ -64,6 +65,12 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
             return {
                 loading: true,
                 isAuthenticated: false,
+            };
+        case UPDATE_PROFILE_REQUEST:
+            return {
+                ...state,
+                success: false,
+                error: null,
             };
         case LOGIN_USER_SUCCESS:
         case REGISTER_USER_SUCCESS:
@@ -87,6 +94,20 @@ export const userReducer = (state = initialUserState, { type, payload }) => {
                 loading: false,
                 isAuthenticated: false,
                 user: null,
+                error: payload,
+            };
+        case UPDATE_PROFILE_SUCCESS:
+            return {
+                ...state,
+                user: payload,
+                loading: false,
+                success: true,
+                error: null,
+            };
+        case UPDATE_PROFILE_FAIL:
+            return {
+                loading: false,
+                success: false,
                 error: payload,
             };
         case LOAD_USER_FAIL:
@@ -148,6 +169,13 @@ export const addressReducer = (state = initialAddressState, { type, payload }) =
                 loading: false,
                 error: payload,
             }
+        case LOGOUT_USER_EMPTY_ADDRESS: 
+            return {
+                address: null,
+                loading: false,
+                success: true,
+                error: null,
+            };
         case CLEAR_ERRORS:
             return {
                 ...state,
