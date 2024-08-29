@@ -8,20 +8,45 @@ const ProtectedRoute = ({ children, isAdmin }) => {
     const location = useLocation();
     const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
-    return (
-    <>
-        {
-            loading === true && (
-                <Loading />
-            )
+    // return (
+    // <>
+    //     {
+    //         loading === true && (
+    //             <Loading />
+    //         )
+    //     }
+    //     {
+    //         loading === false && (
+    //             (isAuthenticated === false) ? ( navigate("/login") ) : ( (isAdmin) ? ( (!user.isAdmin) ? (navigate("/login")) : (children) ) : (children) )
+    //         )
+    //     }
+    // </>
+    // );
+
+    useEffect(() => {
+        // If not authenticated, redirect to login page
+        if (!loading && !isAuthenticated) {
+            navigate("/login");
         }
-        {
-            loading === false && (
-                (isAuthenticated === false) ? ( navigate("/login") ) : ( (isAdmin) ? ( (!user.isAdmin) ? (navigate("/login")) : (children) ) : (children) )
-            )
+
+        // If authenticated but not an admin when an admin is required, redirect to login page
+        if (!loading && isAuthenticated && isAdmin && !user?.isAdmin) {
+            navigate("/login");
         }
-    </>
-    );
+    }, [loading, isAuthenticated, user, isAdmin, navigate]);
+
+    // Render the loading component if loading, or the child components if authenticated
+    if (loading) {
+        return <Loading />;
+    }
+
+    // If user is authenticated and (if required) an admin, render children components
+    if (isAuthenticated && (!isAdmin || (isAdmin && user?.isAdmin))) {
+        return children;
+    }
+
+    // Render null or a fallback UI in case the above conditions don't match (though they should all be handled)
+    return null;
 
     // useEffect(() => {
     //     if (!loading) {
