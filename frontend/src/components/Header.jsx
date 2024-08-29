@@ -14,6 +14,7 @@ import {
     logoutUser,
 } from "../actions/user.actions.js";
 import { LOGOUT_USER_EMPTY_CART } from '../constants/cart.constants.js';
+import { LOGOUT_USER_EMPTY_ADDRESS } from '../constants/user.constants.js';
 
 function Header() {
     const navigate = useNavigate();
@@ -28,17 +29,22 @@ function Header() {
         dispatch(logoutUser());
         setLogoutUserSuccess(true);
 
-        if (error) {
-            toast.error(error);
-        }
         setShowMenu(false);
     }
 
-    if (logoutUserSuccess) {
-        toast.success("User logged out successfully");
-        dispatch({ type: LOGOUT_USER_EMPTY_CART });
-        setLogoutUserSuccess(false);
-    }
+    useEffect(() => {
+        if (logoutUserSuccess && error) {
+            toast.error(error);
+            setLogoutUserSuccess(false);
+            return;
+        }
+        if (logoutUserSuccess && !isAuthenticated) {
+            toast.success("User logged out successfully");
+            dispatch({ type: LOGOUT_USER_EMPTY_ADDRESS });
+            dispatch({ type: LOGOUT_USER_EMPTY_CART });
+            setLogoutUserSuccess(false);
+        }
+    }, [isAuthenticated, error]);
 
     const [searchQuery, setSearchQuery] = useState("");
     const handleSearch = (e) => {
