@@ -1,23 +1,84 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { addOfficialOrderPaymentUpiId, createWallet, getOfficialOrderPaymentUpiId, getUserWallet, removeOfficialOrderPaymentUpiId } from "../../actions/requestProduct.actions.js";
 import { MdVerified } from "react-icons/md";
+import { RiListSettingsLine } from "react-icons/ri";
 import { MetaData, Modal } from "../../components/index.jsx";
+import { updatePassword, updateProfileDetails } from '../../actions/user.actions.js';
 
 function Setting() {
-    const { user } = useSelector((state) => state?.user);
+    const dispatch = useDispatch();
+    const { user, success, error } = useSelector((state) => state?.user);
     const [isChecked, setIsChecked] = useState(false);
-    const [loading, setLoading] = useState(true);
-
-    const handleCheckboxChange = () => {
-        setIsChecked(!isChecked)
-    }
+    const [pageLoading, setPageLoading] = useState(true);
 
     const validatePassword = (value) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordRegex.test(value);
     };
+
+    const [userName, setUserName] = useState(user?.userName);
+    const [fullName, setFullName] = useState(user?.fullName);
+    const [email, setEmail] = useState(user?.email);
+    const [userOldPassword, setUserOldPassword] = useState("");
+    const [newUserPassword, setNewUserPassword] = useState("");
+
+    const [updateProfileForm, setUpdateProfileForm] = useState(false);
+    const handleUpdateProfileDetails = (e) => {
+        setUpdateProfileForm(false);
+        e.preventDefault();
+        if (!fullName.trim() || !email.trim()) {
+            toast.error("Full name and email are required");
+            return;
+        }
+
+        if ((fullName === user?.fullName) && (email === user?.email)) {
+            toast.info("No changes made to profile details");
+            return;
+        }
+
+        dispatch(updateProfileDetails(fullName, email));
+        setUpdateProfileForm(true);
+    }
+
+    useEffect(() => {
+        if (error && updateProfileForm) {
+            toast.error(error);
+            return;
+        }
+        if (success && updateProfileForm) {
+            toast.success("Profile details updated successfully");
+        }
+    }, [success, error]);
+
+    const handleUpdatePassword = async (e) => {
+        e.preventDefault();
+        if (!userOldPassword.trim() || !newUserPassword.trim()) {
+            toast.error("Old and new password are required");
+            return;
+        }
+
+        if (newUserPassword?.length < 8) {
+            toast.error("Password should be at least 8 characters long");
+            return;
+        }
+
+        const response = await updatePassword(userOldPassword, newUserPassword);
+        if (response?.error) {
+            toast.error(response?.message);
+            return;
+        }
+        if (response?.success) {
+            toast.success("Password updated successfully");
+            setUserOldPassword("");
+            setNewUserPassword("");
+        }
+    }
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked)
+    }
 
     const [upiId, setUpiId] = useState("");
     const generateUpiId = () => {
@@ -55,12 +116,12 @@ function Setting() {
 
     const [wallet, setWallet] = useState([]);
     const getWallet = async () => {
-        setLoading(true);
+        setPageLoading(true);
         const response = await getUserWallet();
         if (response?.success) {
             setWallet(response?.wallet);
         }
-        setLoading(false);
+        setPageLoading(false);
     }
 
     const [officialOrderUpiId, setOfficialOrderUpiId] = useState("");
@@ -118,7 +179,7 @@ function Setting() {
     <>
     <MetaData title="Admin Dashboard - Settings" />
     {
-        loading ? (
+        pageLoading ? (
             <>
             <h2 className="text-xl font-semibold">
                 Common Dashboard Settings
@@ -138,7 +199,99 @@ function Setting() {
                     Common Dashboard Settings
                 </h2>
 
-                <div className="mt-2">
+                <div className="my-2">
+                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                        Profile Settings
+                    </h2>
+
+                    <form
+                    onSubmit={handleUpdateProfileDetails}
+                    className="flex flex-col gap-2">
+                        <h3 className="text-lg font-medium text-gray-600">Update Profile Details</h3>
+                        <div className="flex flex-wrap justify-between">
+                            <div className="w-[40%]">
+                                <label htmlFor="username" className="block font-medium text-gray-500">Username</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-500"
+                                    disabled={true}
+                                />
+                            </div>
+                            <div className="w-[40%]">
+                                <label htmlFor="email" className="block font-medium text-gray-600">Email-id</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-500"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-wrap justify-between">
+                            <div className="w-[40%]">
+                                <label htmlFor="fullName" className="block font-medium text-gray-500">Full Name</label>
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
+                                    className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-500"
+                                />
+                            </div>
+                        </div>
+                        <button
+                        type="submit"
+                        className="py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                            Update Profile
+                        </button>
+                    </form>
+
+                    <form
+                    onSubmit={handleUpdatePassword}
+                    className="flex flex-col gap-2 mt-2">
+                        <h3 className="text-lg font-medium text-gray-600">Update Account Password</h3>
+                        <div className="flex flex-wrap justify-between">
+                            <div className="w-[40%]">
+                                <label htmlFor="password"  className="block font-medium text-gray-500">Old Password</label>
+                                <input 
+                                type="password"
+                                id="password"
+                                value={userOldPassword}
+                                onChange={(e) => setUserOldPassword(e.target.value)}
+                                placeholder="Enter old password"
+                                className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-600"
+                                />
+                            </div>
+                            <div className="w-[40%]">
+                                <label htmlFor="cPassword"  className="block font-medium text-gray-500">New Password</label>
+                                <input 
+                                type="password"
+                                id="cPassword"
+                                value={newUserPassword}
+                                onChange={(e) => setNewUserPassword(e.target.value)}
+                                placeholder="Enter new password"
+                                className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-600"
+                                />
+                            </div>
+                        </div>
+                        <button 
+                        className="py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                            Update Password
+                        </button>
+                    </form>
+
+                </div>
+
+                <div className="my-2">
+                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                        Wallet Settings
+                    </h2>
                     {
                         wallet?.isActive && (
                         <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-4 rounded-md">
@@ -151,7 +304,7 @@ function Setting() {
                         </div>
                         )
                     }
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="text-lg font-semibold text-gray-600">
                         Activate your Wallet
                     </h2>
                     <div className="text-gray-500 flex items-center justify-between">
@@ -182,7 +335,7 @@ function Setting() {
                     {
                         isChecked && (
                             <div>
-                                <h2 className="text-lg font-semibold">
+                                <h2 className="text-lg font-semibold text-gray-600">
                                     Your account details
                                 </h2>
                                 <div className="flex flex-col gap-4 p-4 mt-2 text-lg bg-slate-100 rounded-md">
@@ -257,7 +410,11 @@ function Setting() {
                 </div>
 
                 <div className="my-2">
-                    <h2 className="text-lg font-semibold">Order payment official UPI ID</h2>
+                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                        Order Payment Settings
+                    </h2>
+                    <h2 className="text-lg font-semibold text-gray-600">Order payment official UPI ID</h2>
                     <form 
                     onSubmit={handleAddOrderUpiId}
                     className="bg-slate-100 p-4 my-2 rounded-md flex items-center justify-between">
@@ -266,7 +423,7 @@ function Setting() {
                             <input 
                             value={orderUpiId}
                             onChange={(e) => setOrderUpiId(e.target.value)}
-                            readOnly={officialOrderUpiId}
+                            disabled={officialOrderUpiId}
                             className="border-2 focus-within:border-blue-600 outline-none rounded-md px-2 py-0.5"
                             id="order-upi-id"
                             type="text" placeholder="Enter upi id" />
