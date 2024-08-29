@@ -78,7 +78,11 @@ function App() {
         >
             <Outlet />
         </main>
-    <Footer />
+    {
+        (!pathname.includes("/admin") && !pathname.includes("/user")) && (
+            <Footer />
+        )
+    }
     </>
     );
 }
