@@ -51,7 +51,7 @@ function UserDashboard() {
     <>
     <MetaData title="User Dashboard" />
     <div className="container mx-auto my-2 flex items-center gap-2">
-        <aside className="md:w-3/12 lg:w-3/2 h-[85vh] px-2 py-4 bg-white rounded-md">
+        <aside className="md:w-3/12 lg:w-3/2 h-[86vh] px-2 py-4 bg-white rounded-md">
             <div className="bg-slate-100 rounded-md px-2 py-4 flex items-center gap-4">
                 <div className='rounded-full w-20 h-20'>
                     <img
@@ -108,7 +108,7 @@ function UserDashboard() {
             </nav>
         </aside>
 
-        <section className="md:w-9/12 lg:w-5/6 h-[85vh] px-6 py-6 bg-white rounded-md overflow-y-auto hiddenScrollBar">
+        <section className="md:w-9/12 lg:w-5/6 h-[86vh] px-6 py-6 bg-white rounded-md overflow-y-auto hiddenScrollBar">
             <div className="my-2 flex flex-col gap-2 select-none">
                 <div className="flex items-center justify-between">
                     <BackButton />
