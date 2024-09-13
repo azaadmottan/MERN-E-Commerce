@@ -72,31 +72,31 @@ function Login() {
     <div className="max-w-lg mx-auto mt-5 bg-white px-6 py-4 rounded-md">
         <div>
             <h2 className="text-3xl font-bold">Login</h2>
-            <p className="mt-2 text-gray-700 font-semibold text-lg">Get access to your Orders, Wishlist and Recommendations.</p>
+            <p className="mt-2 text-gray-700 font-semibold text-lg">Get access to your Orders, Cart-items and Recommendations.</p>
         </div>
 
         <div className='mt-4'>
             <form 
             onSubmit={handleLoginForm}
             className="grid gap-3 text-lg">
-                <label htmlFor="username" className="font-semibold">Username / Email-id</label>
+                <label htmlFor="username" className="font-semibold">Username / Email-id <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username / email-id"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     />
                 </div>
 
-                <label htmlFor="password" className="font-semibold">Password</label>
+                <label htmlFor="password" className="font-semibold">Password <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div className="relative">
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}

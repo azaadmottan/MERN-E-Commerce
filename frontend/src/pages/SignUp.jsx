@@ -102,48 +102,48 @@ function SignUp() {
             <form
             onSubmit={handleSignUpForm}
             className="grid gap-2 text-lg">
-                <label htmlFor="username" className="font-semibold">Username</label>
+                <label htmlFor="username" className="font-semibold">Username <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
                     />
                 </div>
 
-                <label htmlFor="fullName" className="font-semibold">Full Name</label>
+                <label htmlFor="fullName" className="font-semibold">Full Name <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="fullName"
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your full name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     />
                 </div>
 
-                <label htmlFor="email" className="font-semibold">Email-id</label>
+                <label htmlFor="email" className="font-semibold">Email-id <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="email"
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your email-id"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
 
-                <label htmlFor="password" className="font-semibold">Password</label>
+                <label htmlFor="password" className="font-semibold">Password <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div className="relative">
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -165,12 +165,12 @@ function SignUp() {
                     }
                 </div>
 
-                <label htmlFor="confirmPassword" className="font-semibold">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="font-semibold">Confirm Password <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div className="relative">
                     <input 
                     type={showConfirmPassword ? "text" : "password"} 
                     id="confirmPassword" 
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Confirm your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -192,13 +192,13 @@ function SignUp() {
                     }
                 </div>
 
-                <label htmlFor="profilePicture" className="font-semibold">Profile Picture</label>
+                <label htmlFor="profilePicture" className="font-semibold">Profile Picture <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="file"
                     name="profilePicture" 
                     id="profilePicture"
-                    className="w-full p-2 bg-slate-100 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Upload your profile picture"
                     accept="image/*"
                     onChange={(e) => setProfilePicture(e.target.files[0])}
