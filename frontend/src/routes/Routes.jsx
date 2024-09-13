@@ -28,6 +28,7 @@ import {
     PaymentInfo,
     AdminWallet,
     UserInfo,
+    AdminMyOrder,
 } from "../pages/admin/index.jsx";
 import {
     UserCoupons,
@@ -170,6 +171,10 @@ const router = createBrowserRouter([
                     {
                         path: "/admin/dashboard/order",
                         element: <Order />,
+                    },
+                    {
+                        path: "/admin/dashboard/my-order",
+                        element: <AdminMyOrder />,
                     },
                     {
                         path: "/admin/dashboard/order/:orderId",

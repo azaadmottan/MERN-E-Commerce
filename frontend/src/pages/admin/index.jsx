@@ -14,6 +14,7 @@ import OrderDetail from "./OrderDetail.jsx";
 import PaymentInfo from "./PaymentInfo.jsx";
 import AdminWallet from "./Wallet.jsx";
 import UserInfo from "./UserInfo.jsx";
+import AdminMyOrder from "./MyOrder.jsx";
 
 
 export {
@@ -23,6 +24,7 @@ export {
     Comment,
     Coupon,
     Order,
+    AdminMyOrder,
     UserPayment,
     Product,
     Review,
