@@ -136,100 +136,106 @@ function ManageAddress() {
                 addressLoading ? (
                     <MiniLoading />
                 ) : (
-                    address?.map((address, index) => (
-                        <div key={uuidv4()} className="grid gap-2">
-                            <div className="flex items-center justify-between">
-                                <h3 className='flex items-center gap-2'>
-                                    <FaRegAddressCard />
-                                    Address {index + 1}
-                                </h3>
-                                <span 
-                                className="text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
-                                onClick={() => toggleEditMenu(index)}>
-                                    <BsThreeDotsVertical />
-                                    {
-                                        showEditMenu[index] && (
-                                            <div className="absolute -left-24 bg-white shadow-md text-nowrap rounded-md">
-                                                <p className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100 overflow-hidden" title="Edit your address"
-                                                onClick={() => (
-                                                    setUpdateAddressFormData(address),
-                                                    setShowUpdateAddressModal(true)
-                                                )}
-                                                >
-                                                    <MdEdit />Edit
-                                                </p>
-                                                <p className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100" title="Delete address"
-                                                onClick={() => (
-                                                    setDeleteAddressId(address?._id),
-                                                    setShowDeleteAddressModal(true)
-                                                )}>
-                                                    <MdDelete />Delete
-                                                </p>
-                                            </div>
-                                        )
-                                    }
-                                </span>
-                            </div>
-
-                            <div className="text-xl md:flex justify-between">
-                                <p className="w-[50%] flex gap-2">
-                                    <span>
-                                        Phone: 
-                                    </span>
-                                    <span className="font-semibold">
-                                        {address?.phone}
-                                    </span> 
-                                </p>
-                                <p className="w-[50%] flex gap-2">
-                                <span className="">
-                                    Country: 
-                                </span>
-                                <span className="font-semibold">
-                                    {address?.country}
-                                </span> 
-                                </p>
-                            </div>
-
-                            <div className="text-xl md:flex justify-between">
-                                <p className="w-[50%] flex gap-2">
-                                    <span className="">
-                                        State: 
-                                    </span>
-                                    <span className="font-semibold">
-                                        {address?.state}
-                                    </span> 
-                                </p>
-                                <p className="w-[50%] flex gap-2">
-                                    <span className="">
-                                        City: 
-                                    </span>
-                                    <span className="font-semibold">
-                                        {address?.city}
-                                    </span> 
-                                </p>
-                            </div>
-
-                            <div className="text-xl md:flex gap-2">
-                                <span className="">
-                                    Address: 
-                                </span>
-                                <span className="font-semibold">
-                                    {address?.address}
-                                </span> 
-                            </div>
-
-                            <div className="text-xl md:flex gap-2">
-                                <span className="">
-                                    Postal Code: 
-                                </span>
-                                <span className="font-semibold">
-                                    {address?.postalCode}
-                                </span> 
-                            </div>
-
-                            <span className=" my-2 border-b-2" />
+                    !address ? (
+                        <div className="border rounded-md p-4">
+                            <h3 className="text-center text-gray-400">You have not added any address yet !</h3>
                         </div>
-                    ))
+                    ) : (
+                        address?.map((address, index) => (
+                            <div key={uuidv4()} className="grid gap-2">
+                                <div className="flex items-center justify-between">
+                                    <h3 className='flex items-center gap-2'>
+                                        <FaRegAddressCard />
+                                        Address {index + 1}
+                                    </h3>
+                                    <span 
+                                    className="text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
+                                    onClick={() => toggleEditMenu(index)}>
+                                        <BsThreeDotsVertical />
+                                        {
+                                            showEditMenu[index] && (
+                                                <div className="absolute -left-24 bg-white shadow-md text-nowrap rounded-md">
+                                                    <p className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100 overflow-hidden" title="Edit your address"
+                                                    onClick={() => (
+                                                        setUpdateAddressFormData(address),
+                                                        setShowUpdateAddressModal(true)
+                                                    )}
+                                                    >
+                                                        <MdEdit />Edit
+                                                    </p>
+                                                    <p className="px-4 py-2 flex items-center gap-2 hover:bg-slate-100" title="Delete address"
+                                                    onClick={() => (
+                                                        setDeleteAddressId(address?._id),
+                                                        setShowDeleteAddressModal(true)
+                                                    )}>
+                                                        <MdDelete />Delete
+                                                    </p>
+                                                </div>
+                                            )
+                                        }
+                                    </span>
+                                </div>
+    
+                                <div className="text-xl md:flex justify-between">
+                                    <p className="w-[50%] flex gap-2">
+                                        <span>
+                                            Phone: 
+                                        </span>
+                                        <span className="font-semibold">
+                                            {address?.phone}
+                                        </span> 
+                                    </p>
+                                    <p className="w-[50%] flex gap-2">
+                                    <span className="">
+                                        Country: 
+                                    </span>
+                                    <span className="font-semibold">
+                                        {address?.country}
+                                    </span> 
+                                    </p>
+                                </div>
+    
+                                <div className="text-xl md:flex justify-between">
+                                    <p className="w-[50%] flex gap-2">
+                                        <span className="">
+                                            State: 
+                                        </span>
+                                        <span className="font-semibold">
+                                            {address?.state}
+                                        </span> 
+                                    </p>
+                                    <p className="w-[50%] flex gap-2">
+                                        <span className="">
+                                            City: 
+                                        </span>
+                                        <span className="font-semibold">
+                                            {address?.city}
+                                        </span> 
+                                    </p>
+                                </div>
+    
+                                <div className="text-xl md:flex gap-2">
+                                    <span className="">
+                                        Address: 
+                                    </span>
+                                    <span className="font-semibold">
+                                        {address?.address}
+                                    </span> 
+                                </div>
+    
+                                <div className="text-xl md:flex gap-2">
+                                    <span className="">
+                                        Postal Code: 
+                                    </span>
+                                    <span className="font-semibold">
+                                        {address?.postalCode}
+                                    </span> 
+                                </div>
+    
+                                <span className=" my-2 border-b-2" />
+                            </div>
+                        ))
+                    )
                 )
             }
 

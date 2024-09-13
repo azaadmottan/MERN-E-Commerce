@@ -203,7 +203,7 @@ function User() {
                 </div>
             </div>
         </div>
-        <div>
+        <div className="max-h-[450px] overflow-y-auto hiddenScrollBar">
         <table className="table-fixed w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
             <thead className="bg-gray-800 text-white">
                 <tr>

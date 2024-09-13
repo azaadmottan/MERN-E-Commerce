@@ -105,7 +105,7 @@ function UserOrder() {
                 </div>
                 ) : (
                     newOrders?.map((order) => (
-                    <>
+                    <div key={uuidv4()}>
                     {
                         order?.orderItems?.map((item) => (
                             <div 
@@ -223,7 +223,7 @@ function UserOrder() {
                             </div>
                         ) 
                     }
-                    </>
+                    </div>
                     ))
                 )
             }
@@ -234,8 +234,8 @@ function UserOrder() {
             <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
             {
                 oldOrders?.length === 0 ? (
-                    <div className="mt-2">
-                        <h4 className="text-lg text-gray-600 font-medium">No old orders found !</h4>
+                    <div>
+                        <h4 className="text-center text-gray-400">No old orders found !</h4>
                     </div>
                 ) : (
                     oldOrders?.map((order) => (
