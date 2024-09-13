@@ -94,6 +94,12 @@ function AdminDashboard() {
                 <LuGitPullRequestDraft /> Orders
                 </Link>
                 <Link
+                to={'/admin/dashboard/my-order'}
+                className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/my-order' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
+                >
+                <LuGitPullRequestDraft /> My Orders
+                </Link>
+                <Link
                 to={'/admin/dashboard/user'}
                 className={`w-full px-4 py-2 mb-1 rounded-md flex items-center gap-2 text-lg font-medium ${isActive == '/admin/dashboard/user' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
                 >
