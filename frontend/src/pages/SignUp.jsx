@@ -23,6 +23,7 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [profilePicture, setProfilePicture] = useState("");
+    const [phone, setPhone] = useState("");
 
     const [formSubmit, setFormSubmit] = useState(false);
     const handleSignUpForm = (e) => {
@@ -61,6 +62,7 @@ function SignUp() {
             fullName,
             email,
             password,
+            phone,
             profilePicture,
         }
 
@@ -202,6 +204,19 @@ function SignUp() {
                     placeholder="Upload your profile picture"
                     accept="image/*"
                     onChange={(e) => setProfilePicture(e.target.files[0])}
+                    />
+                </div>
+
+                
+                <label htmlFor="phone" className="font-semibold">Phone No.</label>
+                <div>
+                    <input 
+                    type="number" 
+                    id="phone"
+                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    placeholder="Enter your phone number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
 

@@ -84,7 +84,7 @@ export const loginUser = (userData) => async (dispatch) => {
 // Register User
 export const registerUser = (userData) => async (dispatch) => {
     try {
-        const { userName, fullName, email, password, profilePicture } = userData;
+        const { userName, fullName, email, password, phone, profilePicture } = userData;
 
         dispatch({ type: REGISTER_USER_REQUEST });
 
@@ -96,7 +96,7 @@ export const registerUser = (userData) => async (dispatch) => {
 
         const { data } = await axios.post(
             '/api/users/register',
-            { userName, fullName, email, password, profilePicture },
+            { userName, fullName, email, password, phone, profilePicture },
             config
         );
 

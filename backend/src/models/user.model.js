@@ -23,6 +23,9 @@ const userSchema = new Schema({
             "Please enter a valid email"
         ]
     },
+    phone: {
+        type: Number,
+    },
     password: {
         type: String,
         required: [true, "Password is required"],
