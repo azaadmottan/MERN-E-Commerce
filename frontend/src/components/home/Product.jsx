@@ -55,7 +55,7 @@ function Product() {
                 }
                 </div>
             ) : (
-                <div className="flex flex-wrap items-center justify-around gap-4">
+                <div className="flex flex-wrap items-center justify-around sm:justify-around sm:gap-4">
                     {
                         products.map((product) => (
                             <div

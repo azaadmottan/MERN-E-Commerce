@@ -84,13 +84,13 @@ function VerticalCardSlider({ category, heading }) {
         <div className="bg-white rounded-md relative flex items-center select-none">
             <FaAngleLeft
             onClick={() => scrollLeft()}
-            className="w-10 h-10 z-20 absolute left-0 p-2 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200" />
+            className="w-10 h-10 z-20 absolute left-0 p-2 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200 hidden lg:block" />
             <FaAngleRight 
             onClick={() => scrollRight()}
-            className="w-10 h-10 z-20 absolute right-0 p-2 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200" />
+            className="w-10 h-10 z-20 absolute right-0 p-2 rounded-full cursor-pointer bg-slate-100 hover:bg-slate-200 hidden lg:block" />
 
             <div className="overflow-x-auto hiddenScrollBar p-4 h flex items-center justify-around transition-all duration-200 delay-300" ref={scrollElement}>
-                <div className="flex items-center justify-around gap-4 px-4">
+                <div className="flex items-center justify-around gap-4 lg:px-4">
                     {
                         loading ? (
                             loadingElements.map(() => (
@@ -119,7 +119,7 @@ function VerticalCardSlider({ category, heading }) {
                                 <div 
                                 key={uuidv4()}
                                 onClick={() => navigate(`/product/${formatUrl(item?.name)}/${item?._id}`)}
-                                className=" w-64 bg-slate-50 p-2 rounded-md group">
+                                className=" w-64 bg-slate-100 bg-opacity-70 p-2 rounded-md group">
                                     <div className="w-full h-32 py-2 overflow-hidden">
                                         <img 
                                         src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (item?.images[0] || 'productImages/sampleImage.jpg')}
@@ -129,17 +129,17 @@ function VerticalCardSlider({ category, heading }) {
                                     </div>
     
                                     <div className="flex flex-col gap-1 p-2">
-                                        <h2 className="text-xl group-hover:text-blue-500 font-medium truncate">
+                                        <h2 className="text-sm sm:text-xl group-hover:text-blue-500 font-medium truncate">
                                             {
                                                 item?.name
                                             }
                                         </h2>
-                                        <p className="text-slate-500 group-hover:text-blue-500 uppercase font-semibold">
+                                        <p className="text-xs sm:text-base text-slate-500 group-hover:text-blue-500 uppercase font-semibold">
                                             {
                                                 item?.brand
                                             }
                                         </p>
-                                        <p className="text-green-500 font-bold italic font-serif">
+                                        <p className="text-sm text-green-500 font-bold italic font-serif">
                                             {
                                                 item?.discount
                                             }% off
@@ -154,7 +154,7 @@ function VerticalCardSlider({ category, heading }) {
                                         </div>
                                         <button
                                         onClick={(e) => AddProductToCart(e, item?._id)}
-                                        className="text-white bg-orange-500 hover:bg-orange-600 rounded-full">Add to Cart</button>
+                                        className="text-sm py-0.5 text-white bg-orange-500 hover:bg-orange-600 rounded-full">Add to Cart</button>
                                     </div>
                                 </div>
                             ))

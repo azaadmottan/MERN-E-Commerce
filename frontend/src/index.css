@@ -32,3 +32,15 @@ body {
     @apply bg-slate-500;
     /* @apply cursor-move; */
 }
+
+@media (min-width: 425px) {
+    .x-sm-w {
+        @apply w-[12.5rem];
+    }
+}
+
+@media (max-width: 320px) {
+    .xx-sm-w {
+        @apply min-w-72;
+    }
+}

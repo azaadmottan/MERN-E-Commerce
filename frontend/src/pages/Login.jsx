@@ -69,22 +69,22 @@ function Login() {
     return (
     <>
     <MetaData title="Login @ Shopkart | India | Buy Products with Max Profit" />
-    <div className="max-w-lg mx-auto mt-5 bg-white px-6 py-4 rounded-md">
+    <div className="max-w-lg mx-auto mt-5 bg-white px-4 sm:px-6 py-2 sm:py-4 rounded-md">
         <div>
-            <h2 className="text-3xl font-bold">Login</h2>
-            <p className="mt-2 text-gray-700 font-semibold text-lg">Get access to your Orders, Cart-items and Recommendations.</p>
+            <h2 className="text-xl sm:text-3xl font-bold">Login</h2>
+            <p className="mt-2 text-gray-700 font-semibold text-base sm:text-lg">Get access to your Orders, Cart-items and Recommendations.</p>
         </div>
 
         <div className='mt-4'>
             <form 
             onSubmit={handleLoginForm}
-            className="grid gap-3 text-lg">
+            className="grid gap-3 text-base sm:text-lg">
                 <label htmlFor="username" className="font-semibold">Username / Email-id <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username / email-id"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -96,7 +96,7 @@ function Login() {
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -104,13 +104,13 @@ function Login() {
                     {
                         showPassword ? (
                             <FaEyeSlash
-                            className="text-xl absolute top-3 right-3 cursor-pointer"
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer"
                             title="Hide password"
                             onClick={() => setShowPassword((prev) =>!prev)}
                             />
                         ) : (
                             <FaEye
-                            className="text-xl absolute top-3 right-3 cursor-pointer" 
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer" 
                             title="Show password"
                             onClick={() => setShowPassword((prev) => !prev)}
                             />
@@ -119,7 +119,7 @@ function Login() {
                 </div>
 
                 <button 
-                className="mt-4 p-1 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+                className="mt-4 py-0.5 sm:p-1 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white tracking-widest rounded-md"
                 type="submit"
                 disabled={loading}
                 >
@@ -127,11 +127,11 @@ function Login() {
                 </button>
             </form>
 
-            <p className='mt-4 font-semibold'>
+            <p className='mt-4 text-sm sm:text-base font-semibold'>
                 Don't have an account ? 
                 <Link 
                 to={"/signUp"}
-                className="text-blue-600 ml-1 hover:text-red-600"
+                className="text-blue-600 ml-1 hover:text-orange-600"
                 > SignUp</Link>
             </p>
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Logo from "./Logo.jsx";
@@ -18,6 +18,8 @@ import { LOGOUT_USER_EMPTY_ADDRESS } from '../constants/user.constants.js';
 
 function Header() {
     const navigate = useNavigate();
+    const location = useLocation();
+
     const dispatch = useDispatch();
     const { isAuthenticated, user, loading, error } = useSelector((state) => state.user);
     const { cartItems } = useSelector((state) => state.cart);
@@ -105,7 +107,7 @@ function Header() {
                         </button> */}
 
                         <button
-                        className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-4 py-2 rounded-md sm:flex items-center gap-2 hidden"
+                        className="bg-orange-500 hover:bg-orange-600 text-white sm:text-xl px-4 py-2 rounded-md flex items-center gap-2"
                         onClick={() => navigate("/login")}
                         >
                             <FaRegUserCircle />
@@ -155,16 +157,38 @@ function Header() {
                     ) 
                 }
 
-                <button 
+                {/* <button 
                 className="p-2 bg-orange-500 hover:bg-orange-600 text-white rounded-md inline-block sm:hidden"
                 onClick={() => navigate("/login")} 
                 >
                     <FaRegUserCircle size={22} />
-                </button>
+                </button> */}
 
             </div>
         </div>
     </header>
+
+    {
+        location?.pathname === "/" && (
+            <div className="p-2 mt-2 -mb-2 lg:hidden block">
+                <form className="flex items-center w-full focus-within:shadow-md rounded-md">
+                    <input 
+                    type="search" 
+                    placeholder='Search for products and many more...' 
+                    className="w-full text-lg pl-3 lg:pl-4 py-1 outline-none rounded-l-md"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}               
+                    />
+                    <button 
+                    onClick={handleSearch}
+                    className='px-4 py-1.5 text-white bg-orange-500 hover:bg-orange-600 outline-none rounded-r-md'>
+                        <IoIosSearch size={24} />
+                    </button>
+                </form>
+            </div>
+        )
+    }
+
     </>
     )
 }

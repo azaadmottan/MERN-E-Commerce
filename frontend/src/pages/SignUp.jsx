@@ -94,22 +94,22 @@ function SignUp() {
     return (
     <>
     <MetaData title="SignUp @ Shopkart | India | Buy Products with Max Profit" />
-    <div className="max-w-lg mx-auto mt-5 bg-white px-6 py-4 rounded-md">
+    <div className="max-w-lg mx-auto mt-5 mb-3 bg-white px-4 sm:px-6 py-2 sm:py-4 rounded-md">
         <div>
-            <h2 className="text-3xl font-bold">SignUp</h2>
-            <p className="mt-2 text-gray-700 font-semibold text-lg">Sign up with your email to get started.</p>
+            <h2 className="text-xl sm:text-3xl font-bold">SignUp</h2>
+            <p className="mt-2 text-gray-700 font-semibold text-base sm:text-lg">Sign up with your email to get started.</p>
         </div>
 
         <div className='mt-4'>
             <form
             onSubmit={handleSignUpForm}
-            className="grid gap-2 text-lg">
+            className="grid gap-2 text-base sm:text-lg">
                 <label htmlFor="username" className="font-semibold">Username <sup className="text-red-500 text-lg font-bold" title="Required field">*</sup></label>
                 <div>
                     <input 
                     type="text" 
                     id="username"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your username"
                     value={userName}
                     onChange={(e) => setUserName(e.target.value)}
@@ -121,7 +121,7 @@ function SignUp() {
                     <input 
                     type="text" 
                     id="fullName"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your full name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -133,7 +133,7 @@ function SignUp() {
                     <input 
                     type="text" 
                     id="email"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your email-id"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -145,7 +145,7 @@ function SignUp() {
                     <input 
                     type={showPassword ? "text" : "password"} 
                     id="password" 
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -153,13 +153,13 @@ function SignUp() {
                     {
                         showPassword ? (
                             <FaEyeSlash
-                            className="text-xl absolute top-3 right-3 cursor-pointer"
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer"
                             title="Hide password"
                             onClick={() => setShowPassword((prev) =>!prev)}
                             />
                         ) : (
                             <FaEye
-                            className="text-xl absolute top-3 right-3 cursor-pointer" 
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer" 
                             title="Show password"
                             onClick={() => setShowPassword((prev) => !prev)}
                             />
@@ -172,7 +172,7 @@ function SignUp() {
                     <input 
                     type={showConfirmPassword ? "text" : "password"} 
                     id="confirmPassword" 
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Confirm your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -180,13 +180,13 @@ function SignUp() {
                     {
                         showConfirmPassword ? (
                             <FaEyeSlash
-                            className="text-xl absolute top-3 right-3 cursor-pointer"
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer"
                             title="Hide password"
                             onClick={() => setShowConfirmPassword((prev) =>!prev)}
                             />
                         ) : (
                             <FaEye
-                            className="text-xl absolute top-3 right-3 cursor-pointer" 
+                            className="text-base sm:text-xl absolute top-2.5 sm:top-3 right-3 cursor-pointer" 
                             title="Show password"
                             onClick={() => setShowConfirmPassword((prev) => !prev)}
                             />
@@ -200,7 +200,7 @@ function SignUp() {
                     type="file"
                     name="profilePicture" 
                     id="profilePicture"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-0.5 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Upload your profile picture"
                     accept="image/*"
                     onChange={(e) => setProfilePicture(e.target.files[0])}
@@ -213,7 +213,7 @@ function SignUp() {
                     <input 
                     type="number" 
                     id="phone"
-                    className="w-full p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
+                    className="w-full px-2 py-1 sm:p-2 outline-none border-2 focus-within:border-blue-500 rounded-md"
                     placeholder="Enter your phone number"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -221,18 +221,18 @@ function SignUp() {
                 </div>
 
                 <button 
-                className="mt-4 p-1 text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+                className="mt-4 py-0.5 sm:p-1 text-base sm:text-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white tracking-widest rounded-md"
                 type="submit" 
                 >
                     SignUp
                 </button>
             </form>
 
-            <p className='mt-4 font-semibold'>
+            <p className='mt-4 text-sm sm:text-base font-semibold'>
                 Already have an account ? 
                 <Link 
                 to={"/login"}
-                className="text-blue-600 ml-1 hover:text-red-600"
+                className="text-blue-600 ml-1 hover:text-orange-600"
                 >Login</Link>
             </p>
         </div>

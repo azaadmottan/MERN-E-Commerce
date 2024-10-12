@@ -5,7 +5,7 @@ function Footer() {
     return (
     <>
     <div
-    className="text-gray-500 flex flex-col sm:flex-row items-center justify-around p-2 bg-slate-200"
+    className="text-sm sm:text-base text-gray-500 flex flex-col sm:flex-row items-center justify-around p-2 bg-slate-200"
     >
         <p className="flex items-center gap-2 font-bold text-black">
             <Logo width={30} height={30} />

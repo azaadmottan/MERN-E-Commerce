@@ -20,6 +20,9 @@ import img2_mobile from "../../assets/banner/img2_mobile.webp";
 import img3_mobile from "../../assets/banner/img3_mobile.jpg";
 import img4_mobile from "../../assets/banner/img4_mobile.jpg";
 import img5_mobile from "../../assets/banner/img5_mobile.png";
+import img6_mobile from "../../assets/banner/img6_mobile.jpg";
+import img7_mobile from "../../assets/banner/img7_mobile.jpg";
+import img8_mobile from "../../assets/banner/img8_mobile.jpg";
 
 import {
     FaAngleLeft,
@@ -31,7 +34,7 @@ function Banner() {
         img1, img2, img3, img4, img5, img6, img7, img8
     ]
     const mobileImages = [
-        img1_mobile, img2_mobile, img3_mobile, img4_mobile, img5_mobile
+        img6_mobile, img7_mobile, img8_mobile, img1_mobile, img2_mobile, img3_mobile, img4_mobile, img5_mobile,
     ]
 
     const [currentImage, setCurrentImage] = useState(0);
@@ -57,7 +60,7 @@ function Banner() {
             nextImage();
         }, 3000);
         return () => clearInterval(interval);
-    }, [desktopImages.length]);
+    }, [desktopImages.length, nextImage, prevImage]);
     
 
     // return (

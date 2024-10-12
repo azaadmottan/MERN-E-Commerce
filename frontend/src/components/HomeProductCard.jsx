@@ -7,10 +7,10 @@ import { PUBLIC_URL } from "../config/api.config.js";
 function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", price="", sellingPrice="" }) {
     return (
     <>
-    <div className="w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
+    <div className="w-44 xx-sm-w x-sm-w sm:w-60 mb-2 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
         <div className="hover:text-blue-600 group">
 
-            <div className="w-full h-52 py-2 overflow-hidden">
+            <div className="w-full h-32 sm:h-52 py-2 overflow-hidden">
                 <img 
                 src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (imgUrl || 'productImages/sampleImage.jpg')}
                 alt={name}
@@ -18,15 +18,15 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                 />
             </div>
             <div className="p-4 flex flex-col gap-1">
-                <h3 className="text-lg text-gray-800 font-semibold truncate group-hover:text-blue-600">
+                <h3 className="text-sm sm:text-lg text-gray-800 font-semibold truncate group-hover:text-blue-600">
                     {name}
                 </h3>
-                <h5 className="text-gray-400 uppercase font-medium group-hover:text-blue-600">
+                <h5 className="text-xs sm:text-base text-gray-400 uppercase font-medium group-hover:text-blue-600">
                     {brand}
                 </h5>
 
 
-                <p className="bg-green-500 text-sm text-white font-semibold w-fit px-2 py-0 rounded-md flex items-center gap-1">
+                <p className="bg-green-500 text-xs sm:text-sm text-white font-semibold w-fit px-2 py-0 rounded-md flex items-center gap-1">
                     {rating} <IoStar />
                 </p>
 
@@ -50,7 +50,7 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                     </span>
                 </p>
 
-                <p className="text-sm text-green-500">
+                <p className="text-xs sm:text-sm text-green-500">
                     Save extra with combo offers
                 </p>
             </div>
