@@ -143,24 +143,24 @@ function Cart() {
 
     return (
     <>
-    <div className="container h-[85vh] p-4 mx-auto my-2 rounded-md">
+    <div className="container h-[85vh] p-2 md:p-4 mx-auto my-2 rounded-md">
         {
             !user ? (
             <>
-                <div className="h-[80vh] bg-white rounded-md flex flex-col items-center justify-center gap-6 select-none">
+                <div className="h-[80vh] bg-white rounded-md flex flex-col items-center justify-center gap-3 md:gap-6 select-none p-2 md:p-0">
                     <img
                     src={cartImage}
                     className="w-64"
                     alt="Cart Image" />
 
-                    <h2 className="text-2xl hover:text-orange-500">Missing Your Cart Items ?</h2>
+                    <h2 className="text-lg md:text-2xl hover:text-orange-500">Missing Your Cart Items ?</h2>
 
-                    <p className="text-gray-500">Please login to see your items, you added previously in your cart !</p>
+                    <p className="text-center text-gray-500">Please login to see your items, you added previously in your cart !</p>
 
                     <button
                     onClick={() => navigate("/login")}
-                    className="text-lg font-bold px-10 py-2 rounded-md text-white bg-orange-500 hover:bg-opacity-90 flex items-center gap-2">
-                        <PiTrendUpThin className="text-2xl font-bold" />
+                    className="text-sm md:text-lg tracking-wider font-bold px-6 md:px-10 py-1.5 md:py-2 rounded-md text-white bg-orange-500 hover:bg-opacity-90 flex items-center gap-2">
+                        <PiTrendUpThin className="text-lg md:text-2xl font-bold" />
                         Login Now
                     </button>
                 </div>

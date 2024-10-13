@@ -17,7 +17,7 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                 className="w-full h-full object-contain rounded-md hover:scale-105 transition-all delay-75"
                 />
             </div>
-            <div className="p-4 flex flex-col gap-1">
+            <div className="px-2 py-4 sm:p-4 flex flex-col gap-1">
                 <h3 className="text-sm sm:text-lg text-gray-800 font-semibold truncate group-hover:text-blue-600">
                     {name}
                 </h3>
@@ -30,7 +30,7 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                     {rating} <IoStar />
                 </p>
 
-                <p className="text-sm tracking-wider">
+                <p className="text-xs sm:text-sm tracking-wider">
                     <span className="font-extrabold italic font-serif text-green-500">
                     {discount}% off
                     </span>
@@ -41,7 +41,7 @@ function HomeProductCard({imgUrl="", name="", brand="", rating="", discount="", 
                     <span className="text-sm font-extrabold">Sk</span> Assured Product
                 </p>
 
-                <p className="flex items-center gap-2 mt-2 tracking-wider">
+                <p className="flex items-center gap-2 sm:mt-2 tracking-wider">
                     <span className="flex items-center text-lg font-bold">
                         ₹{sellingPrice}
                     </span>

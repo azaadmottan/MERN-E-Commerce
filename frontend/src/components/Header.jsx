@@ -6,6 +6,7 @@ import Logo from "./Logo.jsx";
 import {
     BsCart3, 
     FaRegUserCircle,
+    LuLogIn,
     IoIosSearch,
     MdDashboard,
     LuLogOut
@@ -62,8 +63,8 @@ function Header() {
     <header className="bg-white h-16 shadow-md flex items-center sticky top-0 z-40">
         <div className="container mx-auto px-4 flex items-center justify-between">
             <div>
-                <Link href="/" className="text-2xl font-bold select-none flex items-center gap-2">
-                    <Logo width={40} height={40} />Shopkart
+                <Link href="/" className="text-xl sm:text-2xl font-bold select-none flex items-center gap-2">
+                    <Logo  className="w-10 sm:w-12 h-10 sm:h-12" />Shopkart
                 </Link>
             </div>
 
@@ -82,14 +83,16 @@ function Header() {
                 </button>
             </form>
 
-            <div className="flex gap-4">
+            <div className="flex gap-2 sm:gap-4">
                 <button 
-                className="text-orange-500 text-xl sm:flex items-center gap-2 px-4 py-2 hover:bg-slate-100 rounded-md relative hidden"
+                className="text-orange-500 text-xl flex items-center gap-2 px-4 py-2 hover:bg-slate-100 rounded-md relative"
                 onClick={() => navigate("/cart")} 
                 >
-                    <BsCart3 size={24} />
-                    Cart
-                    <span className='text-sm text-white bg-orange-500 px-1 py-0 absolute top-0 right-0 rounded-full'>
+                    <BsCart3 className="text-xl" />
+                    <span className="hidden sm:block">
+                        Cart
+                    </span>
+                    <span className='text-xs sm:text-sm text-white bg-orange-500 px-1 py-0 absolute top-0 right-0 rounded-full'>
                         {
                             cartItems ? cartItems?.length : 0
                         }
@@ -110,8 +113,10 @@ function Header() {
                         className="bg-orange-500 hover:bg-orange-600 text-white sm:text-xl px-4 py-2 rounded-md flex items-center gap-2"
                         onClick={() => navigate("/login")}
                         >
-                            <FaRegUserCircle />
-                            Login
+                            <LuLogIn className="text-xl" />
+                            <span className="hidden sm:block">
+                                Login
+                            </span>
                         </button>
                     </>
                     ) : (
@@ -120,7 +125,7 @@ function Header() {
                             className="bg-orange-500 hover:bg-orange-600 text-white text-xl px-4 py-3 rounded-md flex items-center"
                             onClick={() => setShowMenu((prev) => !prev)} 
                             >
-                                <FaRegUserCircle size={22} />
+                                <FaRegUserCircle className="text-xl" />
                             </button>
                             {
                                 showMenu && (
@@ -170,7 +175,7 @@ function Header() {
 
     {
         location?.pathname === "/" && (
-            <div className="p-2 mt-2 -mb-2 lg:hidden block">
+            <div className="container p-2 mx-auto mt-2 -mb-2 lg:hidden block">
                 <form className="flex items-center w-full focus-within:shadow-md rounded-md">
                     <input 
                     type="search" 

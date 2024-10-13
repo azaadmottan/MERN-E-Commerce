@@ -11,8 +11,14 @@ body {
     display: none;
 }
 
-::-webkit-scrollbar {
-    width: 8px;
+.showScrollBar::-webkit-scrollbar {
+    display: block !important;
+}
+
+@media (min-width: 426px) {
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
 }
 
 /* Track */

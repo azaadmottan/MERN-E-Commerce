@@ -89,7 +89,7 @@ function SearchPage() {
 
     return (
     <>
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-2 md:p-4">
     {
         loading ? (
         <>
@@ -150,19 +150,19 @@ function SearchPage() {
         ) : (
         <>
         <MetaData title={`${query} - Buy Product at Shopkart with Best Offers & Low Price | India`} />
-        <div className="flex gap-2">
-            <div className="w-[20%] h-[85vh] p-2 bg-white border rounded-md overflow-y-auto hiddenScrollBar">
+        <div className="flex flex-col md:flex-row gap-2">
+            <div className="md:w-[20%] md:h-[85vh] p-2 mb-2 md:mb-0 bg-white border rounded-md overflow-y-auto hiddenScrollBar">
 
-                <div className="flex flex-col gap-2">
-                    <h2 className="text-xl text-gray-800 font-semibold uppercase border-b-2 p-2">Sort By Price</h2>
-                    <div className="flex flex-col gap-2 p-2 font-semibold text-gray-500">
-                        <p className="flex gap-2 hover:text-gray-900">
+                <div className="flex flex-col gap-2 mb-2">
+                    <h2 className="text-base lg:text-xl text-gray-800 font-semibold uppercase border-b-2 lg:p-2">Sort By Price</h2>
+                    <div className="flex flex-wrap md:flex-col justify-between gap-2 py-1 lg:p-2 font-semibold text-gray-500">
+                        <p className="flex gap-2 text-sm lg:text-base hover:text-gray-900">
                             <input type="radio" id="asc" name="sort-order" value="asc" onChange={handleSortOrderChange} /> 
                             <label htmlFor="asc" className="cursor-pointer">
                                 Price - Low to High
                             </label>
                         </p>
-                        <p className="flex gap-2 hover:text-gray-900">
+                        <p className="flex gap-2 text-sm lg:text-base hover:text-gray-900">
                             <input type="radio" id="dsc" name="sort-order" value="dsc" onChange={handleSortOrderChange} />
                             <label htmlFor="dsc" className="cursor-pointer">
                                 Price - High to Low
@@ -172,11 +172,11 @@ function SearchPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <h2 className="text-xl text-gray-800 font-semibold uppercase border-b-2 p-2">Sort By Brand</h2>
-                    <div className="flex flex-col gap-2 p-2 font-semibold text-gray-600">
+                    <h2 className="text-base lg:text-xl text-gray-800 font-semibold uppercase border-b-2 lg:p-2">Sort By Brand</h2>
+                    <div className="flex flex-wrap md:flex-col justify-between gap-2 py-1 lg:p-2 font-semibold text-gray-600">
                     {
                         uniqueBrands.map((brand, index) => (
-                            <p key={index} className="flex gap-2">
+                            <p key={index} className="flex gap-2 text-sm lg:text-base">
                                 <input 
                                 type="checkbox"
                                 name="brand"
@@ -194,19 +194,19 @@ function SearchPage() {
                 </div>
             </div>
 
-            <div className="w-[80%] h-[85vh] flex flex-col gap-2 p-4 overflow-y-auto hiddenScrollBar border rounded-md">
+            <div className="md:w-[80%] md:h-[85vh] flex flex-col gap-2 p-0 md:p-2 lg:p-4 overflow-y-auto hiddenScrollBar border rounded-md">
 
-                <div className="my-2 text-lg text-black bg-white p-6 rounded-md shadow-md font-semibold tracking-wider">
+                <div className="md:my-2 text-base lg:text-lg text-black bg-white p-2 md:p-6 rounded-md shadow-md font-semibold tracking-wider">
                     Showing <span className="text-blue-600 font-bold">{filteredProducts?.length}</span> results for "<span className="text-blue-600 font-bold">{query}</span>"
                 </div>
 
-                <div className="flex flex-wrap items-center justify-around gap-4">
+                <div className="flex flex-wrap md:items-center justify-around md:gap-4">
                     {
                         filteredProducts.length === 0 ? (
                         <>
                             <div className="flex flex-col gap-4 items-center justify-center">
                                 <img src={errorSearchImage} alt="Search Error No Product" />
-                                <h2 className="text-2xl font-semibold">
+                                <h2 className="text-lg lg:text-2xl font-semibold">
                                     Sorry, no results found !
                                 </h2>
                                 <p className="text-gray-500">
