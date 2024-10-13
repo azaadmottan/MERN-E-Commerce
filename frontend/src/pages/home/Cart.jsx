@@ -443,13 +443,13 @@ function Cart() {
                             className="w-64"
                             alt="Cart Image" />
     
-                            <h2 className="text-2xl hover:text-orange-500">Your Cart is Empty !</h2>
+                            <h2 className="text-lg lg:text-2xl hover:text-orange-500">Your Cart is Empty !</h2>
     
-                            <p className="text-gray-500">Add items to it now</p>
+                            <p className="text-sm lg:text-base text-gray-500">Add items to it now</p>
     
                             <button
                             onClick={() => navigate("/")}
-                            className="text-lg font-bold px-10 py-2 rounded-md text-white bg-blue-600 hover:bg-opacity-90 flex items-center gap-2">
+                            className="text-sm lg:text-lg font-bold px-10 p-1 lg:py-2 rounded-md text-white bg-blue-600 hover:bg-opacity-90 flex items-center gap-2">
                                 <FaCartArrowDown className="text-2xl font-bold" />
                                 Shop Now
                             </button>

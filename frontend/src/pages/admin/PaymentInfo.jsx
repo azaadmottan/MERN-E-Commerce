@@ -75,7 +75,7 @@ function PaymentInfo() {
     <>
     <MetaData title="Admin Dashboard - Payment Information" />
     <div>
-        <h2 className="text-xl font-medium">User Order Payment Details</h2>
+        <h2 className="text-lg lg:text-xl font-medium">User Order Payment Details</h2>
 
         {
             loading ? (
@@ -95,14 +95,14 @@ function PaymentInfo() {
                     <div className="p-4 my-6 rounded-md bg-orange-200 bg-opacity-65 flex items-center gap-4">
                         <div className="p-1 rounded-r-md bg-orange-500 inline-block h-[25vh]"></div>
                         <div className="flex flex-col gap-2">
-                            <h2 className="text-xl font-medium">Order has been cancelled by user</h2>
-                            <p className="text-lg font-semibold">
+                            <h2 className="text-lg lg:text-xl font-medium">Order has been cancelled by user</h2>
+                            <p className="text-sm lg:text-lg font-semibold">
                                 Please refund the order payment before due date !
                             </p>
-                            <p className="font-medium">
+                            <p className="text-sm lg:text-base font-medium">
                                 Order Cancel Date: <span className="font-bold">{moment(paymentInfo?.order?.orderCancelledAt).format('LLLL')}</span>
                             </p>
-                            <p className="font-medium">Refund Amount: <span className="text-green-500 font-bold">{convertNumberToINR(paymentInfo?.amount)}</span></p>
+                            <p className="text-sm lg:text-base font-medium">Refund Amount: <span className="text-green-500 font-semibold lg:font-bold">{convertNumberToINR(paymentInfo?.amount)}</span></p>
                             {
                                 paymentInfo?.status === "Completed" && (
                                 <button
@@ -118,7 +118,7 @@ function PaymentInfo() {
                             }
                             {
                                 paymentInfo?.status === "Refunded" && (
-                                    <p className="text-green-500 font-bold flex items-center gap-2">
+                                    <p className="text-green-500 font-semibold lg:font-bold flex items-center gap-2">
                                         <MdVerified /> Order Payment Refund Successfully !</p>
                                 )
                             }
@@ -128,12 +128,12 @@ function PaymentInfo() {
             }
 
             <div className="border-2 rounded-md px-4 py-2 mt-4 flex flex-col gap-2">
-                <div className="flex items-center justify-between font-semibold text-gray-900">
+                <div className="text-sm lg:text-base flex items-center justify-between font-semibold text-gray-900">
                     <h5>
                         Payment on: <span className="font-bold">{moment(paymentInfo?.createdAt).format('LLLL')}</span>
                     </h5>
                     <h5>
-                        Payment Status: <span className="border-2 border-green-600 text-sm font-medium text-black bg-green-200 rounded-full px-2">
+                        Payment Status: <span className="border-2 border-green-600 text-xs lg:text-sm font-medium text-black bg-green-200 rounded-full px-2">
                         {
                             paymentInfo?.status
                         }
@@ -141,7 +141,7 @@ function PaymentInfo() {
                     </h5>
                 </div>
 
-                <div className="font-semibold text-gray-900">
+                <div className="text-sm lg:text-base font-semibold text-gray-900">
                     <h5>
                         Payment Id: <span className="font-bold text-orange-500">{paymentInfo?.paymentId}</span>
                     </h5>
@@ -153,7 +153,7 @@ function PaymentInfo() {
                     </h5>
                 </div>
 
-                <div className="font-semibold text-gray-900">
+                <div className="text-sm lg:text-base font-semibold text-gray-900">
                     <h2>
                         User Info
                     </h2>
@@ -167,7 +167,7 @@ function PaymentInfo() {
                     </div>
                 </div>
 
-                <div className="font-semibold text-gray-900">
+                <div className="text-sm lg:text-base font-semibold text-gray-900">
                     <h2>
                         Payment Info
                     </h2>

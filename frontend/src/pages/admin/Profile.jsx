@@ -124,11 +124,11 @@ function Profile() {
     <>
     <MetaData title="Admin Dashboard - My Profile" />
     <div>
-        <h2 className="text-xl font-semibold">Personal Information</h2>
+        <h2 className="text-lg lg:text-xl font-semibold">Personal Information</h2>
 
-        <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
+        <div className="text-base lg:text-lg border border-slate-200 rounded-md p-3 lg:p-6 mt-4 grid gap-6">
             <div className="flex items-center justify-between">
-                <div className="text-xl flex gap-3 items-center">
+                <div className="flex gap-3 items-center">
                     <span className="">
                         Full Name:
                     </span>
@@ -136,7 +136,7 @@ function Profile() {
                         {user?.fullName || user?.fullName}
                     </span> 
                 </div>
-                <div className="text-xl flex gap-3 items-center">
+                <div className="flex gap-3 items-center">
                     <span>
                         Username:
                     </span>
@@ -145,7 +145,7 @@ function Profile() {
                     </span>
                 </div>
             </div>
-            <div className="text-xl flex gap-3 items-center">
+            <div className="flex gap-3 items-center">
                 <span className="">
                     Email Address:
                 </span>
@@ -153,7 +153,7 @@ function Profile() {
                     {user?.email || user?.email}
                 </span>
             </div>
-            <div className="text-xl flex gap-3 items-center">
+            <div className="flex gap-3 items-center">
                 <span className="">
                     Profile Last Updated:
                 </span>
@@ -161,7 +161,7 @@ function Profile() {
                     {moment(user?.updatedAt).format('LLLL') || moment(user?.updatedAt).format('LLLL')}
                 </span>
             </div>
-            <div className="text-xl flex gap-3 items-center">
+            <div className="flex gap-3 items-center">
                 <span className="">
                     Account Created At:
                 </span>
@@ -171,9 +171,9 @@ function Profile() {
             </div>
         </div>
 
-        <h2 className="text-xl font-semibold mt-4">Address</h2>
+        <h2 className="text-lg lg:text-xl font-semibold mt-4">Address</h2>
 
-        <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-2">
+        <div className="border border-slate-200 rounded-md p-3 lg:p-6 mt-4 grid gap-2">
             {
                 addressLoading ? (
                     <MiniLoading />
@@ -181,12 +181,12 @@ function Profile() {
                     address?.map((address, index) => (
                         <div key={uuidv4()} className="grid gap-2">
                             <div className="flex items-center justify-between">
-                                <h3 className='flex items-center gap-2'>
+                                <h3 className='text-sm lg:text-base flex items-center gap-2'>
                                     <FaRegAddressCard />
                                     Address {index + 1}
                                 </h3>
                                 <span 
-                                className="text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
+                                className="text-sm lg:text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
                                 onClick={() => toggleEditMenu(index)}>
                                     <BsThreeDotsVertical />
                                     {
@@ -213,7 +213,7 @@ function Profile() {
                                 </span>
                             </div>
 
-                            <div className="text-xl md:flex justify-between">
+                            <div className="text-base lg:text-lg md:flex justify-between">
                                 <p className="w-[50%] flex gap-2">
                                     <span>
                                         Phone: 
@@ -232,7 +232,7 @@ function Profile() {
                                 </p>
                             </div>
 
-                            <div className="text-xl md:flex justify-between">
+                            <div className="text-base lg:text-lg md:flex justify-between">
                                 <p className="w-[50%] flex gap-2">
                                     <span className="">
                                         State: 
@@ -251,7 +251,7 @@ function Profile() {
                                 </p>
                             </div>
 
-                            <div className="text-xl md:flex gap-2">
+                            <div className="text-base lg:text-lg md:flex gap-2">
                                 <span className="">
                                     Address: 
                                 </span>
@@ -260,7 +260,7 @@ function Profile() {
                                 </span> 
                             </div>
 
-                            <div className="text-xl md:flex gap-2">
+                            <div className="text-base lg:text-lg md:flex gap-2">
                                 <span className="">
                                     Postal Code: 
                                 </span>
@@ -277,7 +277,7 @@ function Profile() {
 
             <div className="mt-2">
                 <button
-                className="flex items-center gap-2 px-4 py-1 text-lg rounded-md text-white bg-blue-600 hover:bg-blue-700 "
+                className="flex items-center gap-2 px-4 py-1 text-base lg:text-lg rounded-md text-white bg-blue-600 hover:bg-blue-700 "
                 onClick={() => setShowAddAddressModal(true)}
                 >
                     <IoIosAdd className="text-xl text-white" /> Add New Address

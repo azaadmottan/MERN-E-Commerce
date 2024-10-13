@@ -71,7 +71,7 @@ function MyOrder() {
     <>
     <div>
         <MetaData title="Dashboard - My Orders" />
-        <h2 className="text-xl font-semibold mt-4">My Orders</h2>
+        <h2 className="text-lg lg:text-xl font-semibold mt-4">My Orders</h2>
 
         <div className="flex items-center">
             <input
@@ -95,43 +95,45 @@ function MyOrder() {
                 </div>
             ) : (
             <>
-            <h2 className="text-xl font-semibold mt-4">New Orders</h2>
+            <h2 className="text-lg lg:text-xl font-semibold mt-4">New Orders</h2>
 
-            <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
+            <div className="border border-slate-200 rounded-md p-2 lg:p-6 mt-4 flex flex-col gap-4">
             {
                 newOrders?.length === 0 ? (
                 <div>
-                    <p className="text-center text-gray-400">No new order found !</p>
+                    <p className="text-base lg:text-lg text-center text-gray-400">No new order found !</p>
                 </div>
                 ) : (
                     newOrders?.map((order) => (
-                    <div key={uuidv4()}>
+                    <div
+                    className="flex flex-col gap-2"
+                    key={uuidv4()}>
                     {
                         order?.orderItems?.map((item) => (
                             <div 
                             key={uuidv4()}
                             className="card-body p-2 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
-                                    <div className="w-[10%] h-36">
+                                    <div className="w-[25%] lg:w-[10%] h-36">
                                         <img
                                         className="w-full h-full object-contain"
                                         src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`}
                                         alt={item?.product?.name} />
                                     </div>
-                                    <div className="w-[90%] px-4 py-2 flex justify-between">
-                                        <div className="flex flex-col w-[35%] gap-2">
+                                    <div className="w-[75%] lg:w-[90%] px-4 py-2 flex flex-col lg:flex-row justify-between">
+                                        <div className="flex flex-col lg:w-[35%] lg:gap-2">
                                             <h2
                                             onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
-                                            className="font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
+                                            className="text-sm lg:text-base font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
                                                 {item?.product?.name}
                                             </h2>
-                                            <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
+                                            <h4 className="text-xs lg:text-sm text-gray-400 font-medium tracking-wider uppercase">
                                                 {item?.product?.brand}
                                             </h4>
                 
                                         </div>
                 
-                                        <div className="flex items-center w-[10%]">
-                                            <div className="flex flex-col gap-2">
+                                        <div className="flex items-center lg:w-[10%]">
+                                            <div className="flex flex-row lg:flex-col gap-2">
                                                 <span className="font-medium tracking-wider">
                                                     {convertNumberToINR(item?.product?.sellingPrice)}
                                                 </span>
@@ -149,10 +151,9 @@ function MyOrder() {
                                                 )
                                                 }
                                             </div>
-                                            
                                         </div>
             
-                                        <div className="flex items-center w-[30%]">
+                                        <div className="flex items-center lg:w-[30%]">
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex items-center font-medium gap-2 text-sm">
                                                     <span className="text-xl font-medium tracking-wider">
@@ -193,18 +194,18 @@ function MyOrder() {
                             className="my-2 border-b-2 py-4">
                                 {
                                     !order?.isPaid && (
-                                        <h4 className="text-lg text-gray-600 font-medium">Your order payment has been pending ! Please complete your payment process</h4>
+                                        <h4 className="text-base lg:text-lg text-gray-600 font-medium">Your order payment has been pending ! Please complete your payment process</h4>
                                     )
                                 }
                                 {
                                     order?.isPaid && (
-                                        <h4 className="text-lg font-medium flex items-center gap-2">
+                                        <h4 className="text-base lg:text-lg font-medium flex items-center gap-2">
                                             <SiTicktick className="text-xl text-green-500" />Your order payment has been successfully completed ! ( {moment(order?.paidAt).format('LLLL')} )</h4>
                                     )
                                 }
                                 {
                                     order?.deliveredAt && (
-                                        <h4 className="text-lg text-gray-800 font-medium">Your order has been delivered on <span className="text-orange-500 font-bold">{moment(order?.deliveredAt).format('LLLL')}</span></h4>
+                                        <h4 className="text-base lg:text-lg text-gray-800 font-medium">Your order has been delivered on <span className="text-orange-500 font-bold">{moment(order?.deliveredAt).format('LLLL')}</span></h4>
                                     )
                                 }
                                 <div className="flex gap-2 mt-2">
@@ -212,13 +213,13 @@ function MyOrder() {
                                         !order?.isPaid && (
                                             <button
                                             onClick={() => navigate(`/payment/shop-pay/${order?._id}`)}
-                                            className="px-8 py-2 mt-2 rounded-md font-semibold text-white bg-orange-500 hover:bg-opacity-90">Pay Now</button>
+                                            className="px-4 lg:px-8 py-1 lg:py-2 mt-2 rounded-md font-semibold text-white bg-orange-500 hover:bg-opacity-90">Pay Now</button>
                                         )
                                     }
     
                                     <button 
                                     onClick={() => ( setShowCancelOrderModal(true), setOrderId(order?._id) )}
-                                    className="px-4 py-2 mt-2 rounded-md font-semibold text-white bg-red-500 hover:bg-opacity-90">Cancel Order</button>
+                                    className="px-2 lg:px-4 py-1 lg:py-2 mt-2 rounded-md font-semibold text-white bg-red-500 hover:bg-opacity-90">Cancel Order</button>
                                 </div>
                             </div>
                         ) 
@@ -229,13 +230,14 @@ function MyOrder() {
             }
             </div>
 
-            <h2 className="text-xl font-semibold mt-4">Old Orders</h2>
+            <h2 className="text-lg lg:text-xl font-semibold mt-4">Old Orders</h2>
 
+            {/* ## This section need to responsive */}
             <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
             {
                 oldOrders?.length === 0 ? (
                     <div className="mt-2">
-                        <h4 className="text-lg text-gray-600 font-medium">No old orders found !</h4>
+                        <h4 className="text-base lg:text-lg text-gray-600 font-medium">No old orders found !</h4>
                     </div>
                 ) : (
                     oldOrders?.map((order) => (
@@ -246,7 +248,7 @@ function MyOrder() {
                             >
                                 <div className="flex items-center gap-2 p-2 bg-red-500 rounded-md hover:shadow-md">
                                     <BsBagXFill className="w-6 h-6 text-white" />
-                                    <span className="text-lg font-bold text-white">
+                                    <span className="text-base lg:text-lg font-bold text-white">
                                         Order has been cancelled
                                     </span>
                                 </div>

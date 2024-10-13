@@ -30,8 +30,8 @@ function Order() {
     <>
     <MetaData title="Admin Dashboard - User Orders" />
     <div>
-        <h1 className="text-xl font-semibold">User Orders</h1>
-        <table className="table-fixed w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
+        <h1 className="text-lg lg:text-xl font-semibold">User Orders</h1>
+        <table className="table-fixed text-xs lg:text-base w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
             <thead className="bg-gray-800 text-white">
                 <tr>
                     <th scope="col" className="p-2">Order ID</th>
@@ -55,7 +55,7 @@ function Order() {
                     orders.map((order) => (
                         <tr
                         onClick={() => navigate(`/admin/dashboard/order/${order?._id}`)}
-                        key={uuidv4()} className="text-center text-sm border-b hover:bg-slate-200 cursor-pointer">
+                        key={uuidv4()} className="text-center text-xs lg:text-sm border-b hover:bg-slate-200 cursor-pointer">
                             <td className="truncate p-2">{order?._id}</td>
                             <td className="truncate p-2">{order?.user}</td>
                             <td className="p-2">{order?.orderItems?.length}</td>
@@ -73,7 +73,7 @@ function Order() {
                             </td>
                             <td className="p-1.5">
                             {order?.isDelivered ?
-                                <span className="border-2 border-green-500 bg-green-300 font-medium px-2 rounded-full">
+                                <span className="border-2 border-green-500 bg-green-200 font-medium px-2 rounded-full">
                                     Delivered
                                 </span> 
                                 :

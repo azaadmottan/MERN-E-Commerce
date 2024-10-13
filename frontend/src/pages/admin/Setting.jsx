@@ -195,23 +195,23 @@ function Setting() {
             </>
         ) : (
             <div>
-                <h2 className="text-xl font-semibold">
+                <h2 className="text-lg lg:text-xl font-semibold">
                     Common Dashboard Settings
                 </h2>
 
                 <div className="my-2">
-                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
-                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                    <h2 className="text-lg lg:text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-lg lg:text-2xl text-orange-600" />
                         Profile Settings
                     </h2>
 
                     <form
                     onSubmit={handleUpdateProfileDetails}
                     className="flex flex-col gap-2">
-                        <h3 className="text-lg font-medium text-gray-600">Update Profile Details</h3>
+                        <h3 className="text-base lg:text-lg font-medium text-gray-600">Update Profile Details</h3>
                         <div className="flex flex-wrap justify-between">
                             <div className="w-[40%]">
-                                <label htmlFor="username" className="block font-medium text-gray-500">Username</label>
+                                <label htmlFor="username" className="block lg:font-medium text-gray-500">Username</label>
                                 <input
                                     type="text"
                                     id="username"
@@ -222,7 +222,7 @@ function Setting() {
                                 />
                             </div>
                             <div className="w-[40%]">
-                                <label htmlFor="email" className="block font-medium text-gray-600">Email-id</label>
+                                <label htmlFor="email" className="block lg:font-medium text-gray-600">Email-id</label>
                                 <input
                                     type="email"
                                     id="email"
@@ -234,7 +234,7 @@ function Setting() {
                         </div>
                         <div className="flex flex-wrap justify-between">
                             <div className="w-[40%]">
-                                <label htmlFor="fullName" className="block font-medium text-gray-500">Full Name</label>
+                                <label htmlFor="fullName" className="block lg:font-medium text-gray-500">Full Name</label>
                                 <input
                                     type="text"
                                     id="fullName"
@@ -246,7 +246,7 @@ function Setting() {
                         </div>
                         <button
                         type="submit"
-                        className="py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                        className="py-1 lg:py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                             Update Profile
                         </button>
                     </form>
@@ -254,10 +254,10 @@ function Setting() {
                     <form
                     onSubmit={handleUpdatePassword}
                     className="flex flex-col gap-2 mt-2">
-                        <h3 className="text-lg font-medium text-gray-600">Update Account Password</h3>
+                        <h3 className="text-base lg:text-lg font-medium text-gray-600">Update Account Password</h3>
                         <div className="flex flex-wrap justify-between">
                             <div className="w-[40%]">
-                                <label htmlFor="password"  className="block font-medium text-gray-500">Old Password</label>
+                                <label htmlFor="password"  className="block lg:font-medium text-gray-500">Old Password</label>
                                 <input 
                                 type="password"
                                 id="password"
@@ -268,7 +268,7 @@ function Setting() {
                                 />
                             </div>
                             <div className="w-[40%]">
-                                <label htmlFor="cPassword"  className="block font-medium text-gray-500">New Password</label>
+                                <label htmlFor="cPassword"  className="block lg:font-medium text-gray-500">New Password</label>
                                 <input 
                                 type="password"
                                 id="cPassword"
@@ -280,7 +280,7 @@ function Setting() {
                             </div>
                         </div>
                         <button 
-                        className="py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                        className="py-1 lg:py-1.5 w-[25%] lg:w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                             Update Password
                         </button>
                     </form>
@@ -288,27 +288,27 @@ function Setting() {
                 </div>
 
                 <div className="my-2">
-                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
-                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                    <h2 className="text-lg lg:text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-lg lg:text-2xl text-orange-600" />
                         Wallet Settings
                     </h2>
                     {
                         wallet?.isActive && (
-                        <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-4 rounded-md">
+                        <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-2 lg:p-4 rounded-md">
                             <div className="p-1 rounded-r-md bg-orange-500 h-14"></div>
                             <div className="flex items-center gap-2">
-                                <MdVerified className="text-blue-500 text-2xl" /> <span className="text-lg font-semibold">
+                                <MdVerified className="text-blue-500 text-lg lg:text-2xl" /> <span className="text-base lg:text-lg font-semibold">
                                     Your wallet has been activated successfully.
                                 </span>
                             </div>
                         </div>
                         )
                     }
-                    <h2 className="text-lg font-semibold text-gray-600">
+                    <h2 className="text-base lg:text-lg font-semibold text-gray-600">
                         Activate your Wallet
                     </h2>
                     <div className="text-gray-500 flex items-center justify-between">
-                        <span>
+                        <span className="text-sm">
                             Connect your wallet to your account to start receiving payments.
                         </span>
                         <div className="flex items-center">
@@ -329,19 +329,19 @@ function Setting() {
                                 isChecked ? 'translate-x-full' : ''
                                 }`}
                             ></div>
-                            </label>
+                        </label>
                         </div>
                     </div>
                     {
                         isChecked && (
                             <div>
-                                <h2 className="text-lg font-semibold text-gray-600">
+                                <h2 className="text-base lg:text-lg font-semibold text-gray-600">
                                     Your account details
                                 </h2>
-                                <div className="flex flex-col gap-4 p-4 mt-2 text-lg bg-slate-100 rounded-md">
+                                <div className="flex flex-col gap-4 p-4 mt-2 text-base lg:text-lg bg-slate-100 rounded-md">
                                     <div className="flex flex-wrap justify-between">
                                         <div className="flex gap-2">
-                                            <label className="text-gray-500 font-semibold" htmlFor="user-name">Username</label>
+                                            <label className="text-gray-500 lg:font-semibold" htmlFor="user-name">Username</label>
                                             <span className="text-gray-800 font-semibold">
                                             {
                                                 user?.userName?? 'Not Available'
@@ -349,7 +349,7 @@ function Setting() {
                                             </span>
                                         </div>
                                         <div className="flex gap-2">
-                                            <label className="text-gray-500 font-semibold" htmlFor="full-name">Full Name</label>
+                                            <label className="text-gray-500 lg:font-semibold" htmlFor="full-name">Full Name</label>
                                             <span className="text-gray-800 font-semibold">
                                             {
                                                 user?.fullName?? 'Not Available'
@@ -359,7 +359,7 @@ function Setting() {
                                     </div>
                                     <div className="flex flex-wrap justify-between">
                                         <div className="flex gap-2">
-                                            <label className="text-gray-500 font-semibold" htmlFor="email">Email-id</label>
+                                            <label className="text-gray-500 lg:font-semibold" htmlFor="email">Email-id</label>
                                             <span className="text-gray-800 font-semibold">
                                             {
                                                 user?.email?? 'Not Available'
@@ -371,13 +371,13 @@ function Setting() {
 
                                     <div className="flex flex-wrap justify-between">
                                         <div className="flex flex-col gap-2">
-                                            <label className="text-gray-500 font-semibold" htmlFor="upi">UPI ID</label>
+                                            <label className="text-gray-500 lg:font-semibold" htmlFor="upi">UPI ID</label>
                                             <input
                                             value={upiId}
                                             type="text" placeholder="Your's UPI ID" id='upi' className="border-2 focus-within:border-blue-600 outline-none rounded-md px-2 py-0.5" readOnly={true} />
                                         </div>
                                         <div className="flex flex-col gap-2">
-                                            <label className="text-gray-500 font-semibold" htmlFor="upi-pass">UPI-ID PASSWORD</label>
+                                            <label className="text-gray-500 lg:font-semibold" htmlFor="upi-pass">UPI-ID PASSWORD</label>
                                             <input
                                             value={upiPassword}
                                             onChange={(e) => setUpiPassword(e.target.value)}
@@ -397,7 +397,7 @@ function Setting() {
                                         <button
                                         type='submit'
                                         disabled={wallet?.isActive}
-                                        className="font-bold uppercase px-4 py-0.5 rounded-md text-white bg-orange-500 hover:bg-orange-600">
+                                        className="font-medium lg:font-bold uppercase px-4 py-0.5 rounded-md text-white bg-orange-500 hover:bg-orange-600">
                                             Activate Now
                                         </button>
                                     </div>
@@ -410,16 +410,16 @@ function Setting() {
                 </div>
 
                 <div className="my-2">
-                    <h2 className="text-xl font-semibold my-4 flex items-center gap-2">
-                        <RiListSettingsLine className="text-2xl text-orange-600" />
+                    <h2 className="text-lg lg:text-xl font-semibold my-4 flex items-center gap-2">
+                        <RiListSettingsLine className="text-lg lg:text-2xl text-orange-600" />
                         Order Payment Settings
                     </h2>
-                    <h2 className="text-lg font-semibold text-gray-600">Order payment official UPI ID</h2>
+                    <h2 className="text-base lg:text-lg font-semibold text-gray-600">Order payment official UPI ID</h2>
                     <form 
                     onSubmit={handleAddOrderUpiId}
                     className="bg-slate-100 p-4 my-2 rounded-md flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <label className="text-gray-500 font-semibold" htmlFor="order-upi-id">UPI ID</label>
+                            <label className="text-gray-500 lg:font-semibold" htmlFor="order-upi-id">UPI ID</label>
                             <input 
                             value={orderUpiId}
                             onChange={(e) => setOrderUpiId(e.target.value)}
@@ -439,7 +439,7 @@ function Setting() {
 
                     <div className="p-4 rounded-md bg-slate-100 flex items-center justify-between">
                         <div className="flex gap-2">
-                            <span className="text-gray-500 font-semibold">
+                            <span className="text-gray-500 lg:font-semibold">
                                 Order Payment UPI ID: 
                             </span>
                             <span className="font-semibold">

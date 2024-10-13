@@ -125,7 +125,7 @@ function Coupon() {
     <>
     <MetaData title="Admin Dashboard - Coupons" />
     <div>
-        <h2 className="text-xl font-semibold my-2">Coupons</h2>
+        <h2 className="text-lg lg:text-xl font-semibold my-2">Coupons</h2>
 
         {
             loading ? (
@@ -141,34 +141,34 @@ function Coupon() {
             ) : (
             <>
                 <div>
-                    <h4 className="flex items-center justify-between">
-                        <span className="text-lg font-medium">
+                    <div className="flex items-center justify-between">
+                        <span className="text-base lg:text-lg font-medium">
                             Create New Coupon
                         </span>
                         <button
                         onClick={() => setShowCreateCouponModal(true)}
-                        className="text-white bg-blue-600 hover:bg-blue-700 font-semibold px-4 py-2 rounded-md flex items-center gap-2">
+                        className="text-sm lg:text-base text-white bg-blue-600 hover:bg-blue-700 font-semibold px-4 py-1 lg:py-2 rounded-md flex items-center gap-2">
                             <IoIosAdd className="text-xl text-white" /> 
                             Create Coupon
                         </button>
-                    </h4>
+                    </div>
 
-                    <h4 className="text-lg font-medium">All Coupons</h4>
+                    <h4 className="text-base lg:text-lg font-medium">All Coupons</h4>
                     <div className="flex flex-col gap-2 mt-2 max-h-[400px] overflow-y-scroll hiddenScrollBar py-2">
                     {
                         (coupons.length === 0) ? (
-                            <p className="text-center text-lg bg-slate-50 p-2 rounded-md">No coupon found !</p>
+                            <p className="text-center text-base lg:text-lg bg-slate-50 p-2 rounded-md">No coupon found !</p>
                         ) : (
                             coupons.map((coupon) => (
                                 <div key={uuidv4()} className="p-4 flex flex-col gap-2 bg-slate-100 rounded-md hover:shadow-md group relative">
                                     <span 
-                                        className="text-lg cursor-pointer p-2 bg-slate-50 hover:bg-white rounded-full absolute top-2 right-2 hidden group-hover:block"
+                                        className="text-sm lg:text-lg cursor-pointer p-2 bg-slate-50 hover:bg-white rounded-full absolute top-2 right-2 lg:hidden lg:group-hover:block"
                                         onClick={(e) => toggleEditMenu(e, coupon?._id)}
                                         >
                                         <BsThreeDotsVertical className="relative" />
                                         {
                                             showEditMenu[coupon?._id] && (
-                                                <div className="bg-white shadow-md text-nowrap rounded-md overflow-hidden absolute right-0 ">
+                                                <div className="bg-white shadow-md text-nowrap rounded-md overflow-hidden absolute right-8">
                                                     <button 
                                                     onClick={() => (
                                                         setShowEditCouponModal(true),
@@ -194,15 +194,15 @@ function Coupon() {
                                         }
                                     </span>
 
-                                    <h3 className="text-lg font-semibold italic font-serif tracking-wider group-hover:text-blue-600">
+                                    <h3 className="text-base lg:text-lg font-semibold italic font-serif tracking-wider group-hover:text-blue-600">
                                         {coupon.code}
                                     </h3>
-                                    <div className="flex items-center gap-10">
+                                    <div className="text-sm lg:text-base flex flex-col lg:flex-row lg:items-center lg:gap-10">
                                         <div className="flex gap-2">
                                             <span className="text-gray-500 font-semibold">Discount Type</span>
                                             <span className="font-semibold uppercase">'{coupon.discountType}'</span>
                                         </div>
-                                        <div className="flex gap-4">
+                                        <div className="flex gap-2 lg:gap-4">
                                             <span className="text-gray-500 font-semibold">Discount Value:</span>
                                             <span className="font-semibold">{coupon.discountValue}</span>
                                             <span className="text-gray-500 font-semibold">No Of Items:</span>
@@ -213,24 +213,24 @@ function Coupon() {
                                     </div>
                                     {
                                     coupon?.user && (
-                                        <div className="flex items-center gap-4">
+                                        <div className="text-sm lg:text-base flex items-center gap-2 lg:gap-4">
                                             <span className="text-gray-500 font-semibold">User: </span>
                                             <Link
                                             to={`/admin/dashboard/user/${coupon?.user}`}
-                                            className="text-sm font-medium hover:text-blue-500">
+                                            className="text-sm font-medium hover:text-blue-500 underline">
                                                 {coupon?.user}
                                             </Link>
                                             <span className="text-gray-500 font-semibold"> & Order: </span>
                                             <Link
                                             to={`/admin/dashboard/order/${coupon?.order}`}
-                                            className="text-sm font-medium hover:text-blue-500"
+                                            className="text-sm font-medium hover:text-blue-500 underline"
                                             >
                                                 {coupon?.order}
                                             </Link>
                                         </div>
                                     )
                                     }
-                                    <div className="flex items-center gap-2">
+                                    <div className="text-sm lg:text-base flex flex-col lg:flex-row lg:items-center lg:gap-2">
                                         <span className="text-gray-500 font-semibold">Coupon Expiry Date</span>
                                         <span className="text-sm font-medium flex gap-4">
                                             {moment(coupon.expiryDate).format("LLLL")}

@@ -1,5 +1,6 @@
 import { BsCart3 } from "react-icons/bs";
 import { FaRegUserCircle } from "react-icons/fa";
+import { LuLogIn } from "react-icons/lu";
 import { IoIosSearch } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -43,6 +44,7 @@ import { IoWalletOutline } from "react-icons/io5";
 export {
     BsCart3,
     FaRegUserCircle,
+    LuLogIn,
     IoIosSearch,
     FaEye,
     FaEyeSlash,

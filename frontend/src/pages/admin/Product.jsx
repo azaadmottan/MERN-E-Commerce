@@ -131,17 +131,17 @@ function Product() {
     <MetaData title="Admin Dashboard - Product Management" />
     <div>
         <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Product Information</h2>
+            <h2 className="text-lg lg:text-xl font-semibold">Product Information</h2>
             <button
-            className="flex items-center gap-2 text-white rounded-md p-2 bg-blue-600 hover:bg-blue-700"
+            className="flex items-center gap-2 text-white rounded-md px-1 py-0.5 lg:p-2 bg-blue-600 hover:bg-blue-700"
             onClick={() => setShowAddProductModal(true)}
             >
-                <IoIosAdd className="text-xl text-white" />
-                Add New Product
+                <IoIosAdd className="text-base lg:text-xl text-white" />
+                New Product
             </button>
         </div>
 
-        <div className="border border-slate-200 bg-slate-50 rounded-md p-6 mt-4 flex flex-wrap items-center justify-between gap-4 ">
+        <div className="border border-slate-200 bg-slate-50 rounded-md p-2 lg:p-6 mt-4 flex flex-wrap items-center justify-between gap-2 lg:gap-4 ">
             {
                 productLoading ? (
                     <div className="w-full flex items-center justify-center">

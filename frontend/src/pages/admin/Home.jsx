@@ -190,38 +190,38 @@ function Home() {
     return (
     <>
     <MetaData title="Admin Dashboard | Shopkart | India" />
-    <h2 className="text-xl font-semibold my-2">
+    <h2 className="text-lg lg:text-xl font-semibold my-2">
         Revenue, Order, Products, Categories & User Details
     </h2>
     <div className="mt-2">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-6">
-            <div className="flex flex-col bg-purple-600 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
-                <h4 className="text-gray-100 font-medium">Total Sales Amount</h4>
-                <h2 className="text-2xl font-bold tracking-wide">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+            <div className="flex flex-col bg-purple-600 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl px-4 py-6 lg:p-6">
+                <h4 className="text-sm lg:text-base text-gray-100 font-medium">Total Sales Amount</h4>
+                <h2 className="text-lg lg:text-2xl text-wrap font-bold tracking-wide">
                 {
                     convertNumberToINR(totalAmount)
                 }
                 </h2>
             </div>
-            <div className="flex flex-col bg-red-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
-                <h4 className="text-gray-100 font-medium">Total Orders</h4>
-                <h2 className="text-2xl font-bold">
+            <div className="flex flex-col bg-red-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl px-4 py-6 lg:p-6">
+                <h4 className="text-sm lg:text-base text-gray-100 font-medium">Total Orders</h4>
+                <h2 className="text-lg lg:text-2xl font-bold">
                 {
                     noOfOrders
                 }
                 </h2>
             </div>
-            <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
-                <h4 className="text-gray-100 font-medium">Total Products</h4>
-                <h2 className="text-2xl font-bold">
+            <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl px-4 py-6 lg:p-6">
+                <h4 className="text-sm lg:text-base text-gray-100 font-medium">Total Products</h4>
+                <h2 className="text-lg lg:text-2xl font-bold">
                 {
                     products?.length
                 }
                 </h2>
             </div>
-            <div className="flex flex-col bg-green-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
-                <h4 className="text-gray-100 font-medium">Total Users</h4>
-                <h2 className="text-2xl font-bold">
+            <div className="flex flex-col bg-green-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl px-4 py-6 lg:p-6">
+                <h4 className="text-sm lg:text-base text-gray-100 font-medium">Total Users</h4>
+                <h2 className="text-lg lg:text-2xl font-bold">
                 {
                     users?.length
                 }
@@ -229,7 +229,7 @@ function Home() {
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-auto w-full shadow-md p-2 hover:shadow-lg">
                 <Line 
                 data={lineState}
@@ -246,14 +246,15 @@ function Home() {
                 }}
                 />
             </div>
-
-            <div className="bg-white rounded-xl shadow-md p-4 text-center hover:shadow-lg">
-                <span className="font-medium uppercase text-gray-800">Order Status</span>
-                <Pie data={pieState} />
+            <div className="h-[18rem] lg:h-auto">
+                <div className="bg-white rounded-xl h-full w-full flex flex-row lg:flex-col shadow-md p-4 text-center hover:shadow-lg">
+                    <span className="font-medium uppercase text-gray-800">Order Status</span>
+                    <Pie data={pieState} />
+                </div>
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full mb-6">
+        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-auto w-full shadow-md p-2 hover:shadow-lg">
                 <Bar
                 data={barState}
@@ -269,14 +270,15 @@ function Home() {
                 }}
                 />
             </div>
-
-            <div className="bg-white rounded-xl shadow-md p-4 text-center hover:shadow-lg">
-                <span className="font-medium uppercase text-gray-800">Stock Status</span>
-                <Doughnut data={doughnutState} />
+            <div className="h-[18rem] lg:h-auto">
+                <div className="bg-white rounded-xl h-full w-full flex flex-row lg:flex-col shadow-md p-4 text-center hover:shadow-lg">
+                    <span className="font-medium uppercase text-gray-800">Stock Status</span>
+                    <Doughnut data={doughnutState} />
+                </div>
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-full w-full shadow-lg p-2 hover:shadow-xl">
                 <Line 
                 data={userLineState}
@@ -294,7 +296,7 @@ function Home() {
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-full w-full shadow-lg p-2 hover:shadow-xl">
                 <Line 
                     data={dailySalesLineState}

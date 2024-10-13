@@ -64,7 +64,7 @@ function OrderDetail() {
     <>
     <MetaData title="Admin Dashboard - Order Detail" />
     <div>
-        <h2 className="text-xl font-medium">Order Details</h2>
+        <h2 className="text-lg lg:text-xl font-medium">Order Details</h2>
         {
             loading ? (
                 <div className="border-2 rounded-md px-4 py-2 mt-4 flex flex-col gap-4">
@@ -80,7 +80,7 @@ function OrderDetail() {
                 </div>
             ) : (
                 <div className="border-2 rounded-md px-4 py-2 mt-4 flex flex-col gap-2">
-                    <div className="flex items-center justify-between font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base flex items-center justify-between font-semibold text-gray-900">
                         <h5>
                             Ordered on: <span className="font-bold">{moment(order?.createdAt).format('LLLL')}</span>
                         </h5>
@@ -94,7 +94,7 @@ function OrderDetail() {
                         </h5>
                     </div>
 
-                    <div className="font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base font-semibold text-gray-900">
                         <h5>
                             Order Id: <span className="font-bold">{order?._id}</span>
                         </h5>
@@ -108,7 +108,7 @@ function OrderDetail() {
                         </p>
                     </div>
 
-                    <div className="font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base font-semibold text-gray-900">
                         <h2>
                             User Info
                         </h2>
@@ -122,7 +122,7 @@ function OrderDetail() {
                         </div>
                     </div>
 
-                    <div className="font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base font-semibold text-gray-900">
                         <h2>
                             Order Items
                         </h2>
@@ -138,15 +138,15 @@ function OrderDetail() {
                                         src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/${item?.product?.images[0]}`} alt="" />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <h5 className="text-lg font-medium w-[400px] truncate">
+                                        <h5 className="text-sm lg:text-lg font-medium w-[400px] truncate">
                                         {
                                             item?.product?.name
                                         }
                                         </h5>
-                                        <h6 className="text-sm font-medium text-gray-600">
+                                        <h6 className="text-xs lg:text-sm font-medium text-gray-600">
                                             Qty: {item?.qty}
                                         </h6>
-                                        <h6 className="text- font-bold text-green-500 tracking-wider">
+                                        <h6 className="font-bold text-green-500 tracking-wider">
                                         {
                                             covertNumberToINR(item?.product?.sellingPrice)
                                         }
@@ -158,7 +158,7 @@ function OrderDetail() {
                         </div>
                     </div>
                     
-                    <div className="font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base font-semibold text-gray-900">
                         <h2>
                             Payment Info
                         </h2>
@@ -257,7 +257,7 @@ function OrderDetail() {
                         }
                     </div>
 
-                    <div className="font-semibold text-gray-900">
+                    <div className="text-sm lg:text-base font-semibold text-gray-900">
                         <h2>
                             Shipping Info
                         </h2>
@@ -309,7 +309,7 @@ function OrderDetail() {
 
                     <div className="p-2 bg-slate-100 rounded-md flex flex-col gap-2">
                         <div className="flex items-center justify-between">
-                        <p className="text-lg font-medium text-gray-800">Update Order Status</p>
+                        <p className="text-base lg:text-lg font-medium text-gray-800">Update Order Status</p>
                         <select 
                         value={orderStatus}
                         onChange={(e) => setOrderStatus(e.target.value)}
@@ -321,7 +321,7 @@ function OrderDetail() {
                         </select>
                         </div>
                         <div className="flex items-center justify-between">
-                            <p className="text-lg font-medium text-gray-800">Arriving Date</p>
+                            <p className="text-base lg:text-lg font-medium text-gray-800">Arriving Date</p>
                             <input
                             value={arrivingDate}
                             onChange={handleDateChange}
@@ -329,7 +329,7 @@ function OrderDetail() {
                         </div>
                         <button
                         onClick={() => handleUpdateOrderStatus()}
-                        className="bg-orange-500 w-fit text-white rounded-md hover:bg-opacity-85 px-4 py-1 mt-2">Update</button>
+                        className="text-sm lg:text-base bg-orange-500 w-fit text-white rounded-md hover:bg-opacity-85 px-4 py-1 mt-2">Update</button>
                     </div>
                 </div>
             )

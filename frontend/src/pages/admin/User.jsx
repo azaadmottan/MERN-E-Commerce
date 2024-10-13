@@ -89,7 +89,7 @@ function User() {
     <>
     <MetaData title="Admin Dashboard - User List" />
     <div>
-        <h2 className="text-xl font-semibold my-2">All Users</h2>
+        <h2 className="text-lg lg:text-xl font-semibold my-2">All Users</h2>
         <div className="flex items-center justify-between gap-4 my-2 font-medium select-none">
             {/* search functionality */}
             <div className="flex items-center w-[80%]">
@@ -97,22 +97,22 @@ function User() {
                 type="search" 
                 value={searchTerms}
                 onChange={e => setSearchTerms(e.target.value)}
-                className="px-3 py-0.5 font-medium tracking-wider rounded-md outline-none border-2 focus-within:border-blue-500 w-full"
+                className="px-3 py-0.5 font-normal lg:font-medium tracking-wider rounded-md outline-none border-2 focus-within:border-blue-500 w-full"
                 placeholder="Search user (by name, email-id or user-id) here..."
                 />
             </div>
             {/* sort functionality */}
             <div className="flex items-center gap-2 ">
-                <h4 className="text-gray-500">Sort Data</h4>
+                <h4 className="text-xs lg:text-base text-gray-500">Sort Data</h4>
                 <div className="relative">
                     <span
                     onClick={() => toggleSortOptions()}
                     className="flex items-center p-2 rounded-full bg-slate-100 hover:bg-slate-200 cursor-pointer">
-                        <MdOutlineSort className="text-2xl" />
+                        <MdOutlineSort className="text-xl lg:text-2xl" />
                     </span>
                     {
                     showSortOptions && (
-                        <ul className="absolute top-10 right-10 bg-slate-100 shadow-lg text-nowrap rounded-md">
+                        <ul className="text-sm lg:text-base absolute top-10 right-10 bg-slate-100 shadow-lg text-nowrap rounded-md">
                             <li 
                             className="px-4 py-1 hover:text-blue-500 hover:bg-white hover:bg-opacity-55 rounded-md flex items-center gap-2">
                                 <input
@@ -204,7 +204,7 @@ function User() {
             </div>
         </div>
         <div className="max-h-[450px] overflow-y-auto hiddenScrollBar">
-        <table className="table-fixed w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
+        <table className="table-fixed text-xs lg:text-base w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
             <thead className="bg-gray-800 text-white">
                 <tr>
                     <th scope="col" className="p-2">Name</th>
@@ -233,22 +233,22 @@ function User() {
                         filteredUsers.map((user) => (
                             <tr
                             onClick={() => navigate(`/admin/dashboard/user/${user?._id}`)}
-                            key={uuidv4()} className="text-sm border-b hover:bg-slate-100 cursor-pointer hover:shadow-md">
+                            key={uuidv4()} className="text-xs lg:text-sm border-b hover:bg-slate-100 cursor-pointer hover:shadow-md">
                                 <td className="p-2 flex items-center gap-2">
                                     <span className="font-bold rounded-[50%] bg-violet-800 text-white px-3 py-1.5">
                                         {user?.fullName[0]}
                                     </span>
                                     {user?.fullName}
                                 </td>
-                                <td className="p-2 font-semibold text-wrap break-words">{user?.email}</td>
+                                <td className="p-2 font-normal lg:font-semibold text-wrap break-words">{user?.email}</td>
                                 <td className="p-2 break-words">{user?._id}</td>
-                                <td className="p-2 font-bold text-center text-xs">{user?.isActive ? (<span className="text-white bg-green-500 px-4 py-0.5 rounded-full">Active</span>) : <span className="text-white bg-red-500 px-5 py-0.5 rounded-full">Block</span>}</td>
-                                <td className="p-2 font-bold text-center">
+                                <td className="p-2 font-semibold lg:font-bold text-center text-xs">{user?.isActive ? (<span className="text-white bg-green-500 px-4 py-0.5 rounded-full">Active</span>) : <span className="text-white bg-red-500 px-5 py-0.5 rounded-full">Block</span>}</td>
+                                <td className="p-2 font-semibold lg:font-bold text-center">
                                     <span className={`${user?.isAdmin ? "bg-orange-500 text-xs text-white px-4 py-0.5 rounded-full " : ""}`}>
                                         {user?.isAdmin ? "Admin" : "User"}
                                     </span>
                                 </td>
-                                <td className="p-2 font-semibold">{moment(user?.createdAt).format("lll")}</td>
+                                <td className="p-2 font-normal lg:font-semibold">{moment(user?.createdAt).format("lll")}</td>
                             </tr>
                         ))
                     )

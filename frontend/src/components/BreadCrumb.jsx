@@ -10,7 +10,7 @@ function Breadcrumb() {
 
     return (
         <nav>
-            <ul className="flex items-center gap-2 text-blue-500 cursor-default">
+            <ul className="text-sm lg:text-base flex items-center gap-2 text-blue-500 cursor-default">
                 {
                     pathnames.map((value, index) => {
                         const to = `/${pathnames.slice(0, index + 1).join('/')}`;

@@ -158,14 +158,14 @@ function Category() {
     <MetaData title="Admin Dashboard - Category" />
     <div>
         <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Category Information</h2>
-        <button
-        className="flex items-center gap-2 text-white rounded-md p-2 bg-blue-600 hover:bg-blue-700"
-        onClick={() => setShowAddCategoryModal(true)}
-        >
-            <IoIosAdd className="text-xl text-white" />
-            Add New Category
-        </button>
+            <h2 className="text-lg lg:text-xl font-semibold">Category Information</h2>
+            <button
+            className="flex items-center gap-2 text-white rounded-md px-1 py-0.5 lg:p-2 bg-blue-600 hover:bg-blue-700"
+            onClick={() => setShowAddCategoryModal(true)}
+            >
+                <IoIosAdd className="text-base lg:text-xl text-white" />
+                New Category
+            </button>
         </div>
 
         <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
@@ -174,8 +174,8 @@ function Category() {
                     <MiniLoading />
                 ) : (
                     category.map((category, index) => (
-                        <div key={category._id} className="flex items-center gap-4 p-2">
-                            <div className="w-52 h-48 border rounded-md overflow-hidden">
+                        <div key={category._id} className="flex items-center gap-4 p-2 hover:shadow-md">
+                            <div className="w-32 lg:w-52 h-32 lg:h-48 border rounded-md overflow-hidden">
                                 <img
                                 src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (category?.categoryImage || 'productImages/sampleImage.jpg')}
                                 alt={category.name}
@@ -183,17 +183,17 @@ function Category() {
                                 />
                             </div>
 
-                            <div className="w-3/4 h-48">
+                            <div className="w-3/4 h-32 lg:h-48">
                                 <div className="flex items-center justify-between">
-                                <h2 className="text-xl font-semibold flex items-center gap-2">
+                                <h2 className="text-lg lg:text-xl font-semibold flex items-center gap-2">
                                     {category.name}
-                                    <span className="text-sm text-gray-500 bg-slate-100 hover:bg-slate-200 cursor-default rounded-md px-2 py-1">
+                                    <span className="text-xs lg:text-sm text-gray-500 bg-slate-100 hover:bg-slate-200 cursor-default rounded-md px-2 py-1">
                                         {category.isActive ? "Active" : "Disabled"}
                                     </span>
                                 </h2>
                                 
                                 <span 
-                                className="text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
+                                className="text-sm lg:text-lg cursor-pointer p-2 hover:bg-slate-100 rounded-full relative"
                                 onClick={() => toggleEditMenu(index)}>
                                     <BsThreeDotsVertical />
                                     {
@@ -223,7 +223,7 @@ function Category() {
                                     }
                                 </span>
                                 </div>
-                                <p className="text-sm py-2 text-gray-500 text-ellipsis overflow-y-auto mt-4 h-32">
+                                <p className="text-sm py-2 text-gray-500 text-ellipsis overflow-y-auto mt-4 h-20 lg:h-32">
                                     {category.description}
                                 </p>
                             </div>

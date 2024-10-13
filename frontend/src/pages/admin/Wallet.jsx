@@ -81,7 +81,7 @@ function Wallet() {
     {
         loading ? (
             <>
-            <h2 className="text-xl font-semibold">Your Wallet</h2>
+            <h2 className="text-lg lg:text-xl font-semibold">Your Wallet</h2>
 
             <div className="p-6 my-2 rounded-md bg-slate-200 animate-pulse"></div>
             <p className="p-4 my-2 rounded-md bg-slate-200 animate-pulse w-[60%]"></p>
@@ -116,7 +116,7 @@ function Wallet() {
                 )
             }
             <div>
-                <h2 className="text-xl font-semibold">Your Wallet</h2>
+                <h2 className="text-lg lg:text-xl font-semibold">Your Wallet</h2>
                 {
                     userWallet?.isActive && (
                     <>
@@ -124,17 +124,17 @@ function Wallet() {
                         <div className="p-1 rounded-r-md bg-orange-500 h-16"></div>
                         <div className="flex flex-col gap-2">
                             <div className="flex items-center gap-2">
-                                <MdVerified className="text-blue-500 text-2xl" /> <span className="text-lg font-semibold">
+                                <MdVerified className="text-blue-500 text-lg lg:text-2xl" /> <span className="text-base lg:text-lg font-semibold">
                                     Your wallet has been activated successfully.
                                 </span>
                             </div>
-                            <p className="text-gray-800 font-semibold">
+                            <p className="text-sm lg:text-base text-gray-800 font-semibold">
                                 Now you can receive (payments, refunds or offer-coins) and also pay any order payments.
                             </p>
                         </div>
                     </div>
                     
-                    <div className="my-3">
+                    <div className="text-sm lg:text-base my-3">
                         <div className="flex items-center gap-2">
                             <h4 className="font-semibold text-gray-600">Wallet UPI-ID:</h4>
                             <span className="font-bold tracking-wide">{userWallet?.upiId}</span>
@@ -144,25 +144,25 @@ function Wallet() {
                             <span className="font-semibold">{moment(userWallet?.createdAt).format('LLLL')}</span>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="text-sm lg:text-base flex flex-col gap-2">
                         <div className="flex items-center gap-2">
-                            <h5 className="font-semibold text-gray-600">Wallet Balance</h5>
-                            <span className="font-bold tracking-wider">{convertNumberToINR(userWallet?.balance)} (INR)</span>
+                            <h5 className="font-semibold text-gray-600">Wallet Balance:</h5>
+                            <span className="font-semibold font-mono tracking-wide">{convertNumberToINR(userWallet?.balance)} (INR)</span>
                         </div>
                     </div>
 
-                    <div className="my-2 bg-orange-100 p-4 rounded-md">
+                    <div className="my-2 bg-orange-100 p-2 lg:p-4 rounded-md">
                         <div className="flex items-center justify-between font-semibold">
-                            <h5>Transfer money through wallet</h5>
+                            <h5 className="text-sm lg:text-base">Transfer money through wallet</h5>
                             <button
                             disabled={userWallet?.balance <= 0}
                             onClick={() => (setShowPaymentModal(true), setSenderUpiId(userWallet?.upiId))}
-                            className="text-white bg-orange-500 hover:bg-orange-600 px-4 py-1 rounded-md uppercase">Pay Now</button>
+                            className="text-sm lg:text-base text-white bg-orange-500 hover:bg-orange-600 px-4 py-1 rounded-md uppercase">Pay Now</button>
                         </div>
                     </div>
 
                     <div>
-                        <h2 className="text-lg font-semibold my-2">Transaction History</h2>
+                        <h2 className="text-base lg:text-lg font-semibold my-2">Transaction History</h2>
 
                         <ul className="max-h-[450px] overflow-y-auto hiddenScrollBar flex flex-col gap-4 border p-4 rounded-md">
                         {
@@ -172,7 +172,7 @@ function Wallet() {
                             className="p-2 rounded-md bg-slate-100 hover:bg-opacity-70 border duration-150 delay-100 hover:border-blue-300"
                             key={uuidv4()}>
                                 <div className="flex items-center gap-2">
-                                    <div className="p-2 rounded-md text-2xl text-white bg-orange-500">
+                                    <div className="p-2 rounded-md text-lg lg:text-2xl text-white bg-orange-500">
                                     {
                                         (userWallet?.upiId === transaction?.senderUpiId) ? (
                                             <MdCallMade />
@@ -182,7 +182,7 @@ function Wallet() {
                                     }
                                     </div>
                                     <div className="w-full px-4 flex flex-col gap-1">
-                                        <div className="text-lg flex items-center justify-between">
+                                        <div className="text-base lg:text-lg flex items-center justify-between">
                                         {
                                             (userWallet?.upiId === transaction?.senderUpiId) ? (
                                                 <h4 className="font-semibold">Paid To</h4>
@@ -190,11 +190,11 @@ function Wallet() {
                                                 <h4 className="font-semibold">Received From</h4>
                                             )
                                         }
-                                            <span className="font-semibold tracking-wide">
+                                            <span className="font-medium font-mono">
                                                 {convertNumberToINR(transaction?.amount)}
                                             </span>
                                         </div>
-                                        <div className="flex items-center justify-between">
+                                        <div className="text-sm lg:text-base flex flex-col lg:flex-row lg:items-center justify-between">
                                             <span className="font-semibold tracking-wider text-blue-600">
                                             {
                                                 (userWallet?.upiId === transaction?.senderUpiId) ? (
@@ -204,9 +204,9 @@ function Wallet() {
                                                 )
                                             }
                                             </span>
-                                            <p className="text-sm text-gray-600 font-medium">Transaction Id: {transaction?.referenceId}</p>
+                                            <p className="text-sm text-gray-600 font-mono lg:font-medium">Transaction Id: {transaction?.referenceId}</p>
                                         </div>
-                                        <div className="text-sm text-gray-600 font-medium flex items-center justify-between">
+                                        <div className="text-xs lg:text-sm text-gray-600 font-normal lg:font-medium flex items-center justify-between">
                                             <p>
                                                 {moment(transaction?.createdAt).format("LLLL")}
                                             </p>
@@ -243,7 +243,7 @@ function Wallet() {
                             ))
                         ) : (
                             <div className="flex flex-col items-center my-4">
-                                <FiAlertCircle className="text-4xl text-orange-500" />
+                                <FiAlertCircle className="text-lg lg:text-4xl text-orange-500" />
                                 <p className="text-lg font-medium mt-2">No transaction found in your history.</p>
                             </div>
                         )

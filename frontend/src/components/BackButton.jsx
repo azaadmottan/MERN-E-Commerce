@@ -15,7 +15,7 @@ function BackButton() {
     <>
         <button 
         onClick={() => navigateBack()}
-        className='bg-slate-50 px-4 py-3 text-2xl rounded-md hover:bg-slate-100 transition-all duration-100 delay-75'
+        className='bg-slate-50 px-4 py-3 text-lg lg:text-2xl rounded-md hover:bg-slate-100 transition-all duration-100 delay-75'
         >
             <IoArrowBack />
         </button>
