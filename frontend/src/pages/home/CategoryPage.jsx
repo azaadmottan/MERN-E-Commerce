@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { categoryProducts, getCategory } from "../../actions/requestProduct.actions.js";
 import { MetaData, HomeProductCard } from "../../components/index.jsx";
 import { PUBLIC_URL } from '../../config/api.config.js';
+import NumberToINR from "../../handler/NumberToINR.js";
 
 function CategoryPage() {
     const { category, id } = useParams();
@@ -21,6 +22,7 @@ function CategoryPage() {
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [uniqueBrands, setUniqueBrands] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [priceRangeFilteredProducts, setPriceRangeFilteredProducts] = useState([]);
 
     const getUniqueBrands = (products) => {
         const brands = products.map(product => product.brand.toLowerCase());
@@ -30,6 +32,10 @@ function CategoryPage() {
     const [loading, setLoading] = useState(true);
     const [categoryData, setCategoryData] = useState("");
     const [products, setProducts] = useState([]);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
+    const [priceRange, setPriceRange] = useState(0);
+
     const getCategoryInfo = async () => {
         if (id) {
             setLoading(true);
@@ -44,6 +50,14 @@ function CategoryPage() {
                 setUniqueBrands(getUniqueBrands(response2?.products));
             }
             setLoading(false);
+        }
+    }
+
+    const setPriceRangeInfo = () => {
+        if (products?.length > 0) {
+            setMinPrice(Math.min(...products.map(product => product?.sellingPrice)));
+            setMaxPrice(Math.max(...products.map(product => product?.sellingPrice)));
+            setPriceRange(Math.max(...products.map(product => product?.sellingPrice)));
         }
     }
 
@@ -67,6 +81,7 @@ function CategoryPage() {
         }
 
         setFilteredProducts(sortedProducts);
+        setPriceRangeFilteredProducts(sortedProducts);
     };
 
     const handleSortOrderChange = (e) => {
@@ -81,9 +96,21 @@ function CategoryPage() {
             setSelectedBrands(prev => prev.filter(brand => brand !== value));
         }
     };
+    
+    const handlePriceChange = (e) => {
+        // setPriceRange(e.target.value);
+        let sortedProducts = [...priceRangeFilteredProducts];
+        let productsInRange = sortedProducts.filter((product) => (product.sellingPrice <= priceRange));
+        setFilteredProducts(productsInRange);
+    }
+
+    useEffect(() => {
+        handlePriceChange();
+    }, [priceRange]);
 
     useEffect(() => {
         sortAndFilterProducts();
+        setPriceRangeInfo();
     }, [sortOrder, selectedBrands, products]);
 
     const loadingElements = Array(12).fill(null);
@@ -152,11 +179,29 @@ function CategoryPage() {
         </>
         ) : (
         <>
-        <MetaData title={`${categoryData?.name} @ Shopkart | India`} />
+        <MetaData title={`${category} @ Shopkart | India`} />
         <div className="flex flex-col md:flex-row gap-2">
             <div className="md:w-[20%] md:h-[85vh] p-2 mb-2 md:mb-0 bg-white border rounded-md">
 
                 <div className="flex flex-col gap-2 mb-2">
+                    <h2 className="text-base lg:text-xl text-gray-800 font-semibold uppercase border-b-2 lg:p-2">Price Range</h2>
+                    <p className="flex items-center text-xs text-gray-500 font-medium">Price: ₹{priceRange}</p>
+                    <div className="flex items-center w-full">
+                        <input
+                        min={minPrice}
+                        max={maxPrice}
+                        // step={Math.max(100, (Math.floor((maxPrice - minPrice) / 100)))}
+                        value={priceRange}
+                        onChange={(e) => (setPriceRange(e.target.value))}
+                        type="range" 
+                        className="w-full cursor-grab"
+                        />
+                    </div>
+                    <p className="flex items-center justify-between text-xs text-gray-500 font-medium">
+                        <span>{NumberToINR(minPrice)}</span>
+                        <span>{NumberToINR(maxPrice)}</span>
+                    </p>
+
                     <h2 className="text-base lg:text-xl text-gray-800 font-semibold uppercase border-b-2 lg:p-2">Sort By Price</h2>
                     <div className="flex flex-wrap md:flex-col justify-between gap-2 py-1 lg:p-2 font-semibold text-gray-500">
                         <p className="flex gap-2 text-sm lg:text-base">
