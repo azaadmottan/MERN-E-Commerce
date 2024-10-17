@@ -202,18 +202,24 @@ function Coupon() {
                                             <span className="text-gray-500 font-semibold">Discount Type</span>
                                             <span className="font-semibold uppercase">'{coupon.discountType}'</span>
                                         </div>
-                                        <div className="flex gap-2 lg:gap-4">
-                                            <span className="text-gray-500 font-semibold">Discount Value:</span>
-                                            <span className="font-semibold">{coupon.discountValue}</span>
-                                            <span className="text-gray-500 font-semibold">No Of Items:</span>
-                                            <span className="font-semibold">{coupon?.noOfItems}</span>
-                                            <span className="text-gray-500 font-semibold">Coupon Status:</span>
-                                            <span className={`font-semibold ${coupon?.isActive ? 'text-green-500' : 'text-red-500'}`}>{coupon?.isActive ? "Active" : "Inactive"}</span>
+                                        <div className="flex flex-col sm:flex-row gap-2 lg:gap-4">
+                                            <p className="flex gap-2">
+                                                <span className="text-gray-500 font-semibold">Discount Value:</span>
+                                                <span className="font-semibold">{coupon.discountValue}</span>
+                                            </p>
+                                            <p className="flex gap-2">
+                                                <span className="text-gray-500 font-semibold">No Of Items:</span>
+                                                <span className="font-semibold">{coupon?.noOfItems}</span>
+                                            </p>
+                                            <p className="flex gap-2">
+                                                <span className="text-gray-500 font-semibold">Coupon Status:</span>
+                                                <span className={`font-semibold ${coupon?.isActive ? 'text-green-500' : 'text-red-500'}`}>{coupon?.isActive ? "Active" : "Inactive"}</span>
+                                            </p>
                                         </div>
                                     </div>
                                     {
                                     coupon?.user && (
-                                        <div className="text-sm lg:text-base flex items-center gap-2 lg:gap-4">
+                                        <div className="text-sm lg:text-base flex flex-col sm:flex-row sm:items-center sm:gap-2 lg:gap-4">
                                             <span className="text-gray-500 font-semibold">User: </span>
                                             <Link
                                             to={`/admin/dashboard/user/${coupon?.user}`}

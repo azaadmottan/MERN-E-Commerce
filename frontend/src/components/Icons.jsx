@@ -40,6 +40,8 @@ import { RiCheckboxMultipleFill } from "react-icons/ri";
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { BsBagXFill } from "react-icons/bs";
 import { IoWalletOutline } from "react-icons/io5";
+import { RxHamburgerMenu } from "react-icons/rx";
+
 
 export {
     BsCart3,
@@ -84,5 +86,6 @@ export {
     BsFillBagCheckFill,
     BsBagXFill,
     IoWalletOutline,
+    RxHamburgerMenu,
 
 }

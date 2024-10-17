@@ -168,7 +168,7 @@ function Category() {
             </button>
         </div>
 
-        <div className="border border-slate-200 rounded-md p-6 mt-4 grid gap-6">
+        <div className="border border-slate-200 rounded-md p-2 sm:p-6 mt-4 grid gap-6">
             {
                 loading ? (
                     <MiniLoading />

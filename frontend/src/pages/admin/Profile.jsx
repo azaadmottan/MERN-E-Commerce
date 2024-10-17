@@ -126,8 +126,8 @@ function Profile() {
     <div>
         <h2 className="text-lg lg:text-xl font-semibold">Personal Information</h2>
 
-        <div className="text-base lg:text-lg border border-slate-200 rounded-md p-3 lg:p-6 mt-4 grid gap-6">
-            <div className="flex items-center justify-between">
+        <div className="text-base lg:text-lg border border-slate-200 rounded-md p-3 lg:p-6 mt-4 grid gap-2 sm:gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                 <div className="flex gap-3 items-center">
                     <span className="">
                         Full Name:
@@ -145,7 +145,7 @@ function Profile() {
                     </span>
                 </div>
             </div>
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-row gap-3 sm:items-center">
                 <span className="">
                     Email Address:
                 </span>
@@ -153,7 +153,7 @@ function Profile() {
                     {user?.email || user?.email}
                 </span>
             </div>
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-col sm:flex-row sm:gap-3 sm:items-center">
                 <span className="">
                     Profile Last Updated:
                 </span>
@@ -161,7 +161,7 @@ function Profile() {
                     {moment(user?.updatedAt).format('LLLL') || moment(user?.updatedAt).format('LLLL')}
                 </span>
             </div>
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-col sm:flex-row sm:gap-3 sm:items-center">
                 <span className="">
                     Account Created At:
                 </span>

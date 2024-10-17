@@ -210,7 +210,7 @@ function Setting() {
                     className="flex flex-col gap-2">
                         <h3 className="text-base lg:text-lg font-medium text-gray-600">Update Profile Details</h3>
                         <div className="flex flex-wrap justify-between">
-                            <div className="w-[40%]">
+                            <div className="w-full sm:w-[40%]">
                                 <label htmlFor="username" className="block lg:font-medium text-gray-500">Username</label>
                                 <input
                                     type="text"
@@ -221,7 +221,7 @@ function Setting() {
                                     disabled={true}
                                 />
                             </div>
-                            <div className="w-[40%]">
+                            <div className="w-full sm:w-[40%]">
                                 <label htmlFor="email" className="block lg:font-medium text-gray-600">Email-id</label>
                                 <input
                                     type="email"
@@ -233,7 +233,7 @@ function Setting() {
                             </div>
                         </div>
                         <div className="flex flex-wrap justify-between">
-                            <div className="w-[40%]">
+                            <div className="w-full sm:w-[40%]">
                                 <label htmlFor="fullName" className="block lg:font-medium text-gray-500">Full Name</label>
                                 <input
                                     type="text"
@@ -246,7 +246,7 @@ function Setting() {
                         </div>
                         <button
                         type="submit"
-                        className="py-1 lg:py-1.5 w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                        className="py-1 lg:py-1.5 sm:w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                             Update Profile
                         </button>
                     </form>
@@ -256,7 +256,7 @@ function Setting() {
                     className="flex flex-col gap-2 mt-2">
                         <h3 className="text-base lg:text-lg font-medium text-gray-600">Update Account Password</h3>
                         <div className="flex flex-wrap justify-between">
-                            <div className="w-[40%]">
+                            <div className="w-full sm:w-[40%]">
                                 <label htmlFor="password"  className="block lg:font-medium text-gray-500">Old Password</label>
                                 <input 
                                 type="password"
@@ -267,7 +267,7 @@ function Setting() {
                                 className="mt-1 block w-full py-1.5 px-2 outline-none border-gray-300 rounded-md border-2 focus-within:border-blue-600"
                                 />
                             </div>
-                            <div className="w-[40%]">
+                            <div className="w-full sm:w-[40%]">
                                 <label htmlFor="cPassword"  className="block lg:font-medium text-gray-500">New Password</label>
                                 <input 
                                 type="password"
@@ -280,7 +280,7 @@ function Setting() {
                             </div>
                         </div>
                         <button 
-                        className="py-1 lg:py-1.5 w-[25%] lg:w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                        className="py-1 lg:py-1.5 sm:w-[25%] lg:w-[20%] text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
                             Update Password
                         </button>
                     </form>
@@ -295,7 +295,7 @@ function Setting() {
                     {
                         wallet?.isActive && (
                         <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-2 lg:p-4 rounded-md">
-                            <div className="p-1 rounded-r-md bg-orange-500 h-14"></div>
+                            <div className="p-0.5 sm:p-1 rounded-r-md bg-orange-500 h-14"></div>
                             <div className="flex items-center gap-2">
                                 <MdVerified className="text-blue-500 text-lg lg:text-2xl" /> <span className="text-base lg:text-lg font-semibold">
                                     Your wallet has been activated successfully.
@@ -338,7 +338,7 @@ function Setting() {
                                 <h2 className="text-base lg:text-lg font-semibold text-gray-600">
                                     Your account details
                                 </h2>
-                                <div className="flex flex-col gap-4 p-4 mt-2 text-base lg:text-lg bg-slate-100 rounded-md">
+                                <div className="flex flex-col gap-4 p-1.5 sm:p-4 mt-2 text-base lg:text-lg bg-slate-100 rounded-md">
                                     <div className="flex flex-wrap justify-between">
                                         <div className="flex gap-2">
                                             <label className="text-gray-500 lg:font-semibold" htmlFor="user-name">Username</label>
@@ -417,8 +417,8 @@ function Setting() {
                     <h2 className="text-base lg:text-lg font-semibold text-gray-600">Order payment official UPI ID</h2>
                     <form 
                     onSubmit={handleAddOrderUpiId}
-                    className="bg-slate-100 p-4 my-2 rounded-md flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                    className="bg-slate-100 p-2 sm:p-4 my-2 rounded-md flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                             <label className="text-gray-500 lg:font-semibold" htmlFor="order-upi-id">UPI ID</label>
                             <input 
                             value={orderUpiId}
@@ -437,8 +437,8 @@ function Setting() {
                         </button>
                     </form>
 
-                    <div className="p-4 rounded-md bg-slate-100 flex items-center justify-between">
-                        <div className="flex gap-2">
+                    <div className="p-2 sm:p-4 rounded-md bg-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+                        <div className="flex flex-col sm:flex-row gap-2">
                             <span className="text-gray-500 lg:font-semibold">
                                 Order Payment UPI ID: 
                             </span>

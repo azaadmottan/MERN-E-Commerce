@@ -90,7 +90,7 @@ function User() {
     <MetaData title="Admin Dashboard - User List" />
     <div>
         <h2 className="text-lg lg:text-xl font-semibold my-2">All Users</h2>
-        <div className="flex items-center justify-between gap-4 my-2 font-medium select-none">
+        <div className="flex items-center justify-between gap-4 my-2 sm:font-medium select-none">
             {/* search functionality */}
             <div className="flex items-center w-[80%]">
                 <input 
@@ -203,59 +203,60 @@ function User() {
                 </div>
             </div>
         </div>
+
         <div className="max-h-[450px] overflow-y-auto hiddenScrollBar">
-        <table className="table-fixed text-xs lg:text-base w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
-            <thead className="bg-gray-800 text-white">
-                <tr>
-                    <th scope="col" className="p-2">Name</th>
-                    <th scope="col" className="p-2">Email</th>
-                    <th scope="col" className="p-2">User ID</th>
-                    <th scope="col" className="p-2">Status</th>
-                    <th scope="col" className="p-2">User Role</th>
-                    <th scope="col" className="p-2">Joined</th>
-                </tr>
-            </thead>
-            <tbody>
-            {
-                loading ? (
-                    loadingElements.map((_, index) => (
-                    <tr key={index}
-                    className="border-b my-4">
-                        <td className="p-4"></td>
+            <table className="lg:table-fixed text-xs lg:text-base w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
+                <thead className="bg-gray-800 text-white">
+                    <tr>
+                        <th scope="col" className="p-2">Name</th>
+                        <th scope="col" className="p-2">Email</th>
+                        <th scope="col" className="p-2">User ID</th>
+                        <th scope="col" className="p-2">Status</th>
+                        <th scope="col" className="p-2">User Role</th>
+                        <th scope="col" className="p-2">Joined</th>
                     </tr>
-                    ))
-                ) : (
-                    (filteredUsers.length === 0) ? (
-                    <tr className="text-center">
-                        <td className="p-4 text-gray-600 bg-slate-100 shadow-md font-semibold tracking-wider" colSpan="6">No user found.</td>
-                    </tr>
-                    ) : (
-                        filteredUsers.map((user) => (
-                            <tr
-                            onClick={() => navigate(`/admin/dashboard/user/${user?._id}`)}
-                            key={uuidv4()} className="text-xs lg:text-sm border-b hover:bg-slate-100 cursor-pointer hover:shadow-md">
-                                <td className="p-2 flex items-center gap-2">
-                                    <span className="font-bold rounded-[50%] bg-violet-800 text-white px-3 py-1.5">
-                                        {user?.fullName[0]}
-                                    </span>
-                                    {user?.fullName}
-                                </td>
-                                <td className="p-2 font-normal lg:font-semibold text-wrap break-words">{user?.email}</td>
-                                <td className="p-2 break-words">{user?._id}</td>
-                                <td className="p-2 font-semibold lg:font-bold text-center text-xs">{user?.isActive ? (<span className="text-white bg-green-500 px-4 py-0.5 rounded-full">Active</span>) : <span className="text-white bg-red-500 px-5 py-0.5 rounded-full">Block</span>}</td>
-                                <td className="p-2 font-semibold lg:font-bold text-center">
-                                    <span className={`${user?.isAdmin ? "bg-orange-500 text-xs text-white px-4 py-0.5 rounded-full " : ""}`}>
-                                        {user?.isAdmin ? "Admin" : "User"}
-                                    </span>
-                                </td>
-                                <td className="p-2 font-normal lg:font-semibold">{moment(user?.createdAt).format("lll")}</td>
-                            </tr>
+                </thead>
+                <tbody>
+                {
+                    loading ? (
+                        loadingElements.map((_, index) => (
+                        <tr key={index}
+                        className="border-b my-4">
+                            <td className="p-4"></td>
+                        </tr>
                         ))
+                    ) : (
+                        (filteredUsers.length === 0) ? (
+                        <tr className="text-center">
+                            <td className="p-4 text-gray-600 bg-slate-100 shadow-md font-semibold tracking-wider" colSpan="6">No user found.</td>
+                        </tr>
+                        ) : (
+                            filteredUsers.map((user) => (
+                                <tr
+                                onClick={() => navigate(`/admin/dashboard/user/${user?._id}`)}
+                                key={uuidv4()} className="text-xs lg:text-sm border-b hover:bg-slate-100 cursor-pointer hover:shadow-md">
+                                    <td className="p-2 flex items-center gap-2">
+                                        <span className="font-semibold lg:font-bold rounded-[50%] bg-violet-800 text-white px-2 sm:px-3 py-0.5 sm:py-1.5">
+                                            {user?.fullName[0]}
+                                        </span>
+                                        {user?.fullName}
+                                    </td>
+                                    <td className="p-2 font-normal lg:font-semibold text-wrap break-words">{user?.email}</td>
+                                    <td className="p-2 break-words">{user?._id}</td>
+                                    <td className="p-2 font-semibold lg:font-bold text-center text-xs">{user?.isActive ? (<span className="text-white bg-green-500 px-4 py-0.5 rounded-full">Active</span>) : <span className="text-white bg-red-500 px-5 py-0.5 rounded-full">Block</span>}</td>
+                                    <td className="p-2 font-semibold lg:font-bold text-center">
+                                        <span className={`${user?.isAdmin ? "bg-orange-500 text-xs text-white px-4 py-0.5 rounded-full" : "bg-slate-200 px-6 py-0.5 rounded-full"}`}>
+                                            {user?.isAdmin ? "Admin" : "User"}
+                                        </span>
+                                    </td>
+                                    <td className="p-2 text-nowrap font-normal lg:font-semibold">{moment(user?.createdAt).format("lll")}</td>
+                                </tr>
+                            ))
+                        )
                     )
-                )
-            }
-            </tbody>
-        </table>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
     </>

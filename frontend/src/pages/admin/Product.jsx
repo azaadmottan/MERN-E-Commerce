@@ -141,7 +141,7 @@ function Product() {
             </button>
         </div>
 
-        <div className="border border-slate-200 bg-slate-50 rounded-md p-2 lg:p-6 mt-4 flex flex-wrap items-center justify-between gap-2 lg:gap-4 ">
+        <div className="sm:border border-slate-200 bg-slate-50 rounded-md sm:p-2 lg:p-6 mt-4 flex flex-wrap items-center justify-center sm:justify-between gap-2 lg:gap-4 ">
             {
                 productLoading ? (
                     <div className="w-full flex items-center justify-center">

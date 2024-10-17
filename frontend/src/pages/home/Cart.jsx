@@ -143,7 +143,7 @@ function Cart() {
 
     return (
     <>
-    <div className="container h-[85vh] p-2 md:p-4 mx-auto my-2 rounded-md">
+    <div className="container lg:h-[85vh] p-2 md:p-4 mx-auto lg:my-2 rounded-md">
         {
             !user ? (
             <>
@@ -202,9 +202,8 @@ function Cart() {
                     </div>
                 ) : (
                     cartItems?.length > 0 ? (
-                        <div className="flex gap-4">
-                            <div
-                            className="w-[70%] h-[80vh] rounded-md border-2 px-6 py-4 overflow-y-auto hiddenScrollBar bg-white"
+                        <div className="flex flex-col md:flex-row gap-2 lg:gap-4">
+                            <div className="w-full md:w-[70%] md:h-[80vh] rounded-md border-2 px-3 lg:px-6 py-2 lg:py-4 overflow-y-auto hiddenScrollBar bg-white"
                             >
                                 <div className="">
     
@@ -242,7 +241,7 @@ function Cart() {
                                         cartItems?.map((item, index) => (
                                             <div
                                             key={index}
-                                            className="card-body px-2 py-4 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
+                                            className="card-body px-2 py-2 lg:py-4 bg-slate-50 rounded-md flex items-center gap-2 hover:shadow-md">
                                                 <div className="w-[20%] h-36">
                                                     <img
                                                     className="w-full h-full object-contain"
@@ -252,53 +251,55 @@ function Cart() {
                                                 <div className="w-[80%] px-4 py-2 flex flex-col gap-2">
                                                     <h2
                                                     onClick={() => navigate(`/product/${formatUrl(item?.product?.name)}/${item?.product?._id}`)}
-                                                    className="text-xl font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
+                                                    className="text-base lg:text-xl font-semibold cursor-pointer hover:text-blue-500 w-fit tracking-wider text-ellipsis line-clamp-1">
                                                         {
                                                             item?.product?.name
                                                         }
                                                     </h2>
-                                                    <h4 className="text-sm text-gray-400 font-medium tracking-wider uppercase">
+                                                    <h4 className="text-xs lg:text-sm text-gray-400 font-medium tracking-wider uppercase">
                                                         {
                                                             item?.product?.brand
                                                         }
                                                     </h4>
     
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-lg font-medium tracking-wider">
-                                                            {
-                                                                convertNumberToINR(item?.product?.sellingPrice)
-                                                            }
-                                                        </span>
-                                                        <span className="font-semibold text-gray-500 line-through tracking-wider">
-                                                            {
-                                                                convertNumberToINR(item?.product?.price)
-                                                            }
-                                                        </span>
+                                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                                        <p className="flex gap-2">
+                                                            <span className="text-base lg:text-lg font-medium tracking-wider">
+                                                                {
+                                                                    convertNumberToINR(item?.product?.sellingPrice)
+                                                                }
+                                                            </span>
+                                                            <span className="font-semibold text-gray-500 line-through tracking-wider">
+                                                                {
+                                                                    convertNumberToINR(item?.product?.price)
+                                                                }
+                                                            </span>
+                                                        </p>
                                                         <span className="font-bold text-green-500 italic font-serif tracking-wide">
                                                             {item?.product?.discount}% off
                                                         </span>
                                                     </div>
     
-                                                    <div className="flex items-center gap-10">
+                                                    <div className="text-sm lg:text-base flex flex-col md:flex-row md:items-center gap-2 md:gap-10">
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-gray-700">
                                                                 Product quantity: 
                                                             </span>
                                                             <button
                                                             onClick={() => handleDecrease(item?.product?._id)}
-                                                            className="text-3xl font-medium bg-white rounded-full">
+                                                            className="text-lg lg:text-3xl font-medium bg-white rounded-full">
                                                                 <CiCircleMinus
                                                                 className="hover:text-blue-600"
                                                                 title="Decrease Product Quantity"/>
                                                             </button>
-                                                            <span className="text-lg font-semibold border px-3 rounded-md tracking-wider bg-white">
+                                                            <span className="text-base lg:text-lg font-semibold border px-3 rounded-md tracking-wider bg-white">
                                                                 {
                                                                     quantities[item?.product?._id]
                                                                 }
                                                             </span>
                                                             <button
                                                             onClick={() => handleIncrease(item?.product?._id)}
-                                                            className="text-3xl font-bold bg-white rounded-full">
+                                                            className="text-lg lg:text-3xl font-bold bg-white rounded-full">
                                                                 <CiCirclePlus className="hover:text-blue-500"
                                                                 title="Increase Product Quantity" />
                                                             </button>
@@ -309,7 +310,7 @@ function Cart() {
                                                                 setShowRemoveItemModal(true),
                                                                 setItemId(item?.product?._id)
                                                             )}
-                                                            className="uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500"
+                                                            className="text-xs lg:text-base uppercase font-semibold hover:text-blue-500 tracking-wider bg-white rounded-md px-4 py-0.5 border border-blue-500"
                                                             title="Remove Product From Cart">
                                                                 Remove
                                                             </button>
@@ -325,15 +326,15 @@ function Cart() {
     
                             </div>
     
-                            <div className="w-[30%] h-fit max-h-[80vh] border-2 px-6 py-4 rounded-md bg-white overflow-y-auto hiddenScrollBar"
+                            <div className="w-full md:w-[30%] h-fit max-h-[80vh] border-2 px-3 lg:px-6 py-4 rounded-md bg-white overflow-y-auto hiddenScrollBar"
                             >
                             <div>
                                 <div className="flex flex-col gap-4">
-                                    <h2 className="text-xl font-medium text-gray-800 tracking-wider uppercase">
+                                    <h2 className="text-lg lg:text-xl font-medium text-gray-800 tracking-wider uppercase">
                                         Price Details
                                     </h2>
     
-                                    <div className="flex justify-between text-gray-600 font-medium">
+                                    <div className="text-sm lg:text-base flex justify-between text-gray-600 font-medium">
                                         <span>
                                             Price ({cartItems?.length} items)
                                         </span>
@@ -343,7 +344,7 @@ function Cart() {
                                             }
                                         </span>
                                     </div>
-                                    <div className="flex justify-between text-gray-600 font-medium">
+                                    <div className="text-sm lg:text-base flex justify-between text-gray-600 font-medium">
                                         <span>
                                             Discount
                                         </span>
@@ -355,7 +356,7 @@ function Cart() {
                                             }
                                         </span>
                                     </div>
-                                    <div className="flex justify-between text-gray-600 font-medium">
+                                    <div className="text-sm lg:text-base flex justify-between text-gray-600 font-medium">
                                         <span>
                                             Delivery Charges
                                         </span>
@@ -379,7 +380,7 @@ function Cart() {
                                         }
                                     </div>
     
-                                    <h2 className="flex justify-between text-lg text-gray-800 font-bold">
+                                    <h2 className="flex justify-between text-base lg:text-lg text-gray-800 font-bold">
                                         <span>
                                             Total Amount
                                         </span>
@@ -390,7 +391,7 @@ function Cart() {
                                         </span>
                                     </h2>
     
-                                    <p className="text-green-500 font-medium">
+                                    <p className="text-sm lg:text-base text-green-500 font-medium">
                                         You will save <span className="italic tracking-wider">
                                         {
                                             convertNumberToINR( 
@@ -401,12 +402,12 @@ function Cart() {
                                     </p>
                                 </div>
     
-                                <div className="bg-slate-100 rounded-md p-2 mt-4">
+                                <div className="bg-slate-100 rounded-md p-1 lg:p-2 mt-4">
                                     <p className="flex items-center gap-2 text-gray-800">
-                                        <span className="text-4xl">
+                                        <span className="text-2xl lg:text-4xl">
                                             <MdGppGood />
                                         </span>
-                                        <span className="font-medium">
+                                        <span className="text-sm lg:text-base font-medium">
                                             Safe and Secure Payments. Easy returns. 100% Authentic products.
                                         </span>
                                     </p>
@@ -429,7 +430,7 @@ function Cart() {
 
                                 <button
                                 onClick={() => setShowPlaceOrderModal(true)}
-                                className="text-lg font-medium text-white bg-orange-500 hover:bg-opacity-90 px-4 py-2 mt-6 rounded-md uppercase flex items-center gap-2">
+                                className="text-sm lg:text-lg font-medium text-white bg-orange-500 hover:bg-opacity-90 px-4 py-2 mt-3 lg:mt-6 rounded-md uppercase flex items-center gap-2">
                                     <SiTicktick />
                                     Place Order
                                 </button>

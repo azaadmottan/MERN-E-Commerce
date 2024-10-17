@@ -120,8 +120,8 @@ function Wallet() {
                 {
                     userWallet?.isActive && (
                     <>
-                    <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-4 my-2 rounded-md">
-                        <div className="p-1 rounded-r-md bg-orange-500 h-16"></div>
+                    <div className="flex items-center gap-2 bg-orange-200 bg-opacity-75 p-2 sm:p-4 my-2 rounded-md">
+                        <div className="p-0.5 sm:p-1 rounded-r-md bg-orange-500 h-20 sm:h-16"></div>
                         <div className="flex flex-col gap-2">
                             <div className="flex items-center gap-2">
                                 <MdVerified className="text-blue-500 text-lg lg:text-2xl" /> <span className="text-base lg:text-lg font-semibold">
@@ -164,7 +164,7 @@ function Wallet() {
                     <div>
                         <h2 className="text-base lg:text-lg font-semibold my-2">Transaction History</h2>
 
-                        <ul className="max-h-[450px] overflow-y-auto hiddenScrollBar flex flex-col gap-4 border p-4 rounded-md">
+                        <ul className="max-h-[450px] overflow-y-auto hiddenScrollBar flex flex-col gap-2 sm:gap-4 border p-2 sm:p-4 rounded-md">
                         {
                         userWallet?.transactions?.length > 0 ? (
                             userWallet?.transactions.map((transaction, index) => (
@@ -181,7 +181,7 @@ function Wallet() {
                                         )
                                     }
                                     </div>
-                                    <div className="w-full px-4 flex flex-col gap-1">
+                                    <div className="w-full px-0 sm:px-4 flex flex-col gap-1">
                                         <div className="text-base lg:text-lg flex items-center justify-between">
                                         {
                                             (userWallet?.upiId === transaction?.senderUpiId) ? (
@@ -204,9 +204,9 @@ function Wallet() {
                                                 )
                                             }
                                             </span>
-                                            <p className="text-sm text-gray-600 font-mono lg:font-medium">Transaction Id: {transaction?.referenceId}</p>
+                                            <p className="text-xs sm:text-sm text-wrap text-gray-600 font-mono lg:font-medium">Transaction Id: {transaction?.referenceId}</p>
                                         </div>
-                                        <div className="text-xs lg:text-sm text-gray-600 font-normal lg:font-medium flex items-center justify-between">
+                                        <div className="text-xs lg:text-sm text-gray-600 font-normal lg:font-medium flex flex-col sm:flex-row sm:items-center justify-between">
                                             <p>
                                                 {moment(transaction?.createdAt).format("LLLL")}
                                             </p>

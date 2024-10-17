@@ -194,7 +194,7 @@ function Home() {
         Revenue, Order, Products, Categories & User Details
     </h2>
     <div className="mt-2">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-6">
             <div className="flex flex-col bg-purple-600 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl px-4 py-6 lg:p-6">
                 <h4 className="text-sm lg:text-base text-gray-100 font-medium">Total Sales Amount</h4>
                 <h2 className="text-lg lg:text-2xl text-wrap font-bold tracking-wide">
@@ -229,7 +229,7 @@ function Home() {
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col xl:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-auto w-full shadow-md p-2 hover:shadow-lg">
                 <Line 
                 data={lineState}
@@ -246,15 +246,15 @@ function Home() {
                 }}
                 />
             </div>
-            <div className="h-[18rem] lg:h-auto">
-                <div className="bg-white rounded-xl h-full w-full flex flex-row lg:flex-col shadow-md p-4 text-center hover:shadow-lg">
+            <div className="h-[18rem] xl:h-auto">
+                <div className="bg-white rounded-xl h-full w-full flex flex-row xl:flex-col shadow-md p-4 text-center hover:shadow-lg">
                     <span className="font-medium uppercase text-gray-800">Order Status</span>
                     <Pie data={pieState} />
                 </div>
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col xl:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-auto w-full shadow-md p-2 hover:shadow-lg">
                 <Bar
                 data={barState}
@@ -270,15 +270,15 @@ function Home() {
                 }}
                 />
             </div>
-            <div className="h-[18rem] lg:h-auto">
-                <div className="bg-white rounded-xl h-full w-full flex flex-row lg:flex-col shadow-md p-4 text-center hover:shadow-lg">
+            <div className="h-[18rem] xl:h-auto">
+                <div className="bg-white rounded-xl h-full w-full flex flex-row xl:flex-col shadow-md p-4 text-center hover:shadow-lg">
                     <span className="font-medium uppercase text-gray-800">Stock Status</span>
                     <Doughnut data={doughnutState} />
                 </div>
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col xl:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-full w-full shadow-lg p-2 hover:shadow-xl">
                 <Line 
                 data={userLineState}
@@ -296,7 +296,7 @@ function Home() {
             </div>
         </div>
 
-        <div className="mt-4 flex flex-col lg:flex-row justify-between gap-3 lg:gap-8 min-w-full">
+        <div className="mt-4 flex flex-col xl:flex-row justify-between gap-3 lg:gap-8 min-w-full">
             <div className="bg-white rounded-xl h-full w-full shadow-lg p-2 hover:shadow-xl">
                 <Line 
                     data={dailySalesLineState}

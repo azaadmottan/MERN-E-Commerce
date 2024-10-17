@@ -36,9 +36,9 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
     <>
     <div
     onClick={() => navigate(`/product/${formatUrl(name)}/${_id}`)}
-    className="w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
+    className="w-44 xx-sm-w x-sm-w sm:w-60 bg-slate-00 rounded-md bg-white shadow-sm hover:shadow-md cursor-pointer transition-all relative group select-none">
         <span 
-        className="text-lg cursor-pointer p-2 bg-slate-50 hover:bg-slate-200 rounded-full absolute top-0 right-0 hidden group-hover:block"
+        className="text-lg cursor-pointer p-2 bg-slate-50 hover:bg-slate-200 rounded-full absolute top-0 right-0 block lg:hidden lg:group-hover:block"
         onClick={(e) => toggleEditMenu(e, _id)}
         >
             <BsThreeDotsVertical className="relative" />
@@ -62,27 +62,27 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
 
         <div className="hover:text-blue-600 group">
 
-            <div className="w-full h-52 py-2">
+            <div className="w-full h-32 sm:h-52 py-2">
                 <img 
                 src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + (imgUrl || 'productImages/sampleImage.jpg')}
                 alt={name}
                 className="w-full h-full object-contain rounded-md"
                 />
             </div>
-            <div className="p-4 flex flex-col gap-1">
-                <h3 className="text-lg text-gray-800 font-semibold truncate group-hover:text-blue-600">
+            <div className="px-2 py-4 sm:p-4 flex flex-col gap-1">
+                <h3 className="text-sm sm:text-lg text-gray-800 font-semibold truncate group-hover:text-blue-600">
                     {name}
                 </h3>
-                <h5 className="text-gray-400 uppercase font-medium group-hover:text-blue-600">
+                <h5 className="text-xs sm:text-base text-gray-400 uppercase font-medium group-hover:text-blue-600">
                     {brand}
                 </h5>
 
 
-                <p className="bg-green-500 text-sm text-white font-semibold w-fit px-2 py-0 rounded-md flex items-center gap-1">
+                <p className="bg-green-500  text-xs sm:text-sm text-white font-semibold w-fit px-2 py-0 rounded-md flex items-center gap-1">
                     {rating} <IoStar />
                 </p>
 
-                <p className="text-sm tracking-wider">
+                <p className="text-xs sm:text-sm tracking-wider">
                     <span className="font-extrabold italic font-serif text-green-500">
                     {discount}% off
                     </span>
@@ -93,7 +93,7 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
                     <span className="text-sm font-extrabold">Sk</span> Assured Product
                 </p>
 
-                <p className="flex items-center gap-2 mt-2 tracking-wider">
+                <p className="flex flex-col sm:flex-row sm:items-center sm:gap-2 sm:mt-2 tracking-wider">
                     <span className="flex items-center text-lg font-bold">
                         { covertNumberToINR(sellingPrice) }
                     </span>
@@ -102,7 +102,7 @@ function AdminProductCard({ _id="", imgUrl="", name="", brand="", rating="", dis
                     </span>
                 </p>
 
-                <p className="text-sm text-green-500">
+                <p className="text-xs sm:text-sm text-green-500">
                     Save extra with combo offers
                 </p>
             </div>

@@ -31,63 +31,65 @@ function Order() {
     <MetaData title="Admin Dashboard - User Orders" />
     <div>
         <h1 className="text-lg lg:text-xl font-semibold">User Orders</h1>
-        <table className="table-fixed text-xs lg:text-base w-full mt-4 overflow-x-auto bg-slate-50 rounded-md">
-            <thead className="bg-gray-800 text-white">
-                <tr>
-                    <th scope="col" className="p-2">Order ID</th>
-                    <th scope="col" className="p-2">Customer ID</th>
-                    <th scope="col" className="p-2">Items</th>
-                    <th scope="col" className="p-2">Total Price</th>
-                    <th scope="col" className="p-2">Payment</th>
-                    <th scope="col" className="p-2">Order Status</th>
-                </tr>
-            </thead>
-            <tbody>
-            {
-                loading ? (
-                    loadingElements.map((_, index) => (
-                    <tr key={index}
-                    className="border-b my-4">
-                        <td className="p-4"></td>
+        <div className="max-h-[450px] overflow-y-auto overflow-x-auto hiddenScrollBar">
+            <table className="lg:table-fixed text-xs lg:text-base w-full mt-4 bg-slate-50 rounded-md">
+                <thead className="bg-gray-800 text-white">
+                    <tr>
+                        <th scope="col" className="p-2">Order ID</th>
+                        <th scope="col" className="p-2">Customer ID</th>
+                        <th scope="col" className="p-2">Items</th>
+                        <th scope="col" className="p-2">Total Price</th>
+                        <th scope="col" className="p-2">Payment</th>
+                        <th scope="col" className="p-2">Order Status</th>
                     </tr>
-                    ))
-                ) : (
-                    orders.map((order) => (
-                        <tr
-                        onClick={() => navigate(`/admin/dashboard/order/${order?._id}`)}
-                        key={uuidv4()} className="text-center text-xs lg:text-sm border-b hover:bg-slate-200 cursor-pointer">
-                            <td className="truncate p-2">{order?._id}</td>
-                            <td className="truncate p-2">{order?.user}</td>
-                            <td className="p-2">{order?.orderItems?.length}</td>
-                            <td className="p-2 font-medium">{covertNumberToINR(order?.totalPrice)}</td>
-                            <td className="p-2">
-                            {order?.isPaid ?
-                                <span className="border-2 border-green-500 bg-green-200 font-medium px-2 rounded-full">
-                                    Completed
-                                </span>
-                                :
-                                <span className="border-2 border-red-500 bg-red-200 font-medium px-2 rounded-full">
-                                    Pending
-                                </span>
-                            }
-                            </td>
-                            <td className="p-1.5">
-                            {order?.isDelivered ?
-                                <span className="border-2 border-green-500 bg-green-200 font-medium px-2 rounded-full">
-                                    Delivered
-                                </span> 
-                                :
-                                <span className="border-2 border-red-500 bg-red-200 font-medium px-2 rounded-full">
-                                    {order?.status}
-                                </span>
-                            }
-                            </td>
+                </thead>
+                <tbody>
+                {
+                    loading ? (
+                        loadingElements.map((_, index) => (
+                        <tr key={index}
+                        className="border-b my-4">
+                            <td className="p-4"></td>
                         </tr>
-                    ))
-                )
-            }
-            </tbody>
-        </table>
+                        ))
+                    ) : (
+                        orders.map((order) => (
+                            <tr
+                            onClick={() => navigate(`/admin/dashboard/order/${order?._id}`)}
+                            key={uuidv4()} className="text-center text-xs lg:text-sm border-b hover:bg-slate-200 cursor-pointer">
+                                <td className="truncate p-2">{order?._id}</td>
+                                <td className="truncate p-2">{order?.user}</td>
+                                <td className="p-2">{order?.orderItems?.length}</td>
+                                <td className="p-2 font-medium">{covertNumberToINR(order?.totalPrice)}</td>
+                                <td className="p-2">
+                                {order?.isPaid ?
+                                    <span className="border-2 border-green-500 bg-green-200 font-medium px-2 rounded-full">
+                                        Completed
+                                    </span>
+                                    :
+                                    <span className="border-2 border-red-500 bg-red-200 font-medium px-2 rounded-full">
+                                        Pending
+                                    </span>
+                                }
+                                </td>
+                                <td className="p-1.5">
+                                {order?.isDelivered ?
+                                    <span className="border-2 border-green-500 bg-green-200 font-medium px-2 rounded-full">
+                                        Delivered
+                                    </span> 
+                                    :
+                                    <span className="border-2 border-red-500 bg-red-200 font-medium px-2 rounded-full">
+                                        {order?.status}
+                                    </span>
+                                }
+                                </td>
+                            </tr>
+                        ))
+                    )
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
     </>
     );

@@ -16,6 +16,8 @@ import {
     BsCurrencyRupee,
     FaRegComments,
     IoWalletOutline,
+    RxHamburgerMenu,
+    IoClose,
 } from "../components/Icons.jsx";
 import {
     MetaData,
@@ -45,14 +47,21 @@ function AdminDashboard() {
     const path = useLocation();
     const isActive = path?.pathname;
 
-    const userProfilePicture = (user?.profilePicture) ? (user?.profilePicture) : (<FaRegUserCircle />); 
+    const userProfilePicture = (user?.profilePicture) ? (user?.profilePicture) : (<FaRegUserCircle />);
+
+    const [showSideBar, setShowSideBar] = useState(false);
 
     return (
     <>
     <MetaData title="Admin Dashboard" />
     <div className="container mx-auto my-2 flex items-center gap-2">
-        <aside className="md:w-3/12 lg:w-3/2 h-[86vh] px-2 py-4 bg-white rounded-md">
-            <div className="bg-slate-100 rounded-md px-2 py-4 flex items-center gap-4">
+        <aside className={`h-screen md:w-3/12 lg:w-3/2 sm:h-[86vh] px-2 py-4 bg-white rounded-md fixed top-14 z-30 sm:relative sm:top-0 sm:z-0 ${showSideBar ? "translate-x-0" : "-translate-x-full"} sm:translate-x-0 transition-all duration-500`}>
+            <div className="bg-slate-100 rounded-md px-2 py-4 flex items-center gap-2 sm:gap-4 relative">
+                <div 
+                onClick={(prev) => setShowSideBar(!prev)}
+                className="absolute top-0 right-0 text-lg p-0.5 rounded-md hover:text-blue-600 block sm:hidden">
+                    <IoClose />
+                </div>
                 <div className='rounded-full w-16 lg:w-20 h-16 lg:h-20'>
                     <img
                     src={`${PUBLIC_URL.PUBLIC_STATIC_URL}/` + userProfilePicture}
@@ -68,7 +77,7 @@ function AdminDashboard() {
                 </div>
             </div>
 
-            <nav className="text-base lg:text-lg font-medium grid mt-4 overflow-y-scroll h-[58vh] hiddenScrollBar border border-gray-200 px-1 py-2 rounded-md">
+            <nav className="text-base lg:text-lg font-medium grid mt-4 overflow-y-scroll h-full max-h-[70%] hiddenScrollBar border border-gray-200 px-1 py-2 rounded-md">
                 <Link
                 to={'/admin/dashboard/profile'}
                 className={`w-full px-3 lg:px-4 py-2 mb-1 rounded-md flex items-center gap-2 ${isActive == '/admin/dashboard/profile' ? 'bg-slate-100' : 'hover:bg-slate-100'}`}
@@ -144,7 +153,19 @@ function AdminDashboard() {
             </nav>
         </aside>
 
-        <section className="md:w-9/12 lg:w-5/6 h-[86vh] px-3 lg:px-6 py-3 lg:py-6 bg-white rounded-md overflow-y-auto hiddenScrollBar">
+        <section className={`w-full md:w-9/12 lg:w-5/6 h-[86vh] px-1.5 sm:px-3 lg:px-6 py-3 lg:py-6 bg-white rounded-md overflow-y-auto hiddenScrollBar relative`}>
+            <div 
+            onClick={() => setShowSideBar(false)}
+            className={`w-screen h-full lg:hidden fixed top-0 z-20 ${showSideBar ? " bg-gray-900 bg-opacity-40 block" : "hidden"} transition-all duration-200`}>
+            </div>
+
+            <div
+            className="bg-slate-50 px-4 py-3 text-lg lg:text-2xl rounded-md hover:bg-slate-100 hover:text-blue-600 transition-all duration-100 delay-75 w-fit sticky top-0 z-10 block sm:hidden"
+            onClick={() => setShowSideBar((prev) => !prev)}
+            >
+                <RxHamburgerMenu />
+            </div>
+
             <div className="my-2 flex flex-col gap-2 select-none">
                 <div className="flex items-center justify-between">
                     <BackButton />
